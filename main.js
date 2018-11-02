@@ -16,8 +16,20 @@ window.addEventListener('keyup', ({ key }) => {
   keysDown[key] = false;
 });
 
+canvas.addEventListener('mousemove', ({ x, y }) => {
+  const { left: offsetX, top: offsetY } = canvas.getBoundingClientRect();
+  const canvasPosition = [x - offsetX, y - offsetY];
+  const gridPosition = grid(canvasPosition);
+  player.aim = gridPosition;
+});
+
 const screen = gridPos =>
   gridPos.map((val, i) => val * (i === 0 ? cellWidth : cellHeight));
+
+const grid = screenPos =>
+  screenPos.map((val, i) =>
+    Math.floor(val / (i === 0 ? cellWidth : cellHeight))
+  );
 
 const fill = (size, fn) => {
   return [...Array(size)].map((_, i) => fn(i));
@@ -29,6 +41,7 @@ const player = {
   speed: 1,
   position: [9, 9],
   sight: 5,
+  aim: [0, 0],
 };
 
 const obstacles = [
@@ -122,6 +135,12 @@ const render = () => {
 
   updateSmoke(smokeAlphaGrid);
   drawSmoke(smokeAlphaGrid);
+
+  const [aimX, aimY] = screen(player.aim);
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 3;
+  ctx.rect(aimX, aimY, cellWidth, cellHeight);
+  ctx.stroke();
 };
 
 const tick = () => {
