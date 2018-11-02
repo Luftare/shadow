@@ -1,5 +1,5 @@
-const canvas = document.getElementById('game');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 let keysDown = {};
 
 const GRID_CELLS_X = 20;
@@ -8,15 +8,15 @@ const FRAME_TIME = 100;
 const cellWidth = canvas.width / GRID_CELLS_X;
 const cellHeight = canvas.height / GRID_CELLS_Y;
 
-window.addEventListener('keydown', ({ key }) => {
+window.addEventListener("keydown", ({ key }) => {
   keysDown[key] = true;
 });
 
-window.addEventListener('keyup', ({ key }) => {
+window.addEventListener("keyup", ({ key }) => {
   keysDown[key] = false;
 });
 
-canvas.addEventListener('mousemove', ({ x, y }) => {
+canvas.addEventListener("mousemove", ({ x, y }) => {
   const { left: offsetX, top: offsetY } = canvas.getBoundingClientRect();
   const canvasPosition = [x - offsetX, y - offsetY];
   const gridPosition = grid(canvasPosition);
@@ -41,7 +41,7 @@ const player = {
   speed: 1,
   position: [9, 9],
   sight: 5,
-  aim: [0, 0],
+  aim: [0, 0]
 };
 
 const obstacles = [
@@ -55,7 +55,7 @@ const obstacles = [
   [6, 14],
   [7, 14],
   [6, 6],
-  [5, 16],
+  [5, 16]
 ];
 
 const processInput = () => {
@@ -73,13 +73,7 @@ const processInput = () => {
   }
 };
 
-const updateSmoke = cols => {
-  cols.forEach((col, x) =>
-    col.forEach((_, y) => {
-      cols[x][y] = 1;
-    })
-  );
-
+const revealPlayerZone = cols => {
   const startX = Math.floor(Math.max(0, player.position[0] - player.sight));
   const startY = Math.floor(Math.max(0, player.position[1] - player.sight));
   const endX = Math.floor(
@@ -106,8 +100,45 @@ const updateSmoke = cols => {
   }
 };
 
+const revealAimZone = cols => {
+  const startX = Math.floor(Math.max(0, player.aim[0] - player.sight));
+  const startY = Math.floor(Math.max(0, player.aim[1] - player.sight));
+  const endX = Math.floor(Math.min(GRID_CELLS_X, player.aim[0] + player.sight));
+  const endY = Math.floor(Math.min(GRID_CELLS_Y, player.aim[1] + player.sight));
+  const aimCenter = player.aim.map(val => val + 0.5);
+  const playerCenter = player.position.map(val => val + 0.5);
+  for (let x = startX; x < endX; x++) {
+    for (let y = startY; y < endY; y++) {
+      const cell = [x, y];
+      if (pointsDistanceLessThan(cell, player.aim, player.sight)) {
+        const cellCenter = cell.map(val => val + 0.5);
+        if (!obstaclesBetweenPoints(playerCenter, cellCenter, obstacles)) {
+          const distance = Math.sqrt(squaredDistance(aimCenter, cellCenter));
+          cols[x][y] = Math.min(
+            cols[x][y],
+            Math.pow(distance / player.sight, 4)
+          );
+        }
+        if (obstacles.some(([oX, oY]) => x === oX && y === oY)) {
+          cols[x][y] = 0;
+        }
+      }
+    }
+  }
+};
+
+const updateSmoke = cols => {
+  cols.forEach((col, x) =>
+    col.forEach((_, y) => {
+      cols[x][y] = 1;
+    })
+  );
+  revealPlayerZone(cols);
+  revealAimZone(cols);
+};
+
 const drawSmoke = cols => {
-  ctx.fillStyle = 'black';
+  ctx.fillStyle = "black";
   cols.forEach((col, x) => {
     col.forEach((visible, y) => {
       const [screenX, screenY] = screen([x, y]);
@@ -123,11 +154,11 @@ const drawSmoke = cols => {
 const render = () => {
   canvas.width = canvas.width;
 
-  ctx.fillStyle = '#33f';
+  ctx.fillStyle = "#33f";
   const [playerX, playerY] = screen(player.position);
   ctx.fillRect(playerX, playerY, cellWidth, cellHeight);
 
-  ctx.fillStyle = '#aa0';
+  ctx.fillStyle = "#aa0";
   obstacles.forEach(obstacle => {
     const [x, y] = screen(obstacle);
     ctx.fillRect(x, y, cellWidth, cellHeight);
@@ -137,7 +168,7 @@ const render = () => {
   drawSmoke(smokeAlphaGrid);
 
   const [aimX, aimY] = screen(player.aim);
-  ctx.strokeStyle = 'white';
+  ctx.strokeStyle = "white";
   ctx.lineWidth = 3;
   ctx.rect(aimX, aimY, cellWidth, cellHeight);
   ctx.stroke();
