@@ -16,18 +16,19 @@ window.addEventListener('keyup', ({ key }) => {
   keysDown[key] = false;
 });
 
-const screen = gridPos => gridPos.map(val => val * cellWidth);
+const screen = gridPos =>
+  gridPos.map((val, i) => val * (i === 0 ? cellWidth : cellHeight));
 
 const fill = (size, fn) => {
   return [...Array(size)].map((_, i) => fn(i));
 };
 
-const smokeGrid = fill(GRID_CELLS_X, x => fill(GRID_CELLS_Y, y => 1));
+const smokeAlphaGrid = fill(GRID_CELLS_X, x => fill(GRID_CELLS_Y, y => 1));
 
 const player = {
   speed: 1,
   position: [9, 9],
-  sight: 15,
+  sight: 5,
 };
 
 const obstacles = [
@@ -47,11 +48,16 @@ const obstacles = [
 const processInput = () => {
   const { w: up, s: down, a: left, d: right } = keysDown;
   const { speed } = player;
+  const newPosition = player.position.map(val => val);
 
-  if (down) player.position[1] += speed;
-  if (up) player.position[1] -= speed;
-  if (right) player.position[0] += speed;
-  if (left) player.position[0] -= speed;
+  if (down) newPosition[1] += speed;
+  if (up) newPosition[1] -= speed;
+  if (right) newPosition[0] += speed;
+  if (left) newPosition[0] -= speed;
+
+  if (!anyPointAt(newPosition, obstacles)) {
+    player.position = newPosition;
+  }
 };
 
 const updateSmoke = cols => {
@@ -79,6 +85,9 @@ const updateSmoke = cols => {
           const distance = Math.sqrt(squaredDistance(playerCenter, cellCenter));
           cols[x][y] = Math.pow(distance / player.sight, 4);
         }
+        if (obstacles.some(([oX, oY]) => x === oX && y === oY)) {
+          cols[x][y] = 0;
+        }
       }
     }
   }
@@ -105,14 +114,14 @@ const render = () => {
   const [playerX, playerY] = screen(player.position);
   ctx.fillRect(playerX, playerY, cellWidth, cellHeight);
 
-  updateSmoke(smokeGrid);
-  drawSmoke(smokeGrid);
-
   ctx.fillStyle = '#aa0';
   obstacles.forEach(obstacle => {
     const [x, y] = screen(obstacle);
     ctx.fillRect(x, y, cellWidth, cellHeight);
   });
+
+  updateSmoke(smokeAlphaGrid);
+  drawSmoke(smokeAlphaGrid);
 };
 
 const tick = () => {

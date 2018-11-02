@@ -32,6 +32,9 @@ const obstacleToSegments = ([x, y]) => [
   [[x + 1, y + 1], [x + 1, y]],
 ];
 
+const anyPointAt = ([x, y], points) =>
+  points.some(([pX, pY]) => x === pX && y === pY);
+
 const obstaclesBetweenPoints = (a, b, obstacles) => {
   return obstacles.some(obstacle => {
     const segments = obstacleToSegments(obstacle);
