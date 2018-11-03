@@ -1,27 +1,33 @@
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
 let keysDown = {};
 
 const GRID_CELLS_X = 20;
 const GRID_CELLS_Y = 20;
-const FRAME_TIME = 100;
+const FRAME_TIME = 30;
 const cellWidth = canvas.width / GRID_CELLS_X;
 const cellHeight = canvas.height / GRID_CELLS_Y;
 
-window.addEventListener("keydown", ({ key }) => {
-  keysDown[key] = true;
+window.addEventListener('keydown', ({ key }) => {
+  keysDown[key.toLocaleLowerCase()] = true;
 });
 
-window.addEventListener("keyup", ({ key }) => {
-  keysDown[key] = false;
+window.addEventListener('keyup', ({ key }) => {
+  keysDown[key.toLocaleLowerCase()] = false;
 });
 
-canvas.addEventListener("mousemove", ({ x, y }) => {
+canvas.addEventListener('mousemove', ({ x, y }) => {
   const { left: offsetX, top: offsetY } = canvas.getBoundingClientRect();
   const canvasPosition = [x - offsetX, y - offsetY];
   const gridPosition = grid(canvasPosition);
   player.aim = gridPosition;
 });
+
+canvas.addEventListener('mousedown', e => {
+  e.preventDefault();
+});
+
+const areIdentical = (a, b) => a[0] === b[0] && a[1] === b[1];
 
 const screen = gridPos =>
   gridPos.map((val, i) => val * (i === 0 ? cellWidth : cellHeight));
@@ -38,10 +44,13 @@ const fill = (size, fn) => {
 const smokeAlphaGrid = fill(GRID_CELLS_X, x => fill(GRID_CELLS_Y, y => 1));
 
 const player = {
+  lastMoveTime: 0,
+  moveWaitTime: 400,
   speed: 1,
   position: [9, 9],
   sight: 5,
-  aim: [0, 0]
+  aim: [0, 0],
+  aiming: false
 };
 
 const obstacles = [
@@ -59,17 +68,29 @@ const obstacles = [
 ];
 
 const processInput = () => {
-  const { w: up, s: down, a: left, d: right } = keysDown;
+  const { w: up, s: down, a: left, d: right, shift } = keysDown;
   const { speed } = player;
   const newPosition = player.position.map(val => val);
+  const playerStartPosition = player.position;
+  const now = Date.now();
+  const canMove = now - player.lastMoveTime > player.moveWaitTime;
 
-  if (down) newPosition[1] += speed;
-  if (up) newPosition[1] -= speed;
-  if (right) newPosition[0] += speed;
-  if (left) newPosition[0] -= speed;
+  if (canMove) {
+    if (right) newPosition[0] += speed;
+    else if (left) newPosition[0] -= speed;
+    else if (down) newPosition[1] += speed;
+    else if (up) newPosition[1] -= speed;
+  }
+
+  player.aiming = shift;
 
   if (!anyPointAt(newPosition, obstacles)) {
     player.position = newPosition;
+  }
+  const didMove = !areIdentical(newPosition, playerStartPosition);
+
+  if (didMove) {
+    player.lastMoveTime = now;
   }
 };
 
@@ -133,12 +154,11 @@ const updateSmoke = cols => {
       cols[x][y] = 1;
     })
   );
-  revealPlayerZone(cols);
-  revealAimZone(cols);
+  player.aiming ? revealAimZone(cols) : revealPlayerZone(cols);
 };
 
 const drawSmoke = cols => {
-  ctx.fillStyle = "black";
+  ctx.fillStyle = 'black';
   cols.forEach((col, x) => {
     col.forEach((visible, y) => {
       const [screenX, screenY] = screen([x, y]);
@@ -154,11 +174,11 @@ const drawSmoke = cols => {
 const render = () => {
   canvas.width = canvas.width;
 
-  ctx.fillStyle = "#33f";
+  ctx.fillStyle = '#33f';
   const [playerX, playerY] = screen(player.position);
   ctx.fillRect(playerX, playerY, cellWidth, cellHeight);
 
-  ctx.fillStyle = "#aa0";
+  ctx.fillStyle = '#aa0';
   obstacles.forEach(obstacle => {
     const [x, y] = screen(obstacle);
     ctx.fillRect(x, y, cellWidth, cellHeight);
@@ -168,7 +188,7 @@ const render = () => {
   drawSmoke(smokeAlphaGrid);
 
   const [aimX, aimY] = screen(player.aim);
-  ctx.strokeStyle = "white";
+  ctx.strokeStyle = 'white';
   ctx.lineWidth = 3;
   ctx.rect(aimX, aimY, cellWidth, cellHeight);
   ctx.stroke();
