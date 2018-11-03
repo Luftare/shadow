@@ -69,6 +69,7 @@ const player = {
   position: [9, 9],
   sight: 5,
   aim: [0, 0],
+  aimSight: 3,
   aiming: false
 };
 
@@ -143,22 +144,26 @@ const revealPlayerZone = cols => {
 };
 
 const revealAimZone = cols => {
-  const startX = Math.floor(Math.max(0, player.aim[0] - player.sight));
-  const startY = Math.floor(Math.max(0, player.aim[1] - player.sight));
-  const endX = Math.floor(Math.min(GRID_CELLS_X, player.aim[0] + player.sight));
-  const endY = Math.floor(Math.min(GRID_CELLS_Y, player.aim[1] + player.sight));
+  const startX = Math.floor(Math.max(0, player.aim[0] - player.aimSight));
+  const startY = Math.floor(Math.max(0, player.aim[1] - player.aimSight));
+  const endX = Math.floor(
+    Math.min(GRID_CELLS_X, player.aim[0] + player.aimSight)
+  );
+  const endY = Math.floor(
+    Math.min(GRID_CELLS_Y, player.aim[1] + player.aimSight)
+  );
   const aimCenter = player.aim.map(val => val + 0.5);
   const playerCenter = player.position.map(val => val + 0.5);
   for (let x = startX; x < endX; x++) {
     for (let y = startY; y < endY; y++) {
       const cell = [x, y];
-      if (pointsDistanceLessThan(cell, player.aim, player.sight)) {
+      if (pointsDistanceLessThan(cell, player.aim, player.aimSight)) {
         const cellCenter = cell.map(val => val + 0.5);
         if (!obstaclesBetweenPoints(playerCenter, cellCenter, obstacles)) {
           const distance = Math.sqrt(squaredDistance(aimCenter, cellCenter));
           cols[x][y] = Math.min(
             cols[x][y],
-            Math.pow(distance / player.sight, 4)
+            Math.pow(distance / player.aimSight, 4)
           );
         }
         if (obstacles.some(([oX, oY]) => x === oX && y === oY)) {
