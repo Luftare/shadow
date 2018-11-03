@@ -1,12 +1,24 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 let keysDown = {};
+let clicks = [];
 
 const GRID_CELLS_X = 20;
 const GRID_CELLS_Y = 20;
-const FRAME_TIME = 30;
+const FRAME_TIME = 40;
 const cellWidth = canvas.width / GRID_CELLS_X;
 const cellHeight = canvas.height / GRID_CELLS_Y;
+
+const sounds = {
+  shot: document.getElementById('sound-shot')
+};
+
+const playSound = (audio, volume = 0.05) => {
+  audio.volume = volume;
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play();
+};
 
 window.addEventListener('keydown', ({ key }) => {
   keysDown[key.toLocaleLowerCase()] = true;
@@ -25,6 +37,11 @@ canvas.addEventListener('mousemove', ({ x, y }) => {
 
 canvas.addEventListener('mousedown', e => {
   e.preventDefault();
+  const withinSight = smokeAlphaGrid[player.aim[0]][player.aim[1]] < 1;
+  if (withinSight) {
+    clicks.push([...player.aim]);
+    playSound(sounds.shot);
+  }
 });
 
 const areIdentical = (a, b) => a[0] === b[0] && a[1] === b[1];
@@ -87,6 +104,7 @@ const processInput = () => {
   if (!anyPointAt(newPosition, obstacles)) {
     player.position = newPosition;
   }
+
   const didMove = !areIdentical(newPosition, playerStartPosition);
 
   if (didMove) {
@@ -192,11 +210,18 @@ const render = () => {
   ctx.lineWidth = 3;
   ctx.rect(aimX, aimY, cellWidth, cellHeight);
   ctx.stroke();
+
+  clicks.forEach(target => {
+    const [x, y] = screen(target);
+    ctx.fillStyle = 'orange';
+    ctx.fillRect(x, y, cellWidth, cellHeight);
+  });
 };
 
 const tick = () => {
   processInput();
   render();
+  clicks = [];
 };
 
 setInterval(tick, FRAME_TIME);
