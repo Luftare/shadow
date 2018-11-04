@@ -1,11 +1,21 @@
-<style>
-  #game {
-    background-color: #777;
-    cursor: crosshair;
-  }
-</style>
-<audio src="shot.mp3" hidden id="sound-shot"></audio>
-<audio src="step.wav" hidden id="sound-step"></audio>
-<canvas id="game" width=500 height=500></canvas>
-<script src="geometry.js"></script>
-<script src="main.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<audio src="audio/shot.mp3" hidden id="sound-shot"></audio>
+<audio src="audio/step.wav" hidden id="sound-step"></audio>
+
+<div class="game">
+  <canvas class="game__world"></canvas>
+  <div class="game__players">
+    <div class="player"></div>
+  </div>
+  <canvas class="game__shadow"></canvas>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/geometry.js"></script>
+<script src="js/events.js"></script>
+<script src="js/shadow.js"></script>
+<script src="js/world.js"></script>
+<script src="js/main.js"></script>

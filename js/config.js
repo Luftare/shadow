@@ -1,0 +1,5 @@
+const GAME_SCREEN_WIDTH = 500;
+const GAME_SCREEN_HEIGHT = 500;
+const GRID_CELLS_X = 20;
+const GRID_CELLS_Y = 20;
+const FRAME_TIME = 40;

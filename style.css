@@ -1,0 +1,42 @@
+:root {
+  --cell-width: 1px;
+  --cell-height: 1px;
+  --game-screen-width: 1px;
+  --game-screen-height: 1px;
+}
+
+.game {
+  position: relative;
+  display: block;
+  width: var(--game-screen-width);
+  height: var(--game-screen-height);
+}
+
+.game__players {
+  position: absolute;
+  top: 0;
+}
+
+.game__shadow {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.game__world {
+  background-color: green;
+  cursor: crosshair;
+}
+
+.player {
+  transition: all 150ms;
+  position: absolute;
+  display: block;
+  background-color: blue;
+  top: 0;
+  left: 0;
+  width: var(--cell-width);
+  height: var(--cell-height);
+  pointer-events: none;
+}
