@@ -2,6 +2,7 @@ const canvas = document.querySelector('.game__world');
 const shadowCanvas = document.querySelector('.game__shadow');
 const ctx = canvas.getContext('2d');
 const shadowCtx = shadowCanvas.getContext('2d');
+const fxContainer = document.querySelector('.game__fx');
 
 canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
 canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;
@@ -12,7 +13,7 @@ const cellHeight = canvas.offsetHeight / GRID_CELLS_Y;
 const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
 
 const player = {
-  element: document.querySelector('.player'),
+  element: document.querySelector('.game__player'),
   lastMoveTime: 0,
   moveWaitTime: 400,
   speed: 1,
@@ -54,6 +55,10 @@ function processInput() {
     moveElementTo(player.element, player.position);
     player.lastMoveTime = now;
   }
+
+  clicks.forEach(position => {
+    flashImageAt(images.explosion, position);
+  });
 }
 
 function tick() {
@@ -70,14 +75,14 @@ function initGame() {
   setInterval(tick, FRAME_TIME);
 }
 
-function updateCssVariables() {
+function initCssVariables() {
   document.documentElement.style.setProperty('--cell-width', `${cellWidth}`);
   document.documentElement.style.setProperty('--cell-height', `${cellHeight}`);
 }
 
 function boot() {
-  updateCssVariables();
   setupEventListeners();
+  initCssVariables();
   initGame();
 }
 

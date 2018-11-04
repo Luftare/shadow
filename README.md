@@ -41,6 +41,8 @@
 
 ### Misc
 
+## Done
+
 - rendering is done on layered canvases
   - map and static obstacles are rendered only once
   - players are rendered as html elements and shot fx is rendered as element

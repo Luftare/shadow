@@ -17,6 +17,12 @@
   top: 0;
 }
 
+.game__fx {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+
 .game__shadow {
   pointer-events: none;
   position: absolute;
@@ -27,16 +33,4 @@
 .game__world {
   background-color: green;
   cursor: crosshair;
-}
-
-.player {
-  transition: all 150ms;
-  position: absolute;
-  display: block;
-  background-color: blue;
-  top: 0;
-  left: 0;
-  width: var(--cell-width);
-  height: var(--cell-height);
-  pointer-events: none;
 }

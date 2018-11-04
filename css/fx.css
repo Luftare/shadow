@@ -1,0 +1,20 @@
+@keyframes fx-flash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.fx--cell {
+  position: absolute;
+  width: var(--cell-width);
+  height: var(--cell-height);
+}
+
+.fx--flash {
+  animation: fx-flash 100ms;
+  opacity: 0;
+}
