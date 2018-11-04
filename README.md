@@ -1,9 +1,13 @@
+# Shadow game
+
+Multiplayer survival game.
+
 ## Backlog
 
 ### Multiplayer
 
-- add server
-- add server state
+- add hosting server
+- add server that keeps up with the game state
 - add socket.io connection between client and server
 - server buffers players' last 10 positions and tracks the # of each step
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
@@ -16,9 +20,19 @@
 - a rectangle is displayed around the game field
 - rectangle shrinks and players outside will receive damage
 - players start without any equipment
-- guns can be looted and they have limited ammo
+- player has inventory
+  - 2 slots for guns
+- items can be looted if there are free slots in inventory
+- guns can be dropped and dropping on top of another gun will swap the currently equipped gun
 - two guns can be equipped and selected from
-- damage is determined by how close to the center of the cell is clicked
+- gun shot damage is determined by how close to the center of the cell is clicked
+
+### Items
+
+- guns can be swapped
+- damage is proportional of distance and modified by equipped gun
+- guns have reload time
+- guns have limited ammo
 
 ### Menu
 
@@ -32,14 +46,29 @@
   - wall
   - tree
   - rock
-- player movement is transitioned
 
 ### Audio fx
 
 - audio source direction will change pan
 - sound level declines over distance
 
+### Assets
+
+- sprites:
+  - player
+  - wall
+  - tree
+  - opponent
+  - guns and other loot...
+
 ### Misc
+
+- player rotates towards the mouse direction
+- opponents rotate to their facing
+
+## Maybe?
+
+- Player only sees at the direction of mouse with limited cone of 70 degrees
 
 ## Done
 
@@ -47,3 +76,4 @@
   - map and static obstacles are rendered only once
   - players are rendered as html elements and shot fx is rendered as element
   - shadow is renderd on its own canvas including aim
+- player movement is transitioned
