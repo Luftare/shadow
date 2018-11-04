@@ -116,7 +116,7 @@ const processInput = () => {
   }
 };
 
-const revealPlayerZone = cols => {
+const revealPlayerZone = (player, grid) => {
   const startX = Math.floor(Math.max(0, player.position[0] - player.sight));
   const startY = Math.floor(Math.max(0, player.position[1] - player.sight));
   const endX = Math.floor(
@@ -133,17 +133,17 @@ const revealPlayerZone = cols => {
         const cellCenter = cell.map(val => val + 0.5);
         if (!obstaclesBetweenPoints(playerCenter, cellCenter, obstacles)) {
           const distance = Math.sqrt(squaredDistance(playerCenter, cellCenter));
-          cols[x][y] = Math.pow(distance / player.sight, 4);
+          grid[x][y] = Math.pow(distance / player.sight, 4);
         }
         if (obstacles.some(([oX, oY]) => x === oX && y === oY)) {
-          cols[x][y] = 0;
+          grid[x][y] = 0;
         }
       }
     }
   }
 };
 
-const revealAimZone = cols => {
+const revealAimZone = (player, grid) => {
   const startX = Math.floor(Math.max(0, player.aim[0] - player.aimSight));
   const startY = Math.floor(Math.max(0, player.aim[1] - player.aimSight));
   const endX = Math.floor(
@@ -161,31 +161,31 @@ const revealAimZone = cols => {
         const cellCenter = cell.map(val => val + 0.5);
         if (!obstaclesBetweenPoints(playerCenter, cellCenter, obstacles)) {
           const distance = Math.sqrt(squaredDistance(aimCenter, cellCenter));
-          cols[x][y] = Math.min(
-            cols[x][y],
+          grid[x][y] = Math.min(
+            grid[x][y],
             Math.pow(distance / player.aimSight, 4)
           );
         }
         if (obstacles.some(([oX, oY]) => x === oX && y === oY)) {
-          cols[x][y] = 0;
+          grid[x][y] = 0;
         }
       }
     }
   }
 };
 
-const updateSmoke = cols => {
-  cols.forEach((col, x) =>
+const updateSmoke = grid => {
+  grid.forEach((col, x) =>
     col.forEach((_, y) => {
-      cols[x][y] = 1;
+      grid[x][y] = 1;
     })
   );
-  player.aiming ? revealAimZone(cols) : revealPlayerZone(cols);
+  player.aiming ? revealAimZone(player, grid) : revealPlayerZone(player, grid);
 };
 
-const drawSmoke = cols => {
+const drawSmoke = grid => {
   ctx.fillStyle = 'black';
-  cols.forEach((col, x) => {
+  grid.forEach((col, x) => {
     col.forEach((visible, y) => {
       const [screenX, screenY] = screen([x, y]);
       ctx.globalAlpha = visible;
