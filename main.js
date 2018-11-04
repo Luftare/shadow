@@ -108,7 +108,7 @@ const processInput = () => {
     player.position = newPosition;
   }
 
-  const didMove = !areIdentical(newPosition, playerStartPosition);
+  const didMove = !areIdentical(player.position, playerStartPosition);
 
   if (didMove) {
     playSound(sounds.step);
