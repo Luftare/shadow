@@ -17,6 +17,8 @@
 - rectangle shrinks and players outside will receive damage
 - players start without any equipment
 - guns can be looted and they have limited ammo
+- two guns can be equipped and selected from
+- damage is determined by how close to the center of the cell is clicked
 
 ### Menu
 
@@ -26,8 +28,20 @@
 
 - receiving damage blinks screen red
 - shooting shakes the screen to recoil direction
+- obstacles have type and custom sprites
+  - wall
+  - tree
+  - rock
+- player movement is transitioned
 
 ### Audio fx
 
 - audio source direction will change pan
 - sound level declines over distance
+
+### Misc
+
+- rendering is done on layered canvases
+  - map and static obstacles are rendered only once
+  - players are rendered as html elements and shot fx is rendered as element
+  - shadow is renderd on its own canvas including aim
