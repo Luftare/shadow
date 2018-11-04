@@ -1,6 +1,6 @@
 # Shadow game
 
-Multiplayer survival game.
+Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 
 ## Backlog
 
