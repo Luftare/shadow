@@ -15,12 +15,11 @@ const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
 const player = {
   element: document.querySelector('.game__player'),
   lastMoveTime: 0,
-  moveWaitTime: 400,
-  speed: 1,
+  moveWaitTime: PLAYER_MOVE_SLEEP_TIME,
   position: [9, 9],
-  sight: 5,
-  aim: [0, 0],
-  aimSight: 3,
+  sight: PLAYER_SIGHT,
+  aim: [-10, -10],
+  aimSight: PLAYER_AIM_SIGHT,
   aiming: false
 };
 
@@ -29,20 +28,26 @@ let clicks = [];
 
 function processInput() {
   const { w: up, s: down, a: left, d: right, shift } = keysDown;
-  const { speed } = player;
-  const newPosition = player.position.map(val => val);
   const playerStartPosition = player.position;
   const now = Date.now();
   const canMove = now - player.lastMoveTime > player.moveWaitTime;
+  const stepDirection = [0, 0];
 
   if (canMove) {
-    if (right) newPosition[0] += speed;
-    else if (left) newPosition[0] -= speed;
-    else if (down) newPosition[1] += speed;
-    else if (up) newPosition[1] -= speed;
+    if (right) stepDirection[0] = 1;
+    else if (left) stepDirection[0] = -1;
+    else if (down) stepDirection[1] = 1;
+    else if (up) stepDirection[1] = -1;
   }
 
+  const toAim = normalise(subtract(player.aim, player.position));
+  const aimAxis = toAxis(toAim);
+  const aimRadians = Math.PI - aimAxis * 0.5 * Math.PI;
+  const rotatedStepDirection = roundVector(rotate(stepDirection, aimRadians));
+
   player.aiming = shift;
+
+  const newPosition = sum(player.position, rotatedStepDirection);
 
   if (!anyPointAt(newPosition, obstacles)) {
     player.position = newPosition;

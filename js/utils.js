@@ -25,8 +25,16 @@ function dot(a, b) {
   return a[0] * b[0] + a[1] * b[1];
 }
 
+function cross(a, b) {
+  return a[0] * b[1] - a[1] * b[0];
+}
+
 function subtract(a, b) {
   return [a[0] - b[0], a[1] - b[1]];
+}
+
+function sum(a, b) {
+  return [a[0] + b[0], a[1] + b[1]];
 }
 
 function normalise(vector) {
@@ -37,4 +45,27 @@ function normalise(vector) {
 
 function length([x, y]) {
   return Math.sqrt(x ** 2 + y ** 2);
+}
+
+function toAxis([x, y]) {
+  const vertical = Math.abs(y) > Math.abs(x);
+  if (vertical) {
+    if (y > 0) return 0;
+    else return 2;
+  } else {
+    if (x > 0) return 1;
+    else return 3;
+  }
+}
+
+function roundVector([x, y]) {
+  return [Math.round(x), Math.round(y)];
+}
+
+function rotate([x, y], radians) {
+  const s = Math.sin(radians);
+  const c = Math.cos(radians);
+  const nX = x * c - y * s;
+  const nY = x * s + y * c;
+  return [nX, nY];
 }
