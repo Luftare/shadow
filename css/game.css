@@ -5,11 +5,6 @@
   height: var(--game-screen-height);
 }
 
-.game__players {
-  position: absolute;
-  top: 0;
-}
-
 .game__fx {
   position: absolute;
   top: 0;
