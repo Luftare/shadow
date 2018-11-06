@@ -1,5 +1,5 @@
 const images = {
-  explosion: 'images/explosion.png'
+  explosion: 'images/explosion.png',
 };
 
 function flashImageAt(src, position) {

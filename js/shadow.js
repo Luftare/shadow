@@ -14,18 +14,12 @@ function drawShadow(grid) {
 
   shadowCtx.fillStyle = 'black';
   grid.forEach((col, x) => {
-    col.forEach((visible, y) => {
+    col.forEach((alpha, y) => {
       const [screenX, screenY] = gridToScreen([x, y]);
-      shadowCtx.globalAlpha = visible;
+      shadowCtx.globalAlpha = alpha;
       shadowCtx.fillRect(screenX, screenY, cellWidth, cellHeight);
     });
   });
-  shadowCtx.globalAlpha = 1;
-  const [aimX, aimY] = gridToScreen(player.aim);
-  shadowCtx.strokeStyle = 'white';
-  shadowCtx.lineWidth = 3;
-  shadowCtx.rect(aimX, aimY, cellWidth, cellHeight);
-  shadowCtx.stroke();
 }
 
 function revealPlayerZone(player, grid) {

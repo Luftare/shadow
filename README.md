@@ -65,7 +65,6 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 
 - player rotates towards the mouse direction
 - opponents rotate to their facing
-- WASD movement is rotated along with the facing so that W always moves the player towards the aim direction (up/down/left/right)
 
 ## Maybe?
 
@@ -77,3 +76,4 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
   - shadow is renderd on its own canvas including aim
 - player movement is transitioned
 - Player only sees at the direction of mouse with limited cone of 180 degrees
+- WASD movement is rotated along with the facing so that W always moves the player towards the aim direction (up/down/left/right)

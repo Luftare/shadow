@@ -66,6 +66,7 @@ function processInput() {
 function tick() {
   processInput();
   drawShadow(shadowAlphaGrid);
+  drawAim();
   clicks = [];
 }
 
