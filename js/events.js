@@ -9,6 +9,7 @@ function resetHandledInputs() {
 
 function setupEventListeners() {
   const { canvas } = elements;
+
   window.addEventListener('keydown', ({ key }) => {
     playerInput.keysDown[key.toLocaleLowerCase()] = true;
   });
