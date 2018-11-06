@@ -74,6 +74,10 @@ function getAdjacentCells([x, y]) {
   return result;
 }
 
+function isZero([x, y]) {
+  return x === 0 && y === 0;
+}
+
 function dot(a, b) {
   return a[0] * b[0] + a[1] * b[1];
 }

@@ -1,5 +1,4 @@
-function handleMovement(keysDown) {
-  const { w: up, s: down, a: left, d: right, shift } = keysDown;
+function handlePlayerMovement({ w: up, s: down, a: left, d: right }) {
   const now = Date.now();
   const canMove = now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;
 
@@ -13,16 +12,13 @@ function handleMovement(keysDown) {
   else if (down) stepDirection[1] = 1;
   else if (up) stepDirection[1] = -1;
 
-  const toAim = normalise(subtract(player.aim, player.position));
-  const aimAxis = toAxis(toAim);
+  const aimAxis = toAxis(subtract(player.aim, player.position));
   const aimRadians = Math.PI - aimAxis * 0.5 * Math.PI;
   const rotatedStepDirection = roundVector(rotate(stepDirection, aimRadians));
-
-  player.aiming = shift;
-
   const newPosition = sum(player.position, rotatedStepDirection);
+  const obstacleBlockingMovement = anyPointAt(newPosition, obstacles);
 
-  if (!anyPointAt(newPosition, obstacles)) {
+  if (!obstacleBlockingMovement) {
     player.position = newPosition;
   }
 
@@ -35,6 +31,10 @@ function handleMovement(keysDown) {
   }
 }
 
+function handlePlayerActions({ shift }) {
+  player.aiming = shift;
+}
+
 function handleClicks(clicks) {
   clicks.forEach(position => {
     flashImageAt(images.explosion, position);
@@ -42,7 +42,8 @@ function handleClicks(clicks) {
 }
 
 function processInput({ keysDown, clicks }) {
-  handleMovement(keysDown);
+  handlePlayerMovement(keysDown);
+  handlePlayerActions(keysDown);
   handleClicks(clicks);
 }
 
