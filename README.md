@@ -6,8 +6,8 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 
 ### Multiplayer
 
-- add server that keeps up with the game state
 - add socket.io connection between client and server
+- add server that keeps up with the game state
 - server buffers players' last 10 positions and tracks the # of each step
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - scoring a hit to a remote player is determined by local player's state of the remote players
