@@ -19,7 +19,7 @@ const player = {
   aiming: false,
 };
 
-const obstacleAdjacents = obstacles.map(adjacentCells);
+const obstacleAdjacents = obstacles.map(getAdjacentCells);
 
 function renderWorld() {
   const ctx = elements.canvas.getContext('2d');

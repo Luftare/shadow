@@ -3,6 +3,7 @@ const images = {
 };
 
 function flashImageAt(src, position) {
+  const { fxContainer } = elements;
   const element = document.createElement('img');
   element.src = src;
   element.classList = 'fx--cell fx--flash';
