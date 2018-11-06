@@ -22,5 +22,5 @@ function initGame() {
 function boot() {
   initDom();
   setupEventListeners();
-  initGame();
+  connection.connectToServerSocket().then(initGame);
 }
