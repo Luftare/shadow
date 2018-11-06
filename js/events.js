@@ -1,4 +1,8 @@
+let keysDown = {};
+let clicks = [];
+
 function setupEventListeners() {
+  const { canvas } = elements;
   window.addEventListener('keydown', ({ key }) => {
     keysDown[key.toLocaleLowerCase()] = true;
   });

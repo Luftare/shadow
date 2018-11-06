@@ -1,6 +1,6 @@
 const sounds = {
   shot: document.getElementById('sound-shot'),
-  step: document.getElementById('sound-step')
+  step: document.getElementById('sound-step'),
 };
 
 const playSound = (audio, volume = 0.05) => {

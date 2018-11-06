@@ -3,12 +3,12 @@ function areIdentical(a, b) {
 }
 
 function gridToScreen(gridPos) {
-  return gridPos.map((val, i) => val * (i === 0 ? cellWidth : cellHeight));
+  return gridPos.map((val, i) => val * (i === 0 ? CELL_WIDTH : CELL_HEIGHT));
 }
 
 function screenToGrid(screenPos) {
   return screenPos.map((val, i) =>
-    Math.floor(val / (i === 0 ? cellWidth : cellHeight))
+    Math.floor(val / (i === 0 ? CELL_WIDTH : CELL_HEIGHT))
   );
 }
 
@@ -35,8 +35,8 @@ function adjacentCells([x, y]) {
 }
 
 function moveElementTo(element, [x, y]) {
-  element.style.top = `${y * cellHeight}px`;
-  element.style.left = `${x * cellWidth}px`;
+  element.style.top = `${y * CELL_HEIGHT}px`;
+  element.style.left = `${x * CELL_WIDTH}px`;
 }
 
 function dot(a, b) {

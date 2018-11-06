@@ -1,3 +1,5 @@
+const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
+
 function updateShadow(grid) {
   grid.forEach((col, x) =>
     col.forEach((_, y) => {
@@ -9,15 +11,18 @@ function updateShadow(grid) {
 }
 
 function drawShadow(grid) {
+  const { shadowCanvas } = elements;
+  const ctx = shadowCanvas.getContext('2d');
   shadowCanvas.width = shadowCanvas.width;
+
   updateShadow(grid);
 
-  shadowCtx.fillStyle = 'black';
+  ctx.fillStyle = 'black';
   grid.forEach((col, x) => {
     col.forEach((alpha, y) => {
       const [screenX, screenY] = gridToScreen([x, y]);
-      shadowCtx.globalAlpha = alpha;
-      shadowCtx.fillRect(screenX, screenY, cellWidth, cellHeight);
+      ctx.globalAlpha = alpha;
+      ctx.fillRect(screenX, screenY, CELL_WIDTH, CELL_HEIGHT);
     });
   });
 }

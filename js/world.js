@@ -12,12 +12,21 @@ const obstacles = [
   [5, 16],
 ];
 
+const player = {
+  lastMoveTime: 0,
+  position: [9, 9],
+  aim: [-10, -10],
+  aiming: false,
+};
+
 const obstacleAdjacents = obstacles.map(adjacentCells);
 
 function renderWorld() {
+  const ctx = elements.canvas.getContext('2d');
+
   ctx.fillStyle = '#a70';
   obstacles.forEach(obstacle => {
     const [x, y] = gridToScreen(obstacle);
-    ctx.fillRect(x, y, cellWidth, cellHeight);
+    ctx.fillRect(x, y, CELL_WIDTH, CELL_HEIGHT);
   });
 }

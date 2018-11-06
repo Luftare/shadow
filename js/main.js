@@ -1,28 +1,3 @@
-const canvas = document.querySelector('.game__world');
-const shadowCanvas = document.querySelector('.game__shadow');
-const ctx = canvas.getContext('2d');
-const shadowCtx = shadowCanvas.getContext('2d');
-const fxContainer = document.querySelector('.game__fx');
-
-canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
-canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;
-
-const cellWidth = canvas.offsetWidth / GRID_CELLS_X;
-const cellHeight = canvas.offsetHeight / GRID_CELLS_Y;
-
-const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
-
-const player = {
-  element: document.querySelector('.game__player'),
-  lastMoveTime: 0,
-  position: [9, 9],
-  aim: [-10, -10],
-  aiming: false,
-};
-
-let keysDown = {};
-let clicks = [];
-
 function processInput() {
   const { w: up, s: down, a: left, d: right, shift } = keysDown;
   const playerStartPosition = player.position;
@@ -54,7 +29,7 @@ function processInput() {
 
   if (didMove) {
     playSound(sounds.step);
-    moveElementTo(player.element, player.position);
+    moveElementTo(elements.player, player.position);
     player.lastMoveTime = now;
   }
 
@@ -73,20 +48,22 @@ function tick() {
 function initGame() {
   player.position = [9, 9];
 
-  moveElementTo(player.element, player.position);
+  moveElementTo(elements.player, player.position);
   renderWorld();
   setInterval(tick, FRAME_TIME);
 }
 
-function initCssVariables() {
-  document.documentElement.style.setProperty('--cell-width', `${cellWidth}`);
-  document.documentElement.style.setProperty('--cell-height', `${cellHeight}`);
+function initStyles() {
+  const { canvas, shadowCanvas } = elements;
+  document.documentElement.style.setProperty('--cell-width', `${CELL_WIDTH}`);
+  document.documentElement.style.setProperty('--cell-height', `${CELL_HEIGHT}`);
+
+  canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
+  canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;
 }
 
 function boot() {
+  initStyles();
   setupEventListeners();
-  initCssVariables();
   initGame();
 }
-
-boot();

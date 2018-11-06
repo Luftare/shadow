@@ -1,8 +1,9 @@
 function drawAim() {
-  shadowCtx.globalAlpha = 1;
+  const ctx = elements.shadowCanvas.getContext('2d');
+  ctx.globalAlpha = 1;
   const [aimX, aimY] = gridToScreen(player.aim);
-  shadowCtx.strokeStyle = 'white';
-  shadowCtx.lineWidth = 3;
-  shadowCtx.rect(aimX, aimY, cellWidth, cellHeight);
-  shadowCtx.stroke();
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 3;
+  ctx.rect(aimX, aimY, CELL_WIDTH, CELL_HEIGHT);
+  ctx.stroke();
 }
