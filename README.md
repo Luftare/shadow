@@ -1,29 +1,34 @@
 # Shadow game
 
-Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
+Multiplayer survival game.
+
+## Install
+
+- cd server
+- npm install
+- npm run dev
+- --> localhost:8000
 
 ## Backlog
 
 ### Multiplayer
 
-- add socket.io connection between client and server
-- add server that keeps up with the game state
+- client displays all opponents with most recent position
+- server tracks game state
+- server sends updated game state to all clients in interval
 - server buffers players' last 10 positions and tracks the # of each step
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - scoring a hit to a remote player is determined by local player's state of the remote players
 - remote players receive damage upon click on them
 - server will track hp and message deaths
+- clients remove dead opponents
+- player cannot move to a cell if there's an opponent
 
 ### Gameplay
 
 - a rectangle is displayed around the game field
 - rectangle shrinks and players outside will receive damage
-- players start without any equipment
-- player has inventory
-  - 2 slots for guns
-- items can be looted if there are free slots in inventory
-- guns can be dropped and dropping on top of another gun will swap the currently equipped gun
-- two guns can be equipped and selected from
+
 - gun shot damage is determined by how close to the center of the cell is clicked
 
 ### Items
@@ -62,7 +67,12 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 
 ### Misc
 
-- player rotates towards the mouse direction
+- players have hp
+- player has inventory
+  - 2 slots for guns
+- items can be looted if there are free slots in inventory
+- guns can be dropped and dropping on top of another gun will swap the currently equipped gun
+- two guns can be equipped and selected from
 - opponents rotate to their facing
 
 ## Maybe?
@@ -77,3 +87,4 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 - Player only sees at the direction of mouse with limited cone of 180 degrees
 - WASD movement is rotated along with the facing so that W always moves the player towards the aim direction (up/down/left/right)
 - add hosting server
+- add socket.io connection between client and server
