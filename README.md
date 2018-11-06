@@ -6,7 +6,6 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 
 ### Multiplayer
 
-- add hosting server
 - add server that keeps up with the game state
 - add socket.io connection between client and server
 - server buffers players' last 10 positions and tracks the # of each step
@@ -77,3 +76,4 @@ Multiplayer survival game. https://luftare.github.io/shadow/ (WIP).
 - player movement is transitioned
 - Player only sees at the direction of mouse with limited cone of 180 degrees
 - WASD movement is rotated along with the facing so that W always moves the player towards the aim direction (up/down/left/right)
+- add hosting server
