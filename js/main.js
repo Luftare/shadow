@@ -1,16 +1,17 @@
-function processInput() {
+function handleMovement(keysDown) {
   const { w: up, s: down, a: left, d: right, shift } = keysDown;
-  const playerStartPosition = player.position;
   const now = Date.now();
   const canMove = now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;
-  const stepDirection = [0, 0];
 
-  if (canMove) {
-    if (right) stepDirection[0] = 1;
-    else if (left) stepDirection[0] = -1;
-    else if (down) stepDirection[1] = 1;
-    else if (up) stepDirection[1] = -1;
-  }
+  if (!canMove) return;
+
+  const stepDirection = [0, 0];
+  const playerStartPosition = player.position;
+
+  if (right) stepDirection[0] = 1;
+  else if (left) stepDirection[0] = -1;
+  else if (down) stepDirection[1] = 1;
+  else if (up) stepDirection[1] = -1;
 
   const toAim = normalise(subtract(player.aim, player.position));
   const aimAxis = toAxis(toAim);
@@ -32,17 +33,24 @@ function processInput() {
     moveElementTo(elements.player, player.position);
     player.lastMoveTime = now;
   }
+}
 
+function handleClicks(clicks) {
   clicks.forEach(position => {
     flashImageAt(images.explosion, position);
   });
 }
 
+function processInput({ keysDown, clicks }) {
+  handleMovement(keysDown);
+  handleClicks(clicks);
+}
+
 function tick() {
-  processInput();
+  processInput(playerInput);
   drawShadow(shadowAlphaGrid);
   drawAim();
-  clicks = [];
+  resetHandledInputs();
 }
 
 function initGame() {

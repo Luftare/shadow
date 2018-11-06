@@ -1,14 +1,20 @@
-let keysDown = {};
-let clicks = [];
+const playerInput = {
+  keysDown: {},
+  clicks: [],
+};
+
+function resetHandledInputs() {
+  playerInput.clicks = [];
+}
 
 function setupEventListeners() {
   const { canvas } = elements;
   window.addEventListener('keydown', ({ key }) => {
-    keysDown[key.toLocaleLowerCase()] = true;
+    playerInput.keysDown[key.toLocaleLowerCase()] = true;
   });
 
   window.addEventListener('keyup', ({ key }) => {
-    keysDown[key.toLocaleLowerCase()] = false;
+    playerInput.keysDown[key.toLocaleLowerCase()] = false;
   });
 
   canvas.addEventListener('mousemove', ({ x, y }) => {
@@ -23,7 +29,7 @@ function setupEventListeners() {
     const withinSight = shadowAlphaGrid[player.aim[0]][player.aim[1]] < 1;
 
     if (withinSight) {
-      clicks.push([...player.aim]);
+      playerInput.clicks.push([...player.aim]);
       playSound(sounds.shot);
     }
   });
