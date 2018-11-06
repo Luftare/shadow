@@ -16,6 +16,24 @@ function fill(size, fn) {
   return [...Array(size)].map((_, i) => fn(i));
 }
 
+function adjacentCells([x, y]) {
+  const result = [];
+  const startX = Math.max(0, x - 1);
+  const startY = Math.max(0, y - 1);
+  const endX = Math.min(x + 1, GRID_CELLS_X);
+  const endY = Math.min(y + 1, GRID_CELLS_Y);
+
+  for (let i = startX; i <= endX; i++) {
+    for (let j = startY; j <= endY; j++) {
+      if (i !== x && j !== y) {
+        result.push([i, j]);
+      }
+    }
+  }
+
+  return result;
+}
+
 function moveElementTo(element, [x, y]) {
   element.style.top = `${y * cellHeight}px`;
   element.style.left = `${x * cellWidth}px`;

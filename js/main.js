@@ -15,12 +15,9 @@ const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
 const player = {
   element: document.querySelector('.game__player'),
   lastMoveTime: 0,
-  moveWaitTime: PLAYER_MOVE_SLEEP_TIME,
   position: [9, 9],
-  sight: PLAYER_SIGHT,
   aim: [-10, -10],
-  aimSight: PLAYER_AIM_SIGHT,
-  aiming: false
+  aiming: false,
 };
 
 let keysDown = {};
@@ -30,7 +27,7 @@ function processInput() {
   const { w: up, s: down, a: left, d: right, shift } = keysDown;
   const playerStartPosition = player.position;
   const now = Date.now();
-  const canMove = now - player.lastMoveTime > player.moveWaitTime;
+  const canMove = now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;
   const stepDirection = [0, 0];
 
   if (canMove) {

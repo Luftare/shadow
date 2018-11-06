@@ -9,5 +9,15 @@ const obstacles = [
   [6, 14],
   [7, 14],
   [6, 6],
-  [5, 16]
+  [5, 16],
 ];
+
+const obstacleAdjacents = obstacles.map(adjacentCells);
+
+function renderWorld() {
+  ctx.fillStyle = '#a70';
+  obstacles.forEach(obstacle => {
+    const [x, y] = gridToScreen(obstacle);
+    ctx.fillRect(x, y, cellWidth, cellHeight);
+  });
+}

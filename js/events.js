@@ -1,4 +1,4 @@
-const setupEventListeners = () => {
+function setupEventListeners() {
   window.addEventListener('keydown', ({ key }) => {
     keysDown[key.toLocaleLowerCase()] = true;
   });
@@ -17,9 +17,10 @@ const setupEventListeners = () => {
   canvas.addEventListener('mousedown', e => {
     e.preventDefault();
     const withinSight = shadowAlphaGrid[player.aim[0]][player.aim[1]] < 1;
+
     if (withinSight) {
       clicks.push([...player.aim]);
       playSound(sounds.shot);
     }
   });
-};
+}
