@@ -3,6 +3,8 @@ const {
   EVENT_CLIENT_UPDATE,
   EVENT_SERVER_UPDATE,
   CLIENT_SERVER_UPDATE_INTERVAL,
+  PROPNAME_POSITION,
+  PROPNAME_ID,
 } = require('../shared/sharedSocketConfig');
 
 const {
@@ -35,9 +37,14 @@ function addSocketHandlers(socket, io) {
 }
 
 function handleNewClientConnection(socket, io) {
-  addPlayer(socket.id);
+  const position = addPlayer(socket.id);
 
-  socket.emit(EVENT_SERVER_INIT_CLIENT, getState());
+  const initData = {
+    [PROPNAME_POSITION]: position,
+    [PROPNAME_ID]: socket.id,
+  };
+
+  socket.emit(EVENT_SERVER_INIT_CLIENT, initData);
 }
 
 function handleSocketConnections(io) {

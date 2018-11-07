@@ -34,3 +34,15 @@
   height: var(--cell-height);
   pointer-events: none;
 }
+
+.game__opponent {
+  transition: all 150ms;
+  position: absolute;
+  display: block;
+  background-color: red;
+  top: 0;
+  left: 0;
+  width: var(--cell-width);
+  height: var(--cell-height);
+  pointer-events: none;
+}

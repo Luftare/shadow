@@ -9,9 +9,11 @@ function getInitState(world) {
   const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
   const obstacles = world.obstacles;
   const obstacleAdjacents = obstacles.map(getAdjacentCells);
+  const opponents = [];
 
   return {
     player,
+    opponents,
     shadowAlphaGrid,
     obstacles,
     obstacleAdjacents,

@@ -1,9 +1,11 @@
 const {
   PLAYER_POSITIONS_BUFFER_LENGTH,
   PROPNAME_POSITION_BUFFER,
+  PROPNAME_POSITION_BUFFER_OFFSET,
   PROPNAME_TYPE,
   PROPNAME_POSITION,
   PROPNAME_PAYLOAD,
+  PROPNAME_ID,
 } = require('../shared/sharedSocketConfig');
 
 const state = {
@@ -11,7 +13,7 @@ const state = {
 };
 
 function handleClientUpdates(id, updates) {
-  const player = state.players.find(player => player.id === id);
+  const player = state.players.find(player => player[PROPNAME_ID] === id);
 
   updates.forEach(update => {
     const updateType = update[PROPNAME_TYPE];
@@ -24,7 +26,7 @@ function handleClientUpdates(id, updates) {
           PLAYER_POSITIONS_BUFFER_LENGTH;
         if (bufferIsFull) {
           player[PROPNAME_POSITION_BUFFER].shift();
-          player.firstPositionIndex++;
+          player[PROPNAME_POSITION_BUFFER_OFFSET]++;
         }
         break;
 
@@ -35,15 +37,21 @@ function handleClientUpdates(id, updates) {
 }
 
 function addPlayer(id) {
-  state.players.push({
-    id,
-    [PROPNAME_POSITION_BUFFER]: [],
-    firstPositionIndex: 0,
-  });
+  const position = [9, 9];
+
+  const player = {
+    [PROPNAME_ID]: id,
+    [PROPNAME_POSITION_BUFFER]: [position],
+    [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
+  };
+
+  state.players.push(player);
+
+  return position;
 }
 
 function removePlayer(id) {
-  state.players = state.players.filter(player => player.id !== id);
+  state.players = state.players.filter(player => player[PROPNAME_ID] !== id);
 }
 
 function getState() {

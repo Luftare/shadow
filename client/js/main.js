@@ -5,6 +5,7 @@ function processInput({ keysDown, clicks }, state) {
 }
 
 function tick(state) {
+  syncController.updateOpponents(state.opponents);
   processInput(playerInput, state);
   drawShadow(state);
   drawGUI(state);
@@ -12,8 +13,7 @@ function tick(state) {
   connection.requestUpdate();
 }
 
-function initGame(world) {
-  const state = getInitState(world);
+function initGame(world, state) {
   setupEventListeners(state);
   moveElementTo(dom.elements.player, state.player.position);
   renderWorld(world);
@@ -24,7 +24,8 @@ function initGame(world) {
 
 function boot() {
   dom.init();
-  connection.connectToServerSocket().then(() => {
-    initGame(world);
+  const state = getInitState(world);
+  connection.connectToServerSocket(state).then(() => {
+    initGame(world, state);
   });
 }

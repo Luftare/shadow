@@ -6,10 +6,12 @@ const connection = (function() {
     PROPNAME_TYPE,
     PROPNAME_POSITION,
     PROPNAME_PAYLOAD,
+    PROPNAME_ID,
   } = sharedSocketConfig;
 
   return {
     socket: null,
+    id: null,
     clientUpdates: [],
     lastUpdateTime: 0,
     requestUpdate() {
@@ -27,11 +29,15 @@ const connection = (function() {
       return new Promise(resolve => {
         const socket = io();
 
-        socket.on(EVENT_SERVER_INIT_CLIENT, data => {
+        socket.on(EVENT_SERVER_INIT_CLIENT, initData => {
+          this.id = initData[PROPNAME_ID];
+          state.player.position = initData[PROPNAME_POSITION];
           resolve();
         });
 
-        socket.on(EVENT_SERVER_UPDATE, serverState => {});
+        socket.on(EVENT_SERVER_UPDATE, serverState => {
+          syncController.handleReceivedStateFromServer(serverState, state);
+        });
 
         this.socket = socket;
       });

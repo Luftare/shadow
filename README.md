@@ -15,7 +15,6 @@ Multiplayer survival game.
 
 #### Server
 
-- server sends updated game state to all clients in interval
 - server keeps track of player that have connected during the game and will show them as observers
 - server will track hp and message deaths
 
@@ -23,8 +22,6 @@ Multiplayer survival game.
 
 - client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
-- client displays all opponents with most recent position
-- clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - scoring a hit to a remote player is determined by local player's state of the remote players
 - remote players receive damage upon click on them
 - clients remove dead opponents
@@ -109,3 +106,5 @@ Multiplayer survival game.
 - server tracks game state
 - server buffers players' last 10 positions and tracks the # of each step
 - client updates server when moving to a new position
+- server sends updated game state to all clients in interval
+- clients play back remote players' position buffer with reduced move wait time to catch up delayed data
