@@ -13,26 +13,37 @@ Multiplayer survival game.
 
 ### Multiplayer
 
-- client displays all opponents with most recent position
+#### Server
+
+- server keeps track of connected players
+- server removes disconnected players from the tracking
+- server keeps track of player that have connected during the game and will show them as observers
 - server tracks game state
+- server will track hp and message deaths
 - server sends updated game state to all clients in interval
 - server buffers players' last 10 positions and tracks the # of each step
+
+#### Client
+
+- client displays all opponents with most recent position
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - scoring a hit to a remote player is determined by local player's state of the remote players
 - remote players receive damage upon click on them
-- server will track hp and message deaths
 - clients remove dead opponents
 - player cannot move to a cell if there's an opponent
 
 ### Gameplay
 
+- player spawnpoints are defined and each player will be randomised to their own spawnpoint
 - a rectangle is displayed around the game field
 - rectangle shrinks and players outside will receive damage
-
 - gun shot damage is determined by how close to the center of the cell is clicked
+- dead players will be able to see the whole game field without shadow to observe other players
 
 ### Items
 
+- item spawnpoints are defined
+- each spawnpoint may spawn a randomised item
 - guns can be swapped
 - damage is proportional of distance and modified by equipped gun
 - guns have reload time
@@ -67,6 +78,7 @@ Multiplayer survival game.
 
 ### Misc
 
+- game state is stored in a single object
 - players have hp
 - player has inventory
   - 2 slots for guns
