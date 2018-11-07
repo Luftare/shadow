@@ -9,6 +9,7 @@ function tick(state) {
   drawShadow(state);
   drawGUI(state);
   resetHandledInputs();
+  connection.requestUpdate();
 }
 
 function initGame(world) {

@@ -15,16 +15,15 @@ Multiplayer survival game.
 
 #### Server
 
-- server keeps track of connected players
-- server removes disconnected players from the tracking
 - server keeps track of player that have connected during the game and will show them as observers
-- server tracks game state
 - server will track hp and message deaths
 - server sends updated game state to all clients in interval
-- server buffers players' last 10 positions and tracks the # of each step
 
 #### Client
 
+- client updates server when moving to a new position
+- client updates server when opponent is shot
+- client figures out if damage is received by comparing local hp to server update hp
 - client displays all opponents with most recent position
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - scoring a hit to a remote player is determined by local player's state of the remote players
@@ -107,3 +106,6 @@ Multiplayer survival game.
 - add hosting server
 - add socket.io connection between client and server
 - game state is stored in a single object
+- server keeps track of connected players and removes disconnected players from the tracking
+- server tracks game state
+- server buffers players' last 10 positions and tracks the # of each step

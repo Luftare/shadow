@@ -1,9 +1,35 @@
-const { SERVER_INIT_CLIENT } = require('../shared/sharedSocketConfig');
+const {
+  EVENT_SERVER_INIT_CLIENT,
+  EVENT_CLIENT_UPDATE,
+} = require('../shared/sharedSocketConfig');
+
+const {
+  handleClientUpdates,
+  removePlayer,
+  addPlayer,
+  getState,
+} = require('./model');
+
+function addSocketHandlers(socket, io) {
+  socket.on('disconnect', () => {
+    removePlayer(socket.id);
+  });
+
+  socket.on(EVENT_CLIENT_UPDATE, updates => {
+    handleClientUpdates(socket.id, updates);
+  });
+}
+
+function handleSocketConnection(socket, io) {
+  addPlayer(socket.id);
+
+  socket.emit(EVENT_SERVER_INIT_CLIENT, getState());
+}
 
 function handleSocketConnections(io) {
   io.sockets.on('connection', socket => {
-    socket.emit(SERVER_INIT_CLIENT, 'Connection established.');
-    console.log('Client connected with id of ' + socket.id);
+    addSocketHandlers(socket, io);
+    handleSocketConnection(socket, io);
   });
 }
 

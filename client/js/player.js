@@ -34,6 +34,7 @@ function handlePlayerMovement(keysDown, { player, obstacles }) {
 
   if (willMove) {
     player.position = newPosition;
+    connection.appendNewPosition(player.position);
     audio.playSound(audio.sounds.step);
     moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
