@@ -14,7 +14,7 @@ function tick(state) {
 function initGame(world) {
   const state = getInitState(world);
   setupEventListeners(state);
-  moveElementTo(elements.player, state.player.position);
+  moveElementTo(dom.elements.player, state.player.position);
   renderWorld(world);
   setInterval(() => {
     tick(state);
@@ -22,7 +22,7 @@ function initGame(world) {
 }
 
 function boot() {
-  initDom();
+  dom.init();
   connection.connectToServerSocket().then(() => {
     initGame(world);
   });

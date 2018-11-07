@@ -35,7 +35,7 @@ function handlePlayerMovement(keysDown, { player, obstacles }) {
   if (willMove) {
     player.position = newPosition;
     audio.playSound(audio.sounds.step);
-    moveElementTo(elements.player, player.position);
+    moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
   }
 }

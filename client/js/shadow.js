@@ -1,6 +1,6 @@
 function drawShadow(state) {
   const { shadowAlphaGrid } = state;
-  const { shadowCanvas } = elements;
+  const { shadowCanvas } = dom.elements;
   const ctx = shadowCanvas.getContext('2d');
   shadowCanvas.width = shadowCanvas.width;
 

@@ -15,7 +15,7 @@ const world = {
 };
 
 function renderWorld({ obstacles }) {
-  const ctx = elements.canvas.getContext('2d');
+  const ctx = dom.elements.canvas.getContext('2d');
 
   ctx.fillStyle = '#a70';
   obstacles.forEach(obstacle => {

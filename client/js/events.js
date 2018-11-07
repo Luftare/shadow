@@ -8,7 +8,7 @@ function resetHandledInputs() {
 }
 
 function setupEventListeners({ player, shadowAlphaGrid }) {
-  const { canvas } = elements;
+  const { canvas } = dom.elements;
 
   window.addEventListener('keydown', ({ key }) => {
     playerInput.keysDown[key.toLocaleLowerCase()] = true;

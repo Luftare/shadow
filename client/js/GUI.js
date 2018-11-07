@@ -1,5 +1,5 @@
 function drawAim(position) {
-  const ctx = elements.shadowCanvas.getContext('2d');
+  const ctx = dom.elements.shadowCanvas.getContext('2d');
   ctx.globalAlpha = 1;
   const [aimX, aimY] = gridToScreen(position);
   ctx.strokeStyle = 'white';
