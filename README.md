@@ -88,10 +88,12 @@ Multiplayer survival game.
 - guns can be dropped and dropping on top of another gun will swap the currently equipped gun
 - two guns can be equipped and selected from
 - opponents rotate to their facing
+- nickname is stored accross sessions in local storage
 
 ## Maybe?
 
 - audio source direction will change pan
+- settings can be configured by players and stored in local storage
 
 ## Done
 
