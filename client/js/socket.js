@@ -1,6 +1,6 @@
 const connection = {
   socket: null,
-  connectToServerSocket() {
+  connectToServerSocket(state) {
     const { SERVER_INIT_CLIENT } = sharedSocketConfig;
 
     return new Promise(resolve => {

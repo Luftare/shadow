@@ -1,24 +1,13 @@
-const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
-
-function updateShadow(grid) {
-  grid.forEach((col, x) =>
-    col.forEach((_, y) => {
-      grid[x][y] = 1;
-    })
-  );
-
-  revealPlayerZone(player, grid);
-}
-
-function drawShadow(grid) {
+function drawShadow(state) {
+  const { shadowAlphaGrid } = state;
   const { shadowCanvas } = elements;
   const ctx = shadowCanvas.getContext('2d');
   shadowCanvas.width = shadowCanvas.width;
 
-  updateShadow(grid);
+  updateShadow(state);
 
   ctx.fillStyle = 'black';
-  grid.forEach((col, x) => {
+  shadowAlphaGrid.forEach((col, x) => {
     col.forEach((alpha, y) => {
       const [screenX, screenY] = gridToScreen([x, y]);
       ctx.globalAlpha = alpha;
@@ -27,7 +16,23 @@ function drawShadow(grid) {
   });
 }
 
-function revealPlayerZone(player, grid) {
+function updateShadow(state) {
+  const { shadowAlphaGrid } = state;
+  shadowAlphaGrid.forEach((col, x) =>
+    col.forEach((_, y) => {
+      shadowAlphaGrid[x][y] = 1;
+    })
+  );
+
+  revealPlayerZone(state);
+}
+
+function revealPlayerZone({
+  player,
+  obstacles,
+  obstacleAdjacents,
+  shadowAlphaGrid,
+}) {
   const toMouse = subtract(player.aim, player.position);
   const toMouseNormalised = normalise(toMouse);
   const aimDistance = length(toMouse);
@@ -57,7 +62,7 @@ function revealPlayerZone(player, grid) {
             const distance = Math.sqrt(
               squaredDistance(playerCenter, cellCenter)
             );
-            grid[x][y] = Math.pow(distance / sight, 4);
+            shadowAlphaGrid[x][y] = Math.pow(distance / sight, 4);
           }
         }
       }
@@ -66,11 +71,13 @@ function revealPlayerZone(player, grid) {
 
   const visibleObstacles = obstacles.filter(([x, y], i) => {
     const adjacents = obstacleAdjacents[i];
-    const hasVisibleAdjacent = adjacents.some(([x, y]) => grid[x][y] < 1);
+    const hasVisibleAdjacent = adjacents.some(
+      ([x, y]) => shadowAlphaGrid[x][y] < 1
+    );
     return hasVisibleAdjacent;
   });
 
   visibleObstacles.forEach(([x, y]) => {
-    grid[x][y] = 0;
+    shadowAlphaGrid[x][y] = 0;
   });
 }

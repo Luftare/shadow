@@ -1,4 +1,4 @@
-function rotatePlayerMovementTowardsAim(step) {
+function rotatePlayerMovementTowardsAim(step, player) {
   const aimAxis = toAxis(subtract(player.aim, player.position));
   const aimRadians = Math.PI - aimAxis * 0.5 * Math.PI;
   return roundVector(rotate(step, aimRadians));
@@ -15,7 +15,7 @@ function getStepDirection({ w: up, s: down, a: left, d: right }) {
   return stepDirection;
 }
 
-function handlePlayerMovement(keysDown) {
+function handlePlayerMovement(keysDown, { player, obstacles }) {
   const now = Date.now();
   const enoughTimeSinceLastMovement =
     now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;
@@ -23,7 +23,10 @@ function handlePlayerMovement(keysDown) {
   if (!enoughTimeSinceLastMovement) return;
 
   const stepDirection = getStepDirection(keysDown);
-  const rotatedStepDirection = rotatePlayerMovementTowardsAim(stepDirection);
+  const rotatedStepDirection = rotatePlayerMovementTowardsAim(
+    stepDirection,
+    player
+  );
   const newPosition = sum(player.position, rotatedStepDirection);
   const orderedToMove = !isZero(stepDirection);
   const hasSpaceToMove = !anyPointAt(newPosition, obstacles);
@@ -37,11 +40,11 @@ function handlePlayerMovement(keysDown) {
   }
 }
 
-function handlePlayerActions({ shift }) {
+function handlePlayerActions({ shift }, { player }) {
   player.aiming = shift;
 }
 
-function handleClicks(clicks) {
+function handleClicks(clicks, state) {
   clicks.forEach(position => {
     flashImageAt(images.explosion, position);
   });

@@ -7,7 +7,7 @@ function resetHandledInputs() {
   playerInput.clicks = [];
 }
 
-function setupEventListeners() {
+function setupEventListeners({ player, shadowAlphaGrid }) {
   const { canvas } = elements;
 
   window.addEventListener('keydown', ({ key }) => {

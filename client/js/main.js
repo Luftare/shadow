@@ -1,26 +1,29 @@
-function processInput({ keysDown, clicks }) {
-  handlePlayerMovement(keysDown);
-  handlePlayerActions(keysDown);
-  handleClicks(clicks);
+function processInput({ keysDown, clicks }, state) {
+  handlePlayerMovement(keysDown, state);
+  handlePlayerActions(keysDown, state);
+  handleClicks(clicks, state);
 }
 
-function tick() {
-  processInput(playerInput);
-  drawShadow(shadowAlphaGrid);
-  drawAim();
+function tick(state) {
+  processInput(playerInput, state);
+  drawShadow(state);
+  drawGUI(state);
   resetHandledInputs();
 }
 
-function initGame() {
-  player.position = [9, 9];
-
-  moveElementTo(elements.player, player.position);
-  renderWorld();
-  setInterval(tick, FRAME_TIME);
+function initGame(world) {
+  const state = getInitState(world);
+  setupEventListeners(state);
+  moveElementTo(elements.player, state.player.position);
+  renderWorld(world);
+  setInterval(() => {
+    tick(state);
+  }, FRAME_TIME);
 }
 
 function boot() {
   initDom();
-  setupEventListeners();
-  connection.connectToServerSocket().then(initGame);
+  connection.connectToServerSocket().then(() => {
+    initGame(world);
+  });
 }
