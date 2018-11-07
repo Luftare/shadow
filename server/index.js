@@ -1,4 +1,4 @@
-const socket = require('./socket');
+const { startGameServer } = require('./controller');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -9,6 +9,6 @@ app.use('/', express.static(__dirname + './../client'));
 app.use('/', express.static(__dirname + './../shared'));
 app.use('/', express.static(__dirname + '/node_modules/socket.io-client/dist'));
 
-socket.handleSocketConnections(io);
+startGameServer(io);
 
 http.listen(port);

@@ -1,6 +1,8 @@
 const {
   EVENT_SERVER_INIT_CLIENT,
   EVENT_CLIENT_UPDATE,
+  EVENT_SERVER_UPDATE,
+  CLIENT_SERVER_UPDATE_INTERVAL,
 } = require('../shared/sharedSocketConfig');
 
 const {
@@ -9,6 +11,18 @@ const {
   addPlayer,
   getState,
 } = require('./model');
+
+function startGameServer(io) {
+  handleSocketConnections(io);
+
+  setInterval(() => {
+    broadcastUpdateToClients(io);
+  }, CLIENT_SERVER_UPDATE_INTERVAL);
+}
+
+function broadcastUpdateToClients(io) {
+  io.sockets.emit(EVENT_SERVER_UPDATE, getState());
+}
 
 function addSocketHandlers(socket, io) {
   socket.on('disconnect', () => {
@@ -20,7 +34,7 @@ function addSocketHandlers(socket, io) {
   });
 }
 
-function handleSocketConnection(socket, io) {
+function handleNewClientConnection(socket, io) {
   addPlayer(socket.id);
 
   socket.emit(EVENT_SERVER_INIT_CLIENT, getState());
@@ -29,10 +43,10 @@ function handleSocketConnection(socket, io) {
 function handleSocketConnections(io) {
   io.sockets.on('connection', socket => {
     addSocketHandlers(socket, io);
-    handleSocketConnection(socket, io);
+    handleNewClientConnection(socket, io);
   });
 }
 
 module.exports = {
-  handleSocketConnections,
+  startGameServer,
 };

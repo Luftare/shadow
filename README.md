@@ -15,13 +15,12 @@ Multiplayer survival game.
 
 #### Server
 
+- server sends updated game state to all clients in interval
 - server keeps track of player that have connected during the game and will show them as observers
 - server will track hp and message deaths
-- server sends updated game state to all clients in interval
 
 #### Client
 
-- client updates server when moving to a new position
 - client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
 - client displays all opponents with most recent position
@@ -109,3 +108,4 @@ Multiplayer survival game.
 - server keeps track of connected players and removes disconnected players from the tracking
 - server tracks game state
 - server buffers players' last 10 positions and tracks the # of each step
+- client updates server when moving to a new position
