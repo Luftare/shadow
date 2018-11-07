@@ -31,6 +31,8 @@ Multiplayer survival game.
 - remote players receive damage upon click on them
 - clients remove dead opponents
 - player cannot move to a cell if there's an opponent
+- frags are notified to all players
+- number of players is notified
 
 ### Gameplay
 
@@ -51,6 +53,7 @@ Multiplayer survival game.
 
 ### Menu
 
+- menu and game views can be switched without page reaload
 - player is prompted a nickname before entering game
 
 ### Visual fx
@@ -64,8 +67,8 @@ Multiplayer survival game.
 
 ### Audio fx
 
-- audio source direction will change pan
 - sound level declines over distance
+- hitting an opponent sounds different than missing
 
 ### Assets
 
@@ -78,7 +81,6 @@ Multiplayer survival game.
 
 ### Misc
 
-- game state is stored in a single object
 - players have hp
 - player has inventory
   - 2 slots for guns
@@ -88,6 +90,8 @@ Multiplayer survival game.
 - opponents rotate to their facing
 
 ## Maybe?
+
+- audio source direction will change pan
 
 ## Done
 
@@ -100,3 +104,4 @@ Multiplayer survival game.
 - WASD movement is rotated along with the facing so that W always moves the player towards the aim direction (up/down/left/right)
 - add hosting server
 - add socket.io connection between client and server
+- game state is stored in a single object
