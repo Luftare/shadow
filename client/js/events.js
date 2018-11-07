@@ -31,7 +31,7 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
 
     if (withinSight) {
       playerInput.clicks.push([...player.aim]);
-      playSound(sounds.shot);
+      audio.playSound(audio.sounds.shot);
     }
   });
 }
