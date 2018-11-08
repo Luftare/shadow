@@ -63,7 +63,7 @@ function revealPlayerZone({
             const distance = Math.sqrt(
               squaredDistance(playerCenter, cellCenter)
             );
-            shadowAlphaGrid[x][y] = Math.pow(distance / sight, 4);
+            shadowAlphaGrid[x][y] = distance / sight;
           }
         }
       }

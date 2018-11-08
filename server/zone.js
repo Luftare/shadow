@@ -32,7 +32,7 @@ function getNextZone([x, y, width, height]) {
 }
 
 function requestZoneShrink(state) {
-  const { zone, lastZoneShrinkTime } = state;
+  const { lastZoneShrinkTime } = state;
   const now = Date.now();
   const timeSinceLastZoneShrink = now - lastZoneShrinkTime;
   const enoughTimeSinceLastZoneShrink =
