@@ -20,6 +20,7 @@ Multiplayer survival game.
 
 #### Client
 
+- bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
 - client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
 - scoring a hit to a remote player is determined by local player's state of the remote players
@@ -52,6 +53,7 @@ Multiplayer survival game.
 
 ### Visual fx
 
+- draw rectangle around game field to shadow layer
 - receiving damage blinks screen red
 - shooting shakes the screen to recoil direction
 - obstacles have type and custom sprites
