@@ -76,6 +76,7 @@ Multiplayer survival game.
 
 ### Misc
 
+- parse world from image by reading pixel values
 - limit shadow update to visible portion of screen
 - players have hp
 - player has inventory
