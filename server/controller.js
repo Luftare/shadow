@@ -12,12 +12,14 @@ const {
   removePlayer,
   addPlayer,
   getState,
+  updateModel,
 } = require('./model');
 
 function startGameServer(io) {
   handleSocketConnections(io);
 
   setInterval(() => {
+    updateModel();
     broadcastUpdateToClients(io);
   }, CLIENT_SERVER_UPDATE_INTERVAL);
 }

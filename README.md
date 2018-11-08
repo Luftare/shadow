@@ -17,9 +17,11 @@ Multiplayer survival game.
 
 - server keeps track of player that have connected during the game and will show them as observers
 - server will track hp and message deaths
+- start new round once only single player is alive with delay
 
 #### Client
 
+- notify who won last game
 - bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
 - client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
@@ -32,8 +34,7 @@ Multiplayer survival game.
 ### Gameplay
 
 - player spawnpoints are defined and each player will be randomised to their own spawnpoint
-- a rectangle is displayed around the game field
-- rectangle shrinks and players outside will receive damage
+- players outside zone will receive damage
 - gun shot damage is determined by how close to the center of the cell is clicked
 - dead players will be able to see the whole game field without shadow to observe other players
 
@@ -113,3 +114,5 @@ Multiplayer survival game.
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - camera follows player
 - draw rectangle around game field to shadow layer
+- server shrinks the zone in interval and sends zone size to clients
+- a rectangle is displayed around the game field

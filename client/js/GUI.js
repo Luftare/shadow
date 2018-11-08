@@ -9,16 +9,21 @@ function drawAim(position) {
   ctx.closePath();
 }
 
-function drawZone({ topLeft, size }) {
+function drawZones(zone, nextZone) {
   const ctx = dom.elements.shadowCanvas.getContext('2d');
-  ctx.strokeStyle = 'white';
+  ctx.strokeStyle = 'blue';
   ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.rect(...gridToScreen(topLeft), ...gridToScreen(size));
+  ctx.rect(...gridToScreen(nextZone));
+  ctx.stroke();
+
+  ctx.strokeStyle = 'white';
+  ctx.beginPath();
+  ctx.rect(...gridToScreen(zone));
   ctx.stroke();
 }
 
-function drawGUI({ player, zone }) {
+function drawGUI({ player, zone, nextZone }) {
   drawAim(player.aim);
-  drawZone(zone);
+  drawZones(zone, nextZone);
 }

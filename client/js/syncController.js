@@ -80,7 +80,7 @@ const syncController = {
     );
     dom.removeOpponentElement(opponent.element);
   },
-  handleReceivedStateFromServer(serverState, localState) {
+  handlePlayerModelUpdate(serverState, localState) {
     const { PROPNAME_ID } = sharedSocketConfig;
     const serverOpponents = serverState.players.filter(
       player => player[PROPNAME_ID] !== connection.id
@@ -113,5 +113,13 @@ const syncController = {
     serverOpponents.forEach(opponent =>
       syncController.applyNewStateToOpponent(opponent, localState.opponents)
     );
+  },
+  handleZoneUpdate(serverState, localState) {
+    localState.zone = serverState.zone;
+    localState.nextZone = serverState.nextZone;
+  },
+  handleReceivedStateFromServer(serverState, localState) {
+    syncController.handlePlayerModelUpdate(serverState, localState);
+    syncController.handleZoneUpdate(serverState, localState);
   },
 };

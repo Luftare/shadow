@@ -57,6 +57,7 @@ function moveElementTo(element, [x, y]) {
 }
 
 function getAdjacentCells([x, y]) {
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
   const result = [];
   const startX = Math.max(0, x - 1);
   const startY = Math.max(0, y - 1);

@@ -33,6 +33,7 @@ function revealPlayerZone({
   obstacleAdjacents,
   shadowAlphaGrid,
 }) {
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
   const toMouse = subtract(player.aim, player.position);
   const toMouseNormalised = normalise(toMouse);
   const aimDistance = length(toMouse);

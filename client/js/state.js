@@ -1,4 +1,6 @@
 function getInitState(world) {
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+
   const player = {
     lastMoveTime: 0,
     position: [9, 9],
@@ -6,10 +8,8 @@ function getInitState(world) {
     aiming: false,
   };
 
-  const zone = {
-    topLeft: [0, 0],
-    size: [GRID_CELLS_X, GRID_CELLS_Y],
-  };
+  const zone = [0, 0, GRID_CELLS_X, GRID_CELLS_Y];
+  const nextZone = zone;
 
   const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
   const obstacles = world.obstacles;
@@ -19,6 +19,7 @@ function getInitState(world) {
   return {
     player,
     zone,
+    nextZone,
     opponents,
     shadowAlphaGrid,
     obstacles,

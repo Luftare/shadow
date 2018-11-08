@@ -6,11 +6,22 @@ const {
   PROPNAME_POSITION,
   PROPNAME_PAYLOAD,
   PROPNAME_ID,
+  GRID_CELLS_X,
+  GRID_CELLS_Y,
 } = require('../shared/sharedSocketConfig');
+
+const { requestZoneShrink } = require('./zone');
 
 const state = {
   players: [],
+  zone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
+  nextZone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
+  lastZoneShrinkTime: Date.now(),
 };
+
+function updateModel() {
+  requestZoneShrink(state);
+}
 
 function handleClientUpdates(id, updates) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
@@ -64,4 +75,5 @@ module.exports = {
   removePlayer,
   getState,
   handleClientUpdates,
+  updateModel,
 };
