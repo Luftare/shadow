@@ -20,7 +20,10 @@ const syncController = {
           maxPositionBufferIndex > opponent.localPositionBufferIndex;
 
         if (positionsInBuffer) {
-          opponent.localPositionBufferIndex++;
+          opponent.localPositionBufferIndex = Math.max(
+            opponent.localPositionBufferIndex + 1,
+            opponent[PROPNAME_POSITION_BUFFER_OFFSET]
+          );
           const offset =
             maxPositionBufferIndex - opponent.localPositionBufferIndex;
           const bufferIndex =

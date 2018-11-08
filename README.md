@@ -22,7 +22,6 @@ Multiplayer survival game.
 #### Client
 
 - notify who won last game
-- bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
 - client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
 - scoring a hit to a remote player is determined by local player's state of the remote players
@@ -116,3 +115,4 @@ Multiplayer survival game.
 - draw rectangle around game field to shadow layer
 - server shrinks the zone in interval and sends zone size to clients
 - a rectangle is displayed around the game field
+- bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
