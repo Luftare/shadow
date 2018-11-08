@@ -1,7 +1,7 @@
-function rotatePlayerMovementTowardsAim(step, player) {
-  const aimAxis = toAxis(subtract(player.aim, player.position));
-  const aimRadians = Math.PI - aimAxis * 0.5 * Math.PI;
-  return roundVector(rotate(step, aimRadians));
+function followPlayer(state) {
+  const cameraOffset = getCameraOffset(state);
+  const screenCameraOffset = gridToScreen(cameraOffset);
+  dom.elements.game.style.transform = `translate(${-screenCameraOffset[0]}px, ${-screenCameraOffset[1]}px)`;
 }
 
 function getStepDirection({ w: up, s: down, a: left, d: right }) {
@@ -23,11 +23,7 @@ function handlePlayerMovement(keysDown, { player, obstacles }) {
   if (!enoughTimeSinceLastMovement) return;
 
   const stepDirection = getStepDirection(keysDown);
-  const rotatedStepDirection = rotatePlayerMovementTowardsAim(
-    stepDirection,
-    player
-  );
-  const newPosition = sum(player.position, rotatedStepDirection);
+  const newPosition = clampToGrid(sum(player.position, stepDirection));
   const orderedToMove = !isZero(stepDirection);
   const hasSpaceToMove = !anyPointAt(newPosition, obstacles);
   const willMove = orderedToMove && hasSpaceToMove;

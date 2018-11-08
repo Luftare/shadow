@@ -1,6 +1,15 @@
 :root {
   --cell-width: 1px;
   --cell-height: 1px;
-  --game-screen-width: 1px;
-  --game-screen-height: 1px;
+  --game-world-width: 0;
+  --game-world-height: 0;
+  --game-screen-width: 0;
+  --game-screen-height: 0;
+}
+
+body {
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

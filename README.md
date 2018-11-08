@@ -25,7 +25,6 @@ Multiplayer survival game.
 - scoring a hit to a remote player is determined by local player's state of the remote players
 - remote players receive damage upon click on them
 - clients remove dead opponents
-- player cannot move to a cell if there's an opponent
 - frags are notified to all players
 - number of players is notified
 
@@ -76,6 +75,7 @@ Multiplayer survival game.
 
 ### Misc
 
+- limit shadow update to visible portion of screen
 - players have hp
 - player has inventory
   - 2 slots for guns
@@ -84,11 +84,13 @@ Multiplayer survival game.
 - two guns can be equipped and selected from
 - opponents rotate to their facing
 - nickname is stored accross sessions in local storage
+- create larger map with relevant content
 
 ## Maybe?
 
 - audio source direction will change pan
 - settings can be configured by players and stored in local storage
+- player cannot move to a cell if there's an opponent
 
 ## Done
 
@@ -108,3 +110,4 @@ Multiplayer survival game.
 - client updates server when moving to a new position
 - server sends updated game state to all clients in interval
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
+- camera follows player

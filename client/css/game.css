@@ -1,6 +1,14 @@
 .game {
   position: relative;
   display: block;
+  width: var(--game-world-width);
+  height: var(--game-world-height);
+  transition: all 300ms;
+}
+
+.game__container {
+  overflow: hidden;
+  display: block;
   width: var(--game-screen-width);
   height: var(--game-screen-height);
 }

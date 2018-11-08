@@ -8,6 +8,23 @@ const dom = {
       `${CELL_HEIGHT}`
     );
 
+    document.documentElement.style.setProperty(
+      '--game-world-width',
+      `${CELL_WIDTH * GRID_CELLS_X}px`
+    );
+    document.documentElement.style.setProperty(
+      '--game-world-height',
+      `${CELL_HEIGHT * GRID_CELLS_Y}px`
+    );
+    document.documentElement.style.setProperty(
+      '--game-screen-width',
+      `${CELL_WIDTH * CAMERA_VIEW_WIDTH}px`
+    );
+    document.documentElement.style.setProperty(
+      '--game-screen-height',
+      `${CELL_HEIGHT * CAMERA_VIEW_HEIGHT}px`
+    );
+
     canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
     canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;
   },
@@ -21,6 +38,7 @@ const dom = {
     dom.elements.opponents.removeChild(element);
   },
   elements: {
+    game: document.querySelector('.game'),
     canvas: document.querySelector('.game__world'),
     shadowCanvas: document.querySelector('.game__shadow'),
     fxContainer: document.querySelector('.game__fx'),
