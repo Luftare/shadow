@@ -53,7 +53,6 @@ Multiplayer survival game.
 
 ### Visual fx
 
-- draw rectangle around game field to shadow layer
 - receiving damage blinks screen red
 - shooting shakes the screen to recoil direction
 - obstacles have type and custom sprites
@@ -113,3 +112,4 @@ Multiplayer survival game.
 - server sends updated game state to all clients in interval
 - clients play back remote players' position buffer with reduced move wait time to catch up delayed data
 - camera follows player
+- draw rectangle around game field to shadow layer

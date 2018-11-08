@@ -1,14 +1,8 @@
 function getCameraOffset({ player }) {
   const x = Math.ceil(player.position[0] - CAMERA_VIEW_WIDTH / 2);
   const y = Math.ceil(player.position[1] - CAMERA_VIEW_HEIGHT / 2);
-  const minX = 0;
-  const minY = 0;
-  const maxX = GRID_CELLS_X - CAMERA_VIEW_WIDTH;
-  const maxY = GRID_CELLS_Y - CAMERA_VIEW_HEIGHT;
-  const clampedX = Math.min(Math.max(x, minX), maxX);
-  const clampedY = Math.min(Math.max(y, minY), maxY);
 
-  return [clampedX, clampedY];
+  return [x, y];
 }
 
 function gridToScreen(gridPos) {

@@ -6,6 +6,11 @@ function getInitState(world) {
     aiming: false,
   };
 
+  const zone = {
+    topLeft: [0, 0],
+    size: [GRID_CELLS_X, GRID_CELLS_Y],
+  };
+
   const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
   const obstacles = world.obstacles;
   const obstacleAdjacents = obstacles.map(getAdjacentCells);
@@ -13,6 +18,7 @@ function getInitState(world) {
 
   return {
     player,
+    zone,
     opponents,
     shadowAlphaGrid,
     obstacles,

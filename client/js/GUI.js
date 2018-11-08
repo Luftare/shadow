@@ -6,8 +6,19 @@ function drawAim(position) {
   ctx.lineWidth = 3;
   ctx.rect(aimX, aimY, CELL_WIDTH, CELL_HEIGHT);
   ctx.stroke();
+  ctx.closePath();
 }
 
-function drawGUI({ player }) {
+function drawZone({ topLeft, size }) {
+  const ctx = dom.elements.shadowCanvas.getContext('2d');
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.rect(...gridToScreen(topLeft), ...gridToScreen(size));
+  ctx.stroke();
+}
+
+function drawGUI({ player, zone }) {
   drawAim(player.aim);
+  drawZone(zone);
 }
