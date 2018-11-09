@@ -12,12 +12,16 @@ const {
 
 const { requestZoneShrink } = require('./zone');
 
-const state = {
-  players: [],
-  zone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
-  nextZone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
-  lastZoneShrinkTime: Date.now(),
-};
+let state = getInitState();
+
+function getInitState(players = []) {
+  return {
+    players,
+    zone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
+    nextZone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
+    lastZoneShrinkTime: Date.now(),
+  };
+}
 
 function updateModel() {
   requestZoneShrink(state);
@@ -65,6 +69,10 @@ function removePlayer(id) {
   state.players = state.players.filter(player => player[PROPNAME_ID] !== id);
 }
 
+function resetState() {
+  state = getInitState(state.players);
+}
+
 function getState() {
   return state;
 }
@@ -74,6 +82,7 @@ module.exports = {
   addPlayer,
   removePlayer,
   getState,
+  resetState,
   handleClientUpdates,
   updateModel,
 };

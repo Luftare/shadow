@@ -15,6 +15,7 @@ Multiplayer survival game.
 
 #### Server
 
+- players outside zone will receive damage
 - server has a single method to reset game state
 - server keeps track of player that have connected during the game and will show them as observers
 - server will track hp and message deaths
@@ -22,6 +23,8 @@ Multiplayer survival game.
 
 #### Client
 
+- player hp is displayed
+- player hp is updated based on server state
 - client has single method to reset state
 - client is able to apply server updates to resetted state
 - notify who won last game
@@ -36,7 +39,6 @@ Multiplayer survival game.
 ### Gameplay
 
 - player spawnpoints are defined and each player will be randomised to their own spawnpoint
-- players outside zone will receive damage
 - gun shot damage is determined by how close to the center of the cell is clicked
 - dead players will be able to see the whole game field without shadow to observe other players
 
