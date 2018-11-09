@@ -39,6 +39,7 @@ const dom = {
     dom.elements.opponents.removeChild(element);
   },
   elements: {
+    mapDataImage: document.getElementById('map-data-image'),
     game: document.querySelector('.game'),
     canvas: document.querySelector('.game__world'),
     shadowCanvas: document.querySelector('.game__shadow'),

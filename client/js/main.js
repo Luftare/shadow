@@ -25,6 +25,8 @@ function initGame(world, state) {
 
 function boot() {
   dom.init();
+  const mapData = mapParser.parseImage(dom.elements.mapDataImage);
+  world.obstacles = mapData.obstacles;
   const state = getInitState(world);
   connection.connectToServerSocket(state).then(() => {
     initGame(world, state);

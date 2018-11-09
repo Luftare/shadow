@@ -76,7 +76,7 @@ Multiplayer survival game.
 
 ### Misc
 
-- parse world from image by reading pixel values
+- optimization: gather closeby obstacles in the beginning of a tick
 - limit shadow update to visible portion of screen
 - players have hp
 - player has inventory
@@ -117,3 +117,4 @@ Multiplayer survival game.
 - server shrinks the zone in interval and sends zone size to clients
 - a rectangle is displayed around the game field
 - bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
+- parse world from image by reading pixel values
