@@ -15,14 +15,19 @@ Multiplayer survival game.
 
 #### Server
 
+- server generates shuffled index to spawn point index for each player
+- server broadcasts setup new game event to all clients to start a new round
 - players outside zone will receive damage
-- server has a single method to reset game state
+- server resets the game state once only one player is alive if there are more than one players connected
+- server test scored hits and does not apply shots from already dead players
+- server updates clients about shots made and discards all shots after the broadcast
 - server keeps track of player that have connected during the game and will show them as observers
 - server will track hp and message deaths
-- start new round once only single player is alive with delay
 
 #### Client
 
+- list spawnpoints with positions
+- player will spawn at given spawn point received from server as an index
 - player hp is displayed
 - player hp is updated based on server state
 - client has single method to reset state
@@ -123,3 +128,4 @@ Multiplayer survival game.
 - a rectangle is displayed around the game field
 - bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
 - parse world from image by reading pixel values
+- server has a single method to reset game state
