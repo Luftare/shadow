@@ -15,12 +15,15 @@ Multiplayer survival game.
 
 #### Server
 
+- server has a single method to reset game state
 - server keeps track of player that have connected during the game and will show them as observers
 - server will track hp and message deaths
 - start new round once only single player is alive with delay
 
 #### Client
 
+- client has single method to reset state
+- client is able to apply server updates to resetted state
 - notify who won last game
 - client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
