@@ -137,6 +137,5 @@ const syncController = {
 
     player.position = [spawnPoint[0], spawnPoint[1]];
     moveElementTo(dom.elements.player, player.position);
-    console.log('NEW GAME! ', data);
   },
 };

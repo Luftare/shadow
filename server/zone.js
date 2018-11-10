@@ -31,12 +31,16 @@ function getNextZone([x, y, width, height]) {
   ];
 }
 
-function requestZoneShrink(state) {
+function updateZone(state) {
   const { lastZoneShrinkTime } = state;
   const now = Date.now();
   const timeSinceLastZoneShrink = now - lastZoneShrinkTime;
   const enoughTimeSinceLastZoneShrink =
     timeSinceLastZoneShrink > ZONE_SHRINK_SLEEP_TIME;
+  state.timeToNextZoneShrink = Math.max(
+    0,
+    ZONE_SHRINK_SLEEP_TIME - timeSinceLastZoneShrink
+  );
 
   if (enoughTimeSinceLastZoneShrink) {
     state.zone = state.nextZone;
@@ -48,5 +52,5 @@ function requestZoneShrink(state) {
 }
 
 module.exports = {
-  requestZoneShrink,
+  updateZone,
 };

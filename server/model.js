@@ -13,7 +13,7 @@ const {
 
 const { shuffle } = require('./utils');
 
-const { requestZoneShrink } = require('./zone');
+const { updateZone } = require('./zone');
 
 let state = getInitState();
 let handleNewGame;
@@ -29,6 +29,8 @@ function getInitState(players = []) {
     return {
       ...player,
       hp: 100,
+      [PROPNAME_POSITION_BUFFER]: [[0, 0]],
+      [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
       spawnPointIndex: spawnPointIndexes[i],
     };
   });
@@ -38,6 +40,7 @@ function getInitState(players = []) {
     zone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
     nextZone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
     lastZoneShrinkTime: Date.now(),
+    timeToNextZoneShrink: 0,
   };
 }
 
@@ -59,7 +62,7 @@ function requestNewGame({ players, zone }) {
 }
 
 function updateModel() {
-  requestZoneShrink(state);
+  updateZone(state);
   requestNewGame(state);
 }
 
