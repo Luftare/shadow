@@ -2,6 +2,7 @@ const {
   EVENT_SERVER_INIT_CLIENT,
   EVENT_CLIENT_UPDATE,
   EVENT_SERVER_UPDATE,
+  EVENT_SERVER_INIT_NEW_GAME,
   CLIENT_SERVER_UPDATE_INTERVAL,
   PROPNAME_POSITION,
   PROPNAME_ID,
@@ -12,11 +13,16 @@ const {
   removePlayer,
   addPlayer,
   getState,
+  initModel,
   updateModel,
 } = require('./model');
 
 function startGameServer(io) {
   handleSocketConnections(io);
+
+  initModel(data => {
+    io.sockets.emit(EVENT_SERVER_INIT_NEW_GAME, data);
+  });
 
   setInterval(() => {
     updateModel();

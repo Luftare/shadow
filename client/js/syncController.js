@@ -125,4 +125,7 @@ const syncController = {
     syncController.handlePlayerModelUpdate(serverState, localState);
     syncController.handleZoneUpdate(serverState, localState);
   },
+  handleInitNewGame(data) {
+    console.log('NEW GAME! ', data);
+  },
 };

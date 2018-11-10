@@ -15,8 +15,6 @@ Multiplayer survival game.
 
 #### Server
 
-- server generates shuffled index to spawn point index for each player
-- server broadcasts setup new game event to all clients to start a new round
 - players outside zone will receive damage
 - server resets the game state once only one player is alive if there are more than one players connected
 - server test scored hits and does not apply shots from already dead players
@@ -86,7 +84,6 @@ Multiplayer survival game.
 
 ### Misc
 
-- optimization: gather closeby obstacles in the beginning of a tick
 - limit shadow update to visible portion of screen
 - players have hp
 - player has inventory
@@ -129,3 +126,6 @@ Multiplayer survival game.
 - bug: long delayed buffer playback does not remaining positions left and needs to jump to first available position in buffer
 - parse world from image by reading pixel values
 - server has a single method to reset game state
+- server generates shuffled index to spawn point index for each player
+- server broadcasts setup new game event to all clients to start a new round
+- optimization: gather closeby obstacles in the beginning of a tick

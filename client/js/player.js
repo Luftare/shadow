@@ -15,7 +15,7 @@ function getStepDirection({ w: up, s: down, a: left, d: right }) {
   return stepDirection;
 }
 
-function handlePlayerMovement(keysDown, { player, obstacles }) {
+function handlePlayerMovement(keysDown, { player, closebyObstacles }) {
   const now = Date.now();
   const enoughTimeSinceLastMovement =
     now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;
@@ -25,7 +25,7 @@ function handlePlayerMovement(keysDown, { player, obstacles }) {
   const stepDirection = getStepDirection(keysDown);
   const newPosition = clampToGrid(sum(player.position, stepDirection));
   const orderedToMove = !isZero(stepDirection);
-  const hasSpaceToMove = !anyPointAt(newPosition, obstacles);
+  const hasSpaceToMove = !anyPointAt(newPosition, closebyObstacles);
   const willMove = orderedToMove && hasSpaceToMove;
 
   if (willMove) {

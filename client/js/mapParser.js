@@ -14,6 +14,7 @@ const mapParser = {
     return object;
   },
   parseImage(image) {
+    const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const width = image.width;
@@ -23,7 +24,7 @@ const mapParser = {
 
     ctx.drawImage(image, 0, 0);
     const data = {
-      obstacles: [],
+      obstacles: fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => null)),
       [OBJECT_LOOT_SPAWN_POINT]: [],
       [OBJECT_PLAYER_SPAWN_POINT]: [],
     };
@@ -36,7 +37,11 @@ const mapParser = {
           const gameObject = this.createGameObject(i, j, type);
 
           if (this.obstacleTypes.includes(type)) {
-            data.obstacles.push(gameObject);
+            if (data.obstacles[i]) {
+              data.obstacles[i][j] = gameObject;
+            } else {
+              data.obstacles[i] = [gameObject];
+            }
           } else {
             data[type].push(gameObject);
           }

@@ -27,9 +27,27 @@ function updateShadow(state) {
   revealPlayerZone(state);
 }
 
+function updateClosebyObstacles(state, world) {
+  const { player, obstacles, closebyObstacles } = state;
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+  state.closebyObstacles = [];
+  const startX = Math.max(0, player.position[0] - PLAYER_AIM_SIGHT);
+  const startY = Math.max(0, player.position[1] - PLAYER_AIM_SIGHT);
+  const endX = Math.min(player.position[0] + PLAYER_AIM_SIGHT, GRID_CELLS_X);
+  const endY = Math.min(player.position[1] + PLAYER_AIM_SIGHT, GRID_CELLS_Y);
+
+  for (let x = startX; x < endX; x++) {
+    for (let y = startY; y < endY; y++) {
+      if (obstacles[x][y]) {
+        state.closebyObstacles.push(obstacles[x][y]);
+      }
+    }
+  }
+}
+
 function revealPlayerZone({
   player,
-  obstacles,
+  closebyObstacles,
   obstacleAdjacents,
   shadowAlphaGrid,
 }) {
@@ -54,7 +72,9 @@ function revealPlayerZone({
       const cell = [x, y];
       if (pointsDistanceLessThan(cell, player.position, sight)) {
         const cellCenter = cell.map(val => val + 0.5);
-        if (!obstaclesBetweenPoints(playerCenter, cellCenter, obstacles)) {
+        if (
+          !obstaclesBetweenPoints(playerCenter, cellCenter, closebyObstacles)
+        ) {
           const toCellNormalised = normalise(subtract(cell, player.position));
           const dotProduct = dot(toCellNormalised, toMouseNormalised);
           const cellAtMouseDirection =
@@ -70,15 +90,9 @@ function revealPlayerZone({
     }
   }
 
-  const visibleObstacles = obstacles.filter(([x, y], i) => {
-    const adjacents = obstacleAdjacents[i];
-    const hasVisibleAdjacent = adjacents.some(
-      ([x, y]) => shadowAlphaGrid[x][y] < 1
-    );
-    return hasVisibleAdjacent;
-  });
-
-  visibleObstacles.forEach(([x, y]) => {
-    shadowAlphaGrid[x][y] = 0;
+  closebyObstacles.forEach(obstacle => {
+    const [x, y] = obstacle;
+    const distance = Math.sqrt(squaredDistance(player.position, obstacle));
+    shadowAlphaGrid[x][y] = distance / PLAYER_AIM_SIGHT;
   });
 }

@@ -4,7 +4,8 @@ function processInput({ keysDown, clicks }, state) {
   handleClicks(clicks, state);
 }
 
-function tick(state) {
+function tick(state, world) {
+  updateClosebyObstacles(state, world);
   syncController.updateOpponents(state.opponents);
   processInput(playerInput, state);
   drawShadow(state);
@@ -19,14 +20,13 @@ function initGame(world, state) {
   moveElementTo(dom.elements.player, state.player.position);
   renderWorld(world);
   setInterval(() => {
-    tick(state);
+    tick(state, world);
   }, FRAME_TIME);
 }
 
 function boot() {
   dom.init();
-  const mapData = mapParser.parseImage(dom.elements.mapDataImage);
-  world.obstacles = mapData.obstacles;
+  const world = mapParser.parseImage(dom.elements.mapDataImage);
   const state = getInitState(world);
   connection.connectToServerSocket(state).then(() => {
     initGame(world, state);

@@ -3,6 +3,7 @@ const connection = (function() {
     EVENT_SERVER_INIT_CLIENT,
     EVENT_CLIENT_UPDATE,
     EVENT_SERVER_UPDATE,
+    EVENT_SERVER_INIT_NEW_GAME,
     PROPNAME_TYPE,
     PROPNAME_POSITION,
     PROPNAME_PAYLOAD,
@@ -28,6 +29,10 @@ const connection = (function() {
     connectToServerSocket(state) {
       return new Promise(resolve => {
         const socket = io();
+
+        socket.on(EVENT_SERVER_INIT_NEW_GAME, data => {
+          syncController.handleInitNewGame(data);
+        });
 
         socket.on(EVENT_SERVER_INIT_CLIENT, initData => {
           this.id = initData[PROPNAME_ID];
