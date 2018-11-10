@@ -40,7 +40,9 @@ function requestZoneShrink(state) {
 
   if (enoughTimeSinceLastZoneShrink) {
     state.zone = state.nextZone;
-    state.nextZone = getNextZone(state.zone);
+    setTimeout(() => {
+      state.nextZone = getNextZone(state.zone);
+    }, ZONE_SHRINK_SLEEP_TIME * 0.5);
     state.lastZoneShrinkTime = now;
   }
 }

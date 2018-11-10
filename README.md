@@ -82,6 +82,7 @@ Multiplayer survival game.
 
 ### Misc
 
+- use html elements for zones to animate shrinks
 - refactor: move moveElementTo inside dom object
 - GUI displays time to next shrink
 - GUI displays current hp

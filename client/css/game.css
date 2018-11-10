@@ -4,7 +4,6 @@
   width: var(--game-world-width);
   height: var(--game-world-height);
   transition: all 300ms;
-  box-shadow: 0 0 200px lightblue;
 }
 
 .game__container {
@@ -34,6 +33,24 @@
 .game__world {
   background-color: green;
   cursor: crosshair;
+}
+
+.game__zone {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: all 500ms;
+  border: solid white 3px;
+}
+
+#zone {
+  box-shadow: 0 0 200px lightblue;
+}
+
+.game__zone--next {
+  border: solid blue 3px;
 }
 
 .game__player {

@@ -10,17 +10,18 @@ function drawAim(position) {
 }
 
 function drawZones(zone, nextZone) {
-  const ctx = dom.elements.shadowCanvas.getContext('2d');
-  ctx.strokeStyle = 'blue';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.rect(...gridToScreen(nextZone));
-  ctx.stroke();
+  const screenZone = gridToScreen(zone);
+  const screenNextZone = gridToScreen(nextZone);
 
-  ctx.strokeStyle = 'white';
-  ctx.beginPath();
-  ctx.rect(...gridToScreen(zone));
-  ctx.stroke();
+  dom.elements.zone.style.top = `${screenZone[0]}px`;
+  dom.elements.zone.style.left = `${screenZone[1]}px`;
+  dom.elements.zone.style.width = `${screenZone[2]}px`;
+  dom.elements.zone.style.height = `${screenZone[3]}px`;
+
+  dom.elements.nextZone.style.top = `${screenNextZone[0]}px`;
+  dom.elements.nextZone.style.left = `${screenNextZone[1]}px`;
+  dom.elements.nextZone.style.width = `${screenNextZone[2]}px`;
+  dom.elements.nextZone.style.height = `${screenNextZone[3]}px`;
 }
 
 function drawGUI({ player, zone, nextZone }) {
