@@ -24,8 +24,6 @@ Multiplayer survival game.
 
 #### Client
 
-- list spawnpoints with positions
-- player will spawn at given spawn point received from server as an index
 - player hp is displayed
 - player hp is updated based on server state
 - client has single method to reset state
@@ -84,6 +82,10 @@ Multiplayer survival game.
 
 ### Misc
 
+- refactor: move moveElementTo inside dom object
+- GUI displays time to next shrink
+- GUI displays current hp
+- GUI displays alive players
 - players have hp
 - player has inventory
   - 2 slots for guns
@@ -129,3 +131,5 @@ Multiplayer survival game.
 - server generates shuffled index to spawn point index for each player
 - server broadcasts setup new game event to all clients to start a new round
 - optimization: gather closeby obstacles in the beginning of a tick
+- list spawnpoints with positions
+- player will spawn at given spawn point received from server as an index
