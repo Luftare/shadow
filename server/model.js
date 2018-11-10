@@ -23,9 +23,8 @@ function initModel(handleNewGameCallback) {
 }
 
 function getInitState(players = []) {
-  const spawnPointIndexes = shuffle([...Array(players.length)]).map(
-    (_, i) => i
-  );
+  const orderedIndexes = [...Array(players.length)].map((_, i) => i);
+  const spawnPointIndexes = shuffle(orderedIndexes);
   const updatedPlayers = players.map((player, i) => {
     return {
       ...player,
