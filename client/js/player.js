@@ -32,7 +32,7 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles }) {
     player.position = newPosition;
     connection.appendNewPosition(player.position);
     audio.playSound(audio.sounds.step);
-    moveElementTo(dom.elements.player, player.position);
+    dom.moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
   }
 }

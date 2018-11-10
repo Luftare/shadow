@@ -16,7 +16,7 @@ function tick(state, world) {
 }
 function initGame(world, state) {
   setupEventListeners(state);
-  moveElementTo(dom.elements.player, state.player.position);
+  dom.moveElementTo(dom.elements.player, state.player.position);
   renderWorld(world);
   setInterval(() => {
     // logTickDt();

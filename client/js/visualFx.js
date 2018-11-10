@@ -8,7 +8,7 @@ function flashImageAt(src, position) {
   element.src = src;
   element.classList = 'fx--cell fx--flash';
   fxContainer.appendChild(element);
-  moveElementTo(element, position);
+  dom.moveElementTo(element, position);
   setTimeout(() => {
     fxContainer.removeChild(element);
   }, 300);

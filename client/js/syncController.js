@@ -36,7 +36,7 @@ const syncController = {
     });
 
     opponents.forEach(({ element, localPosition }) =>
-      moveElementTo(element, localPosition)
+      dom.moveElementTo(element, localPosition)
     );
   },
   applyNewStateToOpponent(serverOpponent, localOpponents) {
@@ -66,7 +66,7 @@ const syncController = {
     const localPosition = opponent[PROPNAME_POSITION_BUFFER][0];
 
     const element = dom.createOpponentElement();
-    moveElementTo(element, localPosition);
+    dom.moveElementTo(element, localPosition);
 
     state.opponents.push({
       ...opponent,
@@ -136,6 +136,6 @@ const syncController = {
       localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
 
     player.position = [spawnPoint[0], spawnPoint[1]];
-    moveElementTo(dom.elements.player, player.position);
+    dom.moveElementTo(dom.elements.player, player.position);
   },
 };

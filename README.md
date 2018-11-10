@@ -24,7 +24,6 @@ Multiplayer survival game.
 
 #### Client
 
-- player hp is displayed
 - player hp is updated based on server state
 - client has single method to reset state
 - client is able to apply server updates to resetted state
@@ -82,8 +81,6 @@ Multiplayer survival game.
 
 ### Misc
 
-- use html elements for zones to animate shrinks
-- refactor: move moveElementTo inside dom object
 - GUI displays time to next shrink
 - GUI displays current hp
 - GUI displays alive players
@@ -134,3 +131,5 @@ Multiplayer survival game.
 - optimization: gather closeby obstacles in the beginning of a tick
 - list spawnpoints with positions
 - player will spawn at given spawn point received from server as an index
+- use html elements for zones to animate shrinks
+- refactor: move moveElementTo inside dom object

@@ -1,8 +1,3 @@
-function moveElementTo(element, [x, y]) {
-  element.style.top = `${y * CELL_HEIGHT}px`;
-  element.style.left = `${x * CELL_WIDTH}px`;
-}
-
 const dom = {
   init() {
     const { canvas, shadowCanvas } = dom.elements;
@@ -33,6 +28,10 @@ const dom = {
 
     canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
     canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;
+  },
+  moveElementTo(element, [x, y]) {
+    element.style.top = `${y * CELL_HEIGHT}px`;
+    element.style.left = `${x * CELL_WIDTH}px`;
   },
   createOpponentElement() {
     const element = document.createElement('div');
