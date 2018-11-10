@@ -7,6 +7,7 @@ const {
   PROPNAME_POSITION,
   PROPNAME_PAYLOAD,
   PROPNAME_ID,
+  PROPNAME_RECEIVE_HIT,
   GRID_CELLS_X,
   GRID_CELLS_Y,
 } = require('../shared/sharedSocketConfig');
@@ -45,11 +46,11 @@ function getInitState(players = []) {
 }
 
 function requestNewGame({ players, zone }) {
-  if (zone[2] < 25) {
-    resetState(players);
-    handleNewGame(state);
-    return;
-  }
+  // if (zone[2] < 25) {
+  //   resetState(players);
+  //   handleNewGame(state);
+  //   return;
+  // }
 
   if (players.length > 1) {
     const onePlayerAlive = players.filter(player => player.hp > 0).length <= 1;
@@ -81,6 +82,15 @@ function handleClientUpdates(id, updates) {
         if (bufferIsFull) {
           player[PROPNAME_POSITION_BUFFER].shift();
           player[PROPNAME_POSITION_BUFFER_OFFSET]++;
+        }
+        break;
+      case PROPNAME_RECEIVE_HIT:
+        const targetId = update[PROPNAME_PAYLOAD];
+        const target = state.players.find(
+          player => player[PROPNAME_ID] === targetId
+        );
+        if (target) {
+          target.hp = Math.max(0, target.hp - 20);
         }
         break;
 

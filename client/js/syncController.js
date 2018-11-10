@@ -83,6 +83,13 @@ const syncController = {
     );
     dom.removeOpponentElement(opponent.element);
   },
+  handleLocalPlayerModel(serverState, localState) {
+    const { PROPNAME_ID } = sharedSocketConfig;
+    const serverStatePlayer = serverState.players.find(
+      player => player[PROPNAME_ID] === connection.id
+    );
+    localState.player.hp = serverStatePlayer.hp;
+  },
   handlePlayerModelUpdate(serverState, localState) {
     const { PROPNAME_ID } = sharedSocketConfig;
     const serverOpponents = serverState.players.filter(
@@ -122,20 +129,38 @@ const syncController = {
     localState.nextZone = serverState.nextZone;
   },
   handleReceivedStateFromServer(serverState, localState) {
+    syncController.handleLocalPlayerModel(serverState, localState);
     syncController.handlePlayerModelUpdate(serverState, localState);
     syncController.handleZoneUpdate(serverState, localState);
   },
   handleInitNewGame(data, localState) {
-    const { PROPNAME_ID } = sharedSocketConfig;
+    const { PROPNAME_ID, PROPNAME_POSITION_BUFFER } = sharedSocketConfig;
     const { player } = localState;
     const serverPlayerData = data.players.find(
       player => player[PROPNAME_ID] === connection.id
     );
     const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
+    const debugIndex = 5;
     const spawnPoint =
-      localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
+      // localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
+      localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
 
-    player.position = [spawnPoint[0], spawnPoint[1]];
+    player.position = [...spawnPoint];
     dom.moveElementTo(dom.elements.player, player.position);
+
+    localState.opponents.forEach(opponent => {
+      this.removeOpponent(opponent, localState);
+    });
+    localState.opponents = [];
+
+    data.players.forEach(player => {
+      if (player[PROPNAME_ID] !== connection.id) {
+        const spawnPoint =
+          // localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
+          localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
+        player[PROPNAME_POSITION_BUFFER][0] = [...spawnPoint];
+        syncController.addNewOpponent(player, localState);
+      }
+    });
   },
 };

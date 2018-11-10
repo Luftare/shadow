@@ -16,19 +16,12 @@ Multiplayer survival game.
 #### Server
 
 - players outside zone will receive damage
-- server resets the game state once only one player is alive if there are more than one players connected
 - server test scored hits and does not apply shots from already dead players
-- server updates clients about shots made and discards all shots after the broadcast
 - server keeps track of player that have connected during the game and will show them as observers
-- server will track hp and message deaths
 
 #### Client
 
-- player hp is updated based on server state
-- client has single method to reset state
-- client is able to apply server updates to resetted state
 - notify who won last game
-- client updates server when opponent is shot
 - client figures out if damage is received by comparing local hp to server update hp
 - scoring a hit to a remote player is determined by local player's state of the remote players
 - remote players receive damage upon click on them
@@ -38,7 +31,6 @@ Multiplayer survival game.
 
 ### Gameplay
 
-- player spawnpoints are defined and each player will be randomised to their own spawnpoint
 - gun shot damage is determined by how close to the center of the cell is clicked
 - dead players will be able to see the whole game field without shadow to observe other players
 
@@ -84,7 +76,6 @@ Multiplayer survival game.
 - GUI displays time to next shrink
 - GUI displays current hp
 - GUI displays alive players
-- players have hp
 - player has inventory
   - 2 slots for guns
 - items can be looted if there are free slots in inventory
@@ -133,3 +124,11 @@ Multiplayer survival game.
 - player will spawn at given spawn point received from server as an index
 - use html elements for zones to animate shrinks
 - refactor: move moveElementTo inside dom object
+- player hp is updated based on server state
+- client has single method to reset state
+- client is able to apply server updates to resetted state
+- client updates server when opponent is shot
+- player spawnpoints are defined and each player will be randomised to their own spawnpoint
+- server updates clients about shots made and discards all shots after the broadcast
+- server resets the game state once only one player is alive if there are more than one players connected
+- players have hp

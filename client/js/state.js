@@ -2,6 +2,7 @@ function getInitState(world) {
   const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
 
   const player = {
+    hp: 100,
     lastMoveTime: 0,
     position: [9, 9],
     aim: [-10, -10],
