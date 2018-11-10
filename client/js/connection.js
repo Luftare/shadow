@@ -31,7 +31,7 @@ const connection = (function() {
         const socket = io();
 
         socket.on(EVENT_SERVER_INIT_NEW_GAME, data => {
-          syncController.handleInitNewGame(data);
+          syncController.handleInitNewGame(data, state);
         });
 
         socket.on(EVENT_SERVER_INIT_CLIENT, initData => {

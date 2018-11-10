@@ -125,7 +125,18 @@ const syncController = {
     syncController.handlePlayerModelUpdate(serverState, localState);
     syncController.handleZoneUpdate(serverState, localState);
   },
-  handleInitNewGame(data) {
+  handleInitNewGame(data, localState) {
+    const { PROPNAME_ID } = sharedSocketConfig;
+    const { player } = localState;
+    const serverPlayerData = data.players.find(
+      player => player[PROPNAME_ID] === connection.id
+    );
+    const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
+    const spawnPoint =
+      localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
+
+    player.position = [spawnPoint[0], spawnPoint[1]];
+    moveElementTo(dom.elements.player, player.position);
     console.log('NEW GAME! ', data);
   },
 };

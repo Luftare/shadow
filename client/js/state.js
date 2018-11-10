@@ -26,5 +26,6 @@ function getInitState(world) {
     obstacles,
     closebyObstacles,
     obstacleAdjacents,
+    world,
   };
 }

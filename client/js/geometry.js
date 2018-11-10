@@ -51,11 +51,6 @@ function areIdentical(a, b) {
   return a[0] === b[0] && a[1] === b[1];
 }
 
-function moveElementTo(element, [x, y]) {
-  element.style.top = `${y * CELL_HEIGHT}px`;
-  element.style.left = `${x * CELL_WIDTH}px`;
-}
-
 function getAdjacentCells([x, y]) {
   const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
   const result = [];
