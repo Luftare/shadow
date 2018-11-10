@@ -84,7 +84,6 @@ Multiplayer survival game.
 
 ### Misc
 
-- limit shadow update to visible portion of screen
 - players have hp
 - player has inventory
   - 2 slots for guns
@@ -100,6 +99,7 @@ Multiplayer survival game.
 - audio source direction will change pan
 - settings can be configured by players and stored in local storage
 - player cannot move to a cell if there's an opponent
+- limit shadow update to visible portion of screen
 
 ## Done
 

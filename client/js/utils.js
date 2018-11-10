@@ -1,3 +1,11 @@
+function logTickDt() {
+  const now = Date.now();
+  const dt = now - logTickDt.then;
+  logTickDt.then = now;
+  console.log(dt);
+}
+logTickDt.then = Date.now();
+
 function getCameraOffset({ player }) {
   const x = Math.ceil(player.position[0] - CAMERA_VIEW_WIDTH / 2);
   const y = Math.ceil(player.position[1] - CAMERA_VIEW_HEIGHT / 2);

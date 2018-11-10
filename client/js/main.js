@@ -14,12 +14,12 @@ function tick(state, world) {
   connection.requestUpdate();
   resetHandledInputs();
 }
-
 function initGame(world, state) {
   setupEventListeners(state);
   moveElementTo(dom.elements.player, state.player.position);
   renderWorld(world);
   setInterval(() => {
+    // logTickDt();
     tick(state, world);
   }, FRAME_TIME);
 }

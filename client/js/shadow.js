@@ -18,8 +18,8 @@ function drawShadow(state) {
 
 function updateShadow(state) {
   const { shadowAlphaGrid } = state;
-  shadowAlphaGrid.forEach((col, x) =>
-    col.forEach((_, y) => {
+  shadowAlphaGrid.forEach((columns, x) =>
+    columns.forEach((_, y) => {
       shadowAlphaGrid[x][y] = 1;
     })
   );
@@ -27,8 +27,8 @@ function updateShadow(state) {
   revealPlayerZone(state);
 }
 
-function updateClosebyObstacles(state, world) {
-  const { player, obstacles, closebyObstacles } = state;
+function updateClosebyObstacles(state) {
+  const { player, obstacles } = state;
   const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
   state.closebyObstacles = [];
   const startX = Math.max(0, player.position[0] - PLAYER_AIM_SIGHT);
