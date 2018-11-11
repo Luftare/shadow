@@ -13,3 +13,10 @@ function flashImageAt(src, position) {
     fxContainer.removeChild(element);
   }, 500);
 }
+
+function flashBlurScreen() {
+  dom.elements.game.classList.add('fx--blur');
+  setTimeout(() => {
+    dom.elements.game.classList.remove('fx--blur');
+  }, 200);
+}

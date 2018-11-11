@@ -22,9 +22,6 @@ Multiplayer survival game.
 #### Client
 
 - notify who won last game
-- client figures out if damage is received by comparing local hp to server update hp
-- scoring a hit to a remote player is determined by local player's state of the remote players
-- remote players receive damage upon click on them
 - clients remove dead opponents
 - frags are notified to all players
 - number of players is notified
@@ -50,7 +47,7 @@ Multiplayer survival game.
 
 ### Visual fx
 
-- receiving damage blinks screen red
+- opponents' shot direction is displayd on map
 - shooting shakes the screen to recoil direction
 - obstacles have type and custom sprites
   - wall
@@ -73,9 +70,7 @@ Multiplayer survival game.
 
 ### Misc
 
-- clicks are determined on click and white square is removed leaving the explosion flash as only marker for position
 - GUI displays time to next shrink
-- GUI displays current hp
 - GUI displays alive players
 - player has inventory
   - 2 slots for guns
@@ -133,3 +128,9 @@ Multiplayer survival game.
 - server updates clients about shots made and discards all shots after the broadcast
 - server resets the game state once only one player is alive if there are more than one players connected
 - players have hp
+- clicks are determined on click and white square is removed leaving the explosion flash as only marker for position
+- client figures out if damage is received by comparing local hp to server update hp
+- scoring a hit to a remote player is determined by local player's state of the remote players
+- remote players receive damage upon click on them
+- GUI displays current hp
+- receiving damage blurs screen

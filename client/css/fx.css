@@ -8,6 +8,15 @@
   }
 }
 
+@keyframes fx-blur {
+  0% {
+    filter: blur(10px);
+  }
+  100% {
+    filter: blur(0);
+  }
+}
+
 .fx--cell {
   position: absolute;
   width: var(--cell-width);
@@ -17,4 +26,19 @@
 .fx--flash {
   animation: fx-flash 200ms;
   opacity: 0;
+}
+
+.fx--blur {
+  animation: fx-blur 100ms;
+}
+
+.fx__overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  left: 0;
+  background-color: red;
+  pointer-events: none;
 }

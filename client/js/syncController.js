@@ -88,7 +88,9 @@ const syncController = {
     const serverStatePlayer = serverState.players.find(
       player => player[PROPNAME_ID] === connection.id
     );
+    const receivedDamage = localState.player.hp > serverStatePlayer.hp;
     localState.player.hp = serverStatePlayer.hp;
+    if (receivedDamage) flashBlurScreen();
   },
   handlePlayerModelUpdate(serverState, localState) {
     const { PROPNAME_ID } = sharedSocketConfig;

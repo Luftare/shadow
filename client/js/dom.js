@@ -43,6 +43,8 @@ const dom = {
     dom.elements.opponents.removeChild(element);
   },
   elements: {
+    fxOverlay: document.querySelector('.fx__overlay'),
+    hpBar: document.querySelector('.GUI__hp-bar'),
     zone: document.getElementById('zone'),
     nextZone: document.getElementById('next-zone'),
     mapDataImage: document.getElementById('map-data-image'),

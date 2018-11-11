@@ -13,6 +13,11 @@ function drawZones(zone, nextZone) {
   dom.elements.nextZone.style.height = `${screenNextZone[3]}px`;
 }
 
-function drawGUI({ zone, nextZone }) {
+function updateHpBar(player) {
+  dom.elements.hpBar.style.width = `${player.hp}%`;
+}
+
+function drawGUI({ zone, nextZone, player }) {
   drawZones(zone, nextZone);
+  updateHpBar(player);
 }
