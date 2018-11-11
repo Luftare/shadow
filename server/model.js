@@ -11,6 +11,7 @@ const {
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
+  NEW_GAME_DELAY_TIME,
 } = require('../shared/sharedSocketConfig');
 
 const { shuffle } = require('./utils');
@@ -51,8 +52,10 @@ function requestNewGame({ players }) {
     const onePlayerAlive = players.filter(player => player.hp > 0).length <= 1;
 
     if (onePlayerAlive) {
-      resetState(players);
-      handleNewGame(state);
+      setTimeout(() => {
+        resetState(players);
+        handleNewGame(state);
+      }, NEW_GAME_DELAY_TIME);
     }
   }
 }

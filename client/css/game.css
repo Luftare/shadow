@@ -76,3 +76,7 @@
   height: var(--cell-height);
   pointer-events: none;
 }
+
+.game__opponent--dead {
+  background-color: grey;
+}

@@ -7,6 +7,10 @@ const syncController = {
     const now = Date.now();
 
     opponents.forEach(opponent => {
+      if (opponent.hp <= 0) {
+        opponent.element.classList.add('game__opponent--dead');
+        return;
+      }
       const timeSinceLastMove = now - opponent.lastMovementTime;
       const enoughtTimeSinceLastMove =
         timeSinceLastMove >= OPPONENT_MOVE_SLEEP_TIME;
@@ -55,6 +59,7 @@ const syncController = {
       serverOpponent[PROPNAME_POSITION_BUFFER];
     localOpponent[PROPNAME_POSITION_BUFFER_OFFSET] =
       serverOpponent[PROPNAME_POSITION_BUFFER_OFFSET];
+    localOpponent.hp = serverOpponent.hp;
   },
   addNewOpponent(opponent, state) {
     const {
@@ -67,7 +72,7 @@ const syncController = {
 
     const element = dom.createOpponentElement();
     dom.moveElementTo(element, localPosition);
-
+    console.log(opponent);
     state.opponents.push({
       ...opponent,
       localPositionBufferIndex,
@@ -144,7 +149,7 @@ const syncController = {
     const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
     const debugIndex = 5;
     const spawnPoint =
-      // localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
+      //DEBUG: localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
       localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
 
     player.position = [...spawnPoint];
@@ -158,7 +163,7 @@ const syncController = {
     data.players.forEach(player => {
       if (player[PROPNAME_ID] !== connection.id) {
         const spawnPoint =
-          // localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
+          //DEBUG: localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
           localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
         player[PROPNAME_POSITION_BUFFER][0] = [...spawnPoint];
         syncController.addNewOpponent(player, localState);
