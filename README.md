@@ -65,6 +65,8 @@ Multiplayer survival game.
 
 ### Misc
 
+- opponent shots are played back
+- opponent steps are played back
 - optimization: store visibility alpha only for closeby area
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
 - refactor: move fx into single object

@@ -10,7 +10,7 @@
 
 @keyframes fx-recoil {
   0% {
-    transform: scale(0.96, 0.96) translateY(8px);
+    transform: scale(0.98, 0.98) translateY(8px);
   }
   100% {
     transform: none;
@@ -27,7 +27,7 @@
 }
 
 .fx--recoil {
-  animation: fx-recoil 80ms;
+  animation: fx-recoil 40ms;
 }
 
 .fx--cell {

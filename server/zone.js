@@ -34,7 +34,7 @@ function getNextZone([x, y, width, height]) {
     Math.max(ZONE_MIN_DIAMETER, height - diameterShrink),
   ];
   const newCenter = currentCenter.map(
-    val => val + random(-diameterShrink, diameterShrink) / 3
+    val => val + random(-diameterShrink, diameterShrink)
   );
   return [
     Math.floor(newCenter[0] - newSize[0] / 2),

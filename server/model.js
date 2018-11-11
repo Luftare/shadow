@@ -18,6 +18,8 @@ const { shuffle } = require('./utils');
 
 const { updateZone, pointInsideZone, requestZoneDamage } = require('./zone');
 
+let newGameOnTimeout = false;
+
 let state = getInitState();
 let handleNewGame;
 
@@ -48,11 +50,13 @@ function getInitState(players = []) {
 }
 
 function requestNewGame({ players }) {
-  if (players.length > 1) {
+  if (players.length > 1 && !newGameOnTimeout) {
     const onePlayerAlive = players.filter(player => player.hp > 0).length <= 1;
 
     if (onePlayerAlive) {
+      newGameOnTimeout = true;
       setTimeout(() => {
+        newGameOnTimeout = false;
         resetState(players);
         handleNewGame(state);
       }, NEW_GAME_DELAY_TIME);
@@ -81,7 +85,7 @@ function updateModel() {
 
 function handleClientUpdates(id, updates) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
-
+  if (!player) return;
   updates.forEach(update => {
     const updateType = update[PROPNAME_TYPE];
 
