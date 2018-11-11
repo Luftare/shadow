@@ -15,14 +15,12 @@ Multiplayer survival game.
 
 #### Server
 
+- frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
 - server keeps track of player that have connected during the game and will show them as observers
 
 #### Client
 
-- notify who won last game
-- clients remove dead opponents
-- frags are notified to all players
 - number of players is notified
 
 ### Gameplay
@@ -46,7 +44,6 @@ Multiplayer survival game.
 ### Visual fx
 
 - opponents' shot direction is displayd on map
-- shooting shakes the screen to recoil direction
 - obstacles have type and custom sprites
   - wall
   - tree
@@ -77,10 +74,10 @@ Multiplayer survival game.
 - two guns can be equipped and selected from
 - opponents rotate to their facing
 - nickname is stored accross sessions in local storage
-- create larger map with relevant content
 
 ## Maybe?
 
+- notify who won last game
 - audio source direction will change pan
 - settings can be configured by players and stored in local storage
 - player cannot move to a cell if there's an opponent
@@ -134,3 +131,6 @@ Multiplayer survival game.
 - GUI displays current hp
 - receiving damage blurs screen
 - players outside zone will receive damage
+- clients remove dead opponents
+- shooting shakes the screen
+- create larger map with relevant content

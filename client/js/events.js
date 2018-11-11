@@ -32,6 +32,7 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
     const canvasPosition = [x - offsetX, y - offsetY];
     const gridPosition = screenToGrid(canvasPosition);
     const withinSight = shadowAlphaGrid[gridPosition[0]][gridPosition[1]] < 1;
+    player.aim = gridPosition;
 
     if (withinSight) {
       playerInput.clicks.push([...player.aim]);

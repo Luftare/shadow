@@ -55,5 +55,7 @@ const dom = {
     fxContainer: document.querySelector('.game__fx'),
     player: document.querySelector('.game__player'),
     opponents: document.querySelector('.game__opponents'),
+    modal: document.querySelector('.modal'),
+    modalHeader: document.querySelector('.modal__header'),
   },
 };
