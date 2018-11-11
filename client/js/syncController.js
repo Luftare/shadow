@@ -90,7 +90,7 @@ const syncController = {
     );
     const receivedDamage = localState.player.hp > serverStatePlayer.hp;
     localState.player.hp = serverStatePlayer.hp;
-    if (receivedDamage) flashBlurScreen();
+    if (receivedDamage) flashRedScreen();
   },
   handlePlayerModelUpdate(serverState, localState) {
     const { PROPNAME_ID } = sharedSocketConfig;

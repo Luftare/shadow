@@ -49,6 +49,7 @@ const dom = {
     nextZone: document.getElementById('next-zone'),
     mapDataImage: document.getElementById('map-data-image'),
     game: document.querySelector('.game'),
+    gameContainer: document.querySelector('.game__container'),
     canvas: document.querySelector('.game__world'),
     shadowCanvas: document.querySelector('.game__shadow'),
     fxContainer: document.querySelector('.game__fx'),

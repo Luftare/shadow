@@ -8,6 +8,15 @@
   }
 }
 
+@keyframes fx-recoil {
+  0% {
+    transform: scale(1.05, 1.05);
+  }
+  100% {
+    transform: none;
+  }
+}
+
 @keyframes fx-blur {
   0% {
     filter: blur(20px);
@@ -17,6 +26,10 @@
   }
 }
 
+.fx--recoil {
+  animation: fx-recoil 80ms;
+}
+
 .fx--cell {
   position: absolute;
   width: var(--cell-width);
@@ -24,7 +37,7 @@
 }
 
 .fx--flash {
-  animation: fx-flash 200ms;
+  animation: fx-flash 100ms;
   opacity: 0;
 }
 

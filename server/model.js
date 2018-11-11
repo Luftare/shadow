@@ -10,11 +10,12 @@ const {
   PROPNAME_RECEIVE_HIT,
   GRID_CELLS_X,
   GRID_CELLS_Y,
+  ZONE_DAMAGE,
 } = require('../shared/sharedSocketConfig');
 
 const { shuffle } = require('./utils');
 
-const { updateZone, pointInsideZone } = require('./zone');
+const { updateZone, pointInsideZone, requestZoneDamage } = require('./zone');
 
 let state = getInitState();
 let handleNewGame;
@@ -57,14 +58,14 @@ function requestNewGame({ players }) {
 }
 
 function handleZoneDamage(state) {
-  // console.log(state.players[0]);
+  if (!requestZoneDamage()) return;
   state.players.forEach(player => {
     const position =
       player[PROPNAME_POSITION_BUFFER][
         player[PROPNAME_POSITION_BUFFER].length - 1
       ];
     if (!pointInsideZone(position, state.zone)) {
-      player.hp = Math.max(0, player.hp - 1);
+      player.hp = Math.max(0, player.hp - ZONE_DAMAGE);
     }
   });
 }

@@ -36,6 +36,7 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
     if (withinSight) {
       playerInput.clicks.push([...player.aim]);
       audio.playSound(audio.sounds.shot);
+      applyRecoil();
     }
   });
 }

@@ -2,7 +2,10 @@ const {
   ZONE_SHRINK_SLEEP_TIME,
   ZONE_DIAMETER_SHRINK_AMOUNT,
   ZONE_MIN_DIAMETER,
+  ZONE_DAMAGE_SLEEP_TIME,
 } = require('../shared/sharedSocketConfig');
+
+let lastZoneDamageTime = 0;
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -40,6 +43,17 @@ function getNextZone([x, y, width, height]) {
   ];
 }
 
+function requestZoneDamage() {
+  const now = Date.now();
+  const timeSinceLastZoneDamage = now - lastZoneDamageTime;
+  const willDamage = timeSinceLastZoneDamage > ZONE_DAMAGE_SLEEP_TIME;
+  if (willDamage) {
+    lastZoneDamageTime = now;
+    return true;
+  }
+  return false;
+}
+
 function updateZone(state) {
   const { lastZoneShrinkTime } = state;
   const now = Date.now();
@@ -63,4 +77,5 @@ function updateZone(state) {
 module.exports = {
   updateZone,
   pointInsideZone,
+  requestZoneDamage,
 };

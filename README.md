@@ -27,7 +27,6 @@ Multiplayer survival game.
 
 ### Gameplay
 
-- gun shot damage is determined by how close to the center of the cell is clicked
 - dead players will be able to see the whole game field without shadow to observe other players
 
 ### Items
@@ -86,6 +85,7 @@ Multiplayer survival game.
 - settings can be configured by players and stored in local storage
 - player cannot move to a cell if there's an opponent
 - limit shadow update to visible portion of screen
+- gun shot damage is determined by how close to the center of the cell is clicked
 
 ## Done
 
