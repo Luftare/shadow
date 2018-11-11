@@ -153,6 +153,7 @@ const syncController = {
       localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
 
     player.position = [...spawnPoint];
+    connection.appendNewPosition(player.position);
     dom.moveElementTo(dom.elements.player, player.position);
 
     localState.opponents.forEach(opponent => {
