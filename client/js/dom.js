@@ -57,5 +57,7 @@ const dom = {
     opponents: document.querySelector('.game__opponents'),
     modal: document.querySelector('.modal'),
     modalHeader: document.querySelector('.modal__header'),
+    zoneTime: document.querySelector('.GUI__zone-time'),
+    alivePlayers: document.querySelector('.GUI__alive-players'),
   },
 };

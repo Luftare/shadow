@@ -26,6 +26,13 @@ function updateHpBar(player) {
   dom.elements.hpBar.style.width = `${player.hp}%`;
 }
 
+function updateGUINumbers({ player, opponents, timeToNextZoneShrink }) {
+  const self = player.hp > 0 ? 1 : 0;
+  dom.elements.alivePlayers.innerHTML =
+    opponents.filter(opponent => opponent.hp > 0).length + self;
+  dom.elements.zoneTime.innerHTML = Math.round(timeToNextZoneShrink / 1000);
+}
+
 function updateModal({ opponents, player }) {
   if (!opponents.some(opponent => opponent.hp > 0)) {
     showModalText('Win!');
@@ -41,4 +48,5 @@ function drawGUI(state) {
   updateModal(state);
   drawZones(zone, nextZone);
   updateHpBar(player);
+  updateGUINumbers(state);
 }

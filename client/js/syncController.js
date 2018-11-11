@@ -72,7 +72,6 @@ const syncController = {
 
     const element = dom.createOpponentElement();
     dom.moveElementTo(element, localPosition);
-    console.log(opponent);
     state.opponents.push({
       ...opponent,
       localPositionBufferIndex,
@@ -139,6 +138,7 @@ const syncController = {
     syncController.handleLocalPlayerModel(serverState, localState);
     syncController.handlePlayerModelUpdate(serverState, localState);
     syncController.handleZoneUpdate(serverState, localState);
+    localState.timeToNextZoneShrink = serverState.timeToNextZoneShrink;
   },
   handleInitNewGame(data, localState) {
     const { PROPNAME_ID, PROPNAME_POSITION_BUFFER } = sharedSocketConfig;

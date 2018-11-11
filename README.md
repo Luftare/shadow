@@ -38,7 +38,7 @@ Multiplayer survival game.
 
 ### Menu
 
-- menu and game views can be switched without page reaload
+- menu and game views can be switched without page reload
 - player is prompted a nickname before entering game
 
 ### Visual fx
@@ -65,8 +65,10 @@ Multiplayer survival game.
 
 ### Misc
 
-- GUI displays time to next shrink
-- GUI displays alive players
+- optimization: store visibility alpha only for closeby area
+- refactor: remove duplicate argument passes with world since world now belongs to state at client
+- refactor: move fx into single object
+- refactor: remove PROPNAMEs for simplicity and only use EVENT_NAMEs
 - player has inventory
   - 2 slots for guns
 - items can be looted if there are free slots in inventory
@@ -134,3 +136,5 @@ Multiplayer survival game.
 - clients remove dead opponents
 - shooting shakes the screen
 - create larger map with relevant content
+- GUI displays time to next shrink
+- GUI displays alive players
