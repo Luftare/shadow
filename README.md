@@ -15,7 +15,6 @@ Multiplayer survival game.
 
 #### Server
 
-- players outside zone will receive damage
 - server test scored hits and does not apply shots from already dead players
 - server keeps track of player that have connected during the game and will show them as observers
 
@@ -134,3 +133,4 @@ Multiplayer survival game.
 - remote players receive damage upon click on them
 - GUI displays current hp
 - receiving damage blurs screen
+- players outside zone will receive damage

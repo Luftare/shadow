@@ -14,7 +14,7 @@ const {
 
 const { shuffle } = require('./utils');
 
-const { updateZone } = require('./zone');
+const { updateZone, pointInsideZone } = require('./zone');
 
 let state = getInitState();
 let handleNewGame;
@@ -45,13 +45,7 @@ function getInitState(players = []) {
   };
 }
 
-function requestNewGame({ players, zone }) {
-  // if (zone[2] < 25) {
-  //   resetState(players);
-  //   handleNewGame(state);
-  //   return;
-  // }
-
+function requestNewGame({ players }) {
   if (players.length > 1) {
     const onePlayerAlive = players.filter(player => player.hp > 0).length <= 1;
 
@@ -62,8 +56,22 @@ function requestNewGame({ players, zone }) {
   }
 }
 
+function handleZoneDamage(state) {
+  // console.log(state.players[0]);
+  state.players.forEach(player => {
+    const position =
+      player[PROPNAME_POSITION_BUFFER][
+        player[PROPNAME_POSITION_BUFFER].length - 1
+      ];
+    if (!pointInsideZone(position, state.zone)) {
+      player.hp = Math.max(0, player.hp - 1);
+    }
+  });
+}
+
 function updateModel() {
   updateZone(state);
+  handleZoneDamage(state);
   requestNewGame(state);
 }
 

@@ -8,6 +8,15 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function pointInsideZone([x, y], zone) {
+  return (
+    x >= zone[0] &&
+    x < zone[0] + zone[2] &&
+    y >= zone[1] &&
+    y < zone[1] + zone[3]
+  );
+}
+
 function getNextZone([x, y, width, height]) {
   const zoneReachedMinSize =
     ZONE_MIN_DIAMETER >= width || ZONE_MIN_DIAMETER >= height;
@@ -53,4 +62,5 @@ function updateZone(state) {
 
 module.exports = {
   updateZone,
+  pointInsideZone,
 };
