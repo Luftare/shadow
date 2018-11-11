@@ -1,14 +1,3 @@
-function drawAim(position) {
-  const ctx = dom.elements.shadowCanvas.getContext('2d');
-  ctx.globalAlpha = 1;
-  const [aimX, aimY] = gridToScreen(position);
-  ctx.strokeStyle = 'white';
-  ctx.lineWidth = 3;
-  ctx.rect(aimX, aimY, CELL_WIDTH, CELL_HEIGHT);
-  ctx.stroke();
-  ctx.closePath();
-}
-
 function drawZones(zone, nextZone) {
   const screenZone = gridToScreen(zone);
   const screenNextZone = gridToScreen(nextZone);
@@ -24,7 +13,6 @@ function drawZones(zone, nextZone) {
   dom.elements.nextZone.style.height = `${screenNextZone[3]}px`;
 }
 
-function drawGUI({ player, zone, nextZone }) {
-  drawAim(player.aim);
+function drawGUI({ zone, nextZone }) {
   drawZones(zone, nextZone);
 }

@@ -73,6 +73,7 @@ Multiplayer survival game.
 
 ### Misc
 
+- clicks are determined on click and white square is removed leaving the explosion flash as only marker for position
 - GUI displays time to next shrink
 - GUI displays current hp
 - GUI displays alive players

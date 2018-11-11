@@ -55,7 +55,7 @@ function revealPlayerZone({
   const toMouse = subtract(player.aim, player.position);
   const toMouseNormalised = normalise(toMouse);
   const aimDistance = length(toMouse);
-  const aimSight = Math.min(aimDistance + 3, PLAYER_AIM_SIGHT);
+  const aimSight = Math.min(aimDistance + 5, PLAYER_AIM_SIGHT);
   const sight = player.aiming ? aimSight : PLAYER_SIGHT;
   const fieldOfView = player.aiming
     ? PLAYER_AIM_FIELD_OF_VIEW

@@ -27,7 +27,11 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
 
   canvas.addEventListener('mousedown', e => {
     e.preventDefault();
-    const withinSight = shadowAlphaGrid[player.aim[0]][player.aim[1]] < 1;
+    const { x, y } = e;
+    const { left: offsetX, top: offsetY } = canvas.getBoundingClientRect();
+    const canvasPosition = [x - offsetX, y - offsetY];
+    const gridPosition = screenToGrid(canvasPosition);
+    const withinSight = shadowAlphaGrid[gridPosition[0]][gridPosition[1]] < 1;
 
     if (withinSight) {
       playerInput.clicks.push([...player.aim]);

@@ -11,5 +11,5 @@ function flashImageAt(src, position) {
   dom.moveElementTo(element, position);
   setTimeout(() => {
     fxContainer.removeChild(element);
-  }, 300);
+  }, 500);
 }

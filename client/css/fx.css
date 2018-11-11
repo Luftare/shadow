@@ -15,6 +15,6 @@
 }
 
 .fx--flash {
-  animation: fx-flash 100ms;
+  animation: fx-flash 200ms;
   opacity: 0;
 }
