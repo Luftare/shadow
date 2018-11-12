@@ -129,6 +129,10 @@ function handleClientUpdates(id, updates) {
 
 function addPlayer(id) {
   const position = [9, 9];
+  const existingPlayer = state.players.find(
+    player => player[PROPNAME_ID] === id
+  );
+  if (existingPlayer) return existingPlayer;
 
   const player = {
     [PROPNAME_ID]: id,
