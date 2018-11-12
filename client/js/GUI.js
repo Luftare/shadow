@@ -34,12 +34,19 @@ function updateGUINumbers({ player, opponents, timeToNextZoneShrink }) {
 }
 
 function updateModal({ opponents, player }) {
-  if (opponents.length > 0 && !opponents.some(opponent => opponent.hp > 0)) {
-    showModalText('Win!');
-  } else if (player.hp <= 0) {
-    showModalText('Meh...');
+  hideModal();
+  const enoughPlayers = opponents.length > 0;
+  const anyOpponentAlive = opponents.some(opponent => opponent.hp > 0);
+  if (enoughPlayers) {
+    if (anyOpponentAlive) {
+      if (player.hp <= 0) {
+        showModalText('Died...<br>waiting for next round');
+      }
+    } else {
+      showModalText('Win!<br>next round starting...');
+    }
   } else {
-    hideModal();
+    showModalText('Waiting for players...');
   }
 }
 

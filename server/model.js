@@ -134,7 +134,7 @@ function addPlayer(id) {
     [PROPNAME_ID]: id,
     [PROPNAME_POSITION_BUFFER]: [position],
     [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
-    hp: 100,
+    hp: 0,
     spawnPointIndex: 0,
     shots: [],
   };
