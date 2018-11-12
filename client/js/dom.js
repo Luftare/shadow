@@ -1,4 +1,5 @@
 const dom = {
+  shotIndicatorFlashTimeoutId: null,
   init() {
     const { canvas, shadowCanvas } = dom.elements;
     const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
@@ -42,8 +43,20 @@ const dom = {
   removeOpponentElement(element) {
     dom.elements.opponents.removeChild(element);
   },
+  indicateShotAtDirection(position, { player }) {
+    const toShot = subtract(position, player.position);
+    const angle = vectorAngle(toShot) - Math.PI / 2;
+    const degrees = (angle * 180) / Math.PI;
+    dom.elements.fxShotIndicator.style.transform = `translate(-50%, -50%) rotate(${degrees}deg)`;
+    dom.elements.fxShotIndicator.classList.add('fx--flash');
+    clearTimeout(dom.shotIndicatorFlashTimeoutId);
+    dom.shotIndicatorFlashTimeoutId = setTimeout(() => {
+      dom.elements.fxShotIndicator.classList.remove('fx--flash');
+    }, 150);
+  },
   elements: {
     fxOverlay: document.querySelector('.fx__overlay'),
+    fxShotIndicator: document.querySelector('.fx__shot-indicator'),
     hpBar: document.querySelector('.GUI__hp-bar'),
     zone: document.getElementById('zone'),
     nextZone: document.getElementById('next-zone'),

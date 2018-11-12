@@ -70,6 +70,10 @@ function getAdjacentCells([x, y]) {
   return result;
 }
 
+function vectorAngle([x, y]) {
+  return (x < 0 ? Math.PI : 0) + Math.atan(y / x);
+}
+
 function isZero([x, y]) {
   return x === 0 && y === 0;
 }

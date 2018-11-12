@@ -61,10 +61,10 @@ const connection = (function() {
         [PROPNAME_PAYLOAD]: opponentId,
       });
     },
-    appendGunShotAt(position) {
+    appendGunShot(from, to) {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_GUN_SHOT,
-        [PROPNAME_PAYLOAD]: position,
+        [PROPNAME_PAYLOAD]: { from, to },
       });
     },
     emitUpdates() {

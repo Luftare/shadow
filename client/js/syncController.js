@@ -49,10 +49,8 @@ const syncController = {
       dom.moveElementTo(element, localPosition)
     );
   },
-  applyNewStateToOpponent(
-    serverOpponent,
-    { opponents: localOpponents, player: localPlayer }
-  ) {
+  applyNewStateToOpponent(serverOpponent, state) {
+    const { opponents: localOpponents, player: localPlayer } = state;
     const {
       PROPNAME_POSITION_BUFFER_OFFSET,
       PROPNAME_POSITION_BUFFER,
@@ -70,9 +68,10 @@ const syncController = {
       serverOpponent[PROPNAME_POSITION_BUFFER_OFFSET];
     localOpponent.hp = serverOpponent.hp;
 
-    serverOpponent.shots.forEach(position => {
-      const volume = audio.getPointsAudioVolume(position, localPlayer.position);
+    serverOpponent.shots.forEach(({ from, to }) => {
+      const volume = audio.getPointsAudioVolume(from, localPlayer.position);
       audio.playSound(audio.sounds.shot, volume);
+      dom.indicateShotAtDirection(from, state);
     });
   },
   addNewOpponent(opponent, state) {

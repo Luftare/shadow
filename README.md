@@ -21,8 +21,6 @@ Multiplayer survival game.
 
 #### Client
 
-- number of players is notified
-
 ### Gameplay
 
 - dead players will be able to see the whole game field without shadow to observe other players
@@ -51,7 +49,6 @@ Multiplayer survival game.
 
 ### Audio fx
 
-- sound level declines over distance
 - hitting an opponent sounds different than missing
 
 ### Assets
@@ -65,8 +62,6 @@ Multiplayer survival game.
 
 ### Misc
 
-- opponent shots are played back
-- opponent steps are played back
 - optimization: store visibility alpha only for closeby area
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
 - refactor: move fx into single object
@@ -140,3 +135,7 @@ Multiplayer survival game.
 - create larger map with relevant content
 - GUI displays time to next shrink
 - GUI displays alive players
+- opponent shots are played back
+- opponent steps are played back
+- number of players is notified
+- sound level declines over distance

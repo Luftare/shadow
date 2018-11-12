@@ -7,6 +7,7 @@
 }
 
 .game__container {
+  position: relative;
   overflow: hidden;
   display: block;
   width: var(--game-screen-width);
