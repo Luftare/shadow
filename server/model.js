@@ -151,7 +151,7 @@ function addPlayer(id) {
   return position;
 }
 
-function filterIdlePlayers() {
+function getIdlePlayers() {
   const now = Date.now();
   const idlers = state.players.filter(
     player => now - player.lastActivityTime >= IDLE_KICK_TIME
@@ -184,5 +184,5 @@ module.exports = {
   updateModel,
   updateModelAfterBroadcast,
   initModel,
-  filterIdlePlayers,
+  getIdlePlayers,
 };

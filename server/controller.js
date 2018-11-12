@@ -6,7 +6,6 @@ const {
   CLIENT_SERVER_UPDATE_INTERVAL,
   PROPNAME_POSITION,
   PROPNAME_ID,
-  IDLE_KICK_TIME,
 } = require('../shared/sharedSocketConfig');
 
 const {
@@ -17,7 +16,7 @@ const {
   initModel,
   updateModel,
   updateModelAfterBroadcast,
-  filterIdlePlayers,
+  getIdlePlayers,
 } = require('./model');
 
 const sockets = {};
@@ -30,20 +29,21 @@ function startGameServer(io) {
   });
 
   setInterval(() => {
-    const idlers = filterIdlePlayers();
-    idlers.forEach(player => {
-      const socket = sockets[player[PROPNAME_ID]];
-      if (socket) {
-        sockets[player[PROPNAME_ID]].disconnect();
-        delete sockets[player[PROPNAME_ID]];
-      }
-    });
-  }, 10000);
-
-  setInterval(() => {
     updateModel();
     broadcastUpdateToClients(io);
   }, CLIENT_SERVER_UPDATE_INTERVAL);
+}
+
+function clearIdlers() {
+  const idlers = getIdlePlayers();
+  idlers.forEach(player => {
+    removePlayer(player[PROPNAME_ID]);
+    const socket = sockets[player[PROPNAME_ID]];
+    if (socket) {
+      sockets[player[PROPNAME_ID]].disconnect();
+      delete sockets[player[PROPNAME_ID]];
+    }
+  });
 }
 
 function broadcastUpdateToClients(io) {
@@ -53,7 +53,9 @@ function broadcastUpdateToClients(io) {
 
 function addSocketHandlers(socket, io) {
   socket.on('disconnect', () => {
+    delete sockets[socket.id];
     removePlayer(socket.id);
+    clearIdlers();
   });
 
   socket.on(EVENT_CLIENT_UPDATE, updates => {
@@ -77,6 +79,7 @@ function handleSocketConnections(io) {
   io.sockets.on('connection', socket => {
     addSocketHandlers(socket, io);
     handleNewClientConnection(socket, io);
+    clearIdlers();
   });
 }
 
