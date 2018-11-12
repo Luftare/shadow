@@ -41,7 +41,6 @@ Multiplayer survival game.
 
 ### Visual fx
 
-- opponents' shot direction is displayd on map
 - obstacles have type and custom sprites
   - wall
   - tree
@@ -139,3 +138,4 @@ Multiplayer survival game.
 - opponent steps are played back
 - number of players is notified
 - sound level declines over distance
+- opponents' shot direction is displayd on map
