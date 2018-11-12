@@ -9,6 +9,7 @@ const connection = (function() {
     PROPNAME_PAYLOAD,
     PROPNAME_ID,
     PROPNAME_RECEIVE_HIT,
+    PROPNAME_GUN_SHOT,
   } = sharedSocketConfig;
 
   return {
@@ -58,6 +59,12 @@ const connection = (function() {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_RECEIVE_HIT,
         [PROPNAME_PAYLOAD]: opponentId,
+      });
+    },
+    appendGunShotAt(position) {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_GUN_SHOT,
+        [PROPNAME_PAYLOAD]: position,
       });
     },
     emitUpdates() {

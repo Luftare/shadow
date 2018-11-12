@@ -8,6 +8,7 @@ const {
   PROPNAME_PAYLOAD,
   PROPNAME_ID,
   PROPNAME_RECEIVE_HIT,
+  PROPNAME_GUN_SHOT,
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
@@ -37,6 +38,7 @@ function getInitState(players = []) {
       [PROPNAME_POSITION_BUFFER]: [[0, 0]],
       [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
       spawnPointIndex: spawnPointIndexes[i],
+      shots: [],
     };
   });
 
@@ -83,6 +85,12 @@ function updateModel() {
   requestNewGame(state);
 }
 
+function updateModelAfterBroadcast() {
+  state.players.forEach(player => {
+    player.shots = [];
+  });
+}
+
 function handleClientUpdates(id, updates) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
   if (!player) return;
@@ -109,6 +117,9 @@ function handleClientUpdates(id, updates) {
           target.hp = Math.max(0, target.hp - 20);
         }
         break;
+      case PROPNAME_GUN_SHOT:
+        player.shots.push(update[PROPNAME_PAYLOAD]);
+        break;
 
       default:
         break;
@@ -125,6 +136,7 @@ function addPlayer(id) {
     [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
     hp: 100,
     spawnPointIndex: 0,
+    shots: [],
   };
 
   state.players.push(player);
@@ -152,5 +164,6 @@ module.exports = {
   resetState,
   handleClientUpdates,
   updateModel,
+  updateModelAfterBroadcast,
   initModel,
 };

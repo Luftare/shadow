@@ -44,6 +44,7 @@ function handlePlayerActions({ shift }, { player }) {
 function handleClicks(clicks, state) {
   const { PROPNAME_ID } = sharedSocketConfig;
   clicks.forEach(position => {
+    connection.appendGunShotAt(position);
     state.opponents.forEach(opponent => {
       if (areIdentical(opponent.localPosition, position)) {
         connection.appendGunHit(opponent[PROPNAME_ID]);

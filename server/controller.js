@@ -15,6 +15,7 @@ const {
   getState,
   initModel,
   updateModel,
+  updateModelAfterBroadcast,
 } = require('./model');
 
 function startGameServer(io) {
@@ -32,6 +33,7 @@ function startGameServer(io) {
 
 function broadcastUpdateToClients(io) {
   io.sockets.emit(EVENT_SERVER_UPDATE, getState());
+  updateModelAfterBroadcast();
 }
 
 function addSocketHandlers(socket, io) {
