@@ -51,6 +51,7 @@ Multiplayer survival game.
 
 ### Audio fx
 
+- audio elements are pooled and recycled for simultaneous and quickly repeated playback
 - hitting an opponent sounds different than missing
 
 ### Assets
