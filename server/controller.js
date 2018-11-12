@@ -6,6 +6,7 @@ const {
   CLIENT_SERVER_UPDATE_INTERVAL,
   PROPNAME_POSITION,
   PROPNAME_ID,
+  IDLE_KICK_TIME,
 } = require('../shared/sharedSocketConfig');
 
 const {
@@ -37,11 +38,22 @@ function broadcastUpdateToClients(io) {
 }
 
 function addSocketHandlers(socket, io) {
+  let disconnectTimeoutId = setTimeout(() => {
+    socket.disconnect();
+  }, IDLE_KICK_TIME);
+
   socket.on('disconnect', () => {
     removePlayer(socket.id);
   });
 
   socket.on(EVENT_CLIENT_UPDATE, updates => {
+    if (updates.length > 0) {
+      clearTimeout(disconnectTimeoutId);
+      disconnectTimeoutId = setTimeout(() => {
+        socket.disconnect();
+      }, IDLE_KICK_TIME);
+    }
+
     handleClientUpdates(socket.id, updates);
   });
 }

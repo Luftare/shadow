@@ -16,7 +16,6 @@ Multiplayer survival game.
 #### Server
 
 - new game is initted if second player connects
-- idle players are disconnected by server
 - frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
 - server keeps track of player that have connected during the game and will show them as observers
@@ -65,6 +64,7 @@ Multiplayer survival game.
 
 ### Misc
 
+- show guide how to play
 - optimization: store visibility alpha only for closeby area
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
 - refactor: move fx into single object
@@ -143,3 +143,4 @@ Multiplayer survival game.
 - number of players is notified
 - sound level declines over distance
 - opponents' shot direction is displayd on map
+- idle players are disconnected by server

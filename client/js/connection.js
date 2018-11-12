@@ -46,6 +46,10 @@ const connection = (function() {
           syncController.handleReceivedStateFromServer(serverState, state);
         });
 
+        socket.on('disconnect', () => {
+          alert('Disconnected.');
+        });
+
         this.socket = socket;
       });
     },
