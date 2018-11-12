@@ -15,11 +15,15 @@ Multiplayer survival game.
 
 #### Server
 
+- new game is initted if second player connects
+- idle players are disconnected by server
 - frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
 - server keeps track of player that have connected during the game and will show them as observers
 
 #### Client
+
+- waiting for next round is displayed when joining new game
 
 ### Gameplay
 
