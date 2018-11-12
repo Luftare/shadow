@@ -6,7 +6,7 @@ function processInput({ keysDown, clicks }, state) {
 
 function tick(state, world) {
   updateClosebyObstacles(state, world);
-  syncController.updateOpponents(state.opponents);
+  syncController.updateOpponents(state);
   if (state.player.hp > 0) processInput(playerInput, state);
   drawShadow(state);
   drawGUI(state);

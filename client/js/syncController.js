@@ -1,5 +1,5 @@
 const syncController = {
-  updateOpponents(opponents) {
+  updateOpponents({ opponents, player }) {
     const {
       PROPNAME_POSITION_BUFFER_OFFSET,
       PROPNAME_POSITION_BUFFER,
@@ -35,6 +35,12 @@ const syncController = {
           opponent.localPosition =
             opponent[PROPNAME_POSITION_BUFFER][bufferIndex];
           opponent.lastMovementTime = now;
+
+          const volume = audio.getPointsAudioVolume(
+            opponent.localPosition,
+            player.position
+          );
+          audio.playSound(audio.sounds.step, volume);
         }
       }
     });
@@ -65,8 +71,8 @@ const syncController = {
     localOpponent.hp = serverOpponent.hp;
 
     serverOpponent.shots.forEach(position => {
-      // const distance =
-      audio.playSound(audio.sounds.shot);
+      const volume = audio.getPointsAudioVolume(position, localPlayer.position);
+      audio.playSound(audio.sounds.shot, volume);
     });
   },
   addNewOpponent(opponent, state) {
