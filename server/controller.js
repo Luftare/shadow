@@ -17,7 +17,10 @@ const {
   initModel,
   updateModel,
   updateModelAfterBroadcast,
+  filterIdlePlayers,
 } = require('./model');
+
+const sockets = {};
 
 function startGameServer(io) {
   handleSocketConnections(io);
@@ -25,6 +28,17 @@ function startGameServer(io) {
   initModel(data => {
     io.sockets.emit(EVENT_SERVER_INIT_NEW_GAME, data);
   });
+
+  setInterval(() => {
+    const idlers = filterIdlePlayers();
+    idlers.forEach(player => {
+      const socket = sockets[player[PROPNAME_ID]];
+      if (socket) {
+        sockets[player[PROPNAME_ID]].disconnect();
+        delete sockets[player[PROPNAME_ID]];
+      }
+    });
+  }, 10000);
 
   setInterval(() => {
     updateModel();
@@ -38,27 +52,17 @@ function broadcastUpdateToClients(io) {
 }
 
 function addSocketHandlers(socket, io) {
-  let disconnectTimeoutId = setTimeout(() => {
-    socket.disconnect();
-  }, IDLE_KICK_TIME);
-
   socket.on('disconnect', () => {
     removePlayer(socket.id);
   });
 
   socket.on(EVENT_CLIENT_UPDATE, updates => {
-    if (updates.length > 0) {
-      clearTimeout(disconnectTimeoutId);
-      disconnectTimeoutId = setTimeout(() => {
-        socket.disconnect();
-      }, IDLE_KICK_TIME);
-    }
-
     handleClientUpdates(socket.id, updates);
   });
 }
 
 function handleNewClientConnection(socket, io) {
+  sockets[socket.id] = socket;
   const position = addPlayer(socket.id);
 
   const initData = {

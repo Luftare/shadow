@@ -28,8 +28,10 @@ function updateHpBar(player) {
 
 function updateGUINumbers({ player, opponents, timeToNextZoneShrink }) {
   const self = player.hp > 0 ? 1 : 0;
-  dom.elements.alivePlayers.innerHTML =
+  const alivePlayers =
     opponents.filter(opponent => opponent.hp > 0).length + self;
+  const totalPlayers = opponents.length + 1;
+  dom.elements.alivePlayers.innerHTML = `${alivePlayers}/${totalPlayers}`;
   dom.elements.zoneTime.innerHTML = Math.round(timeToNextZoneShrink / 1000);
 }
 

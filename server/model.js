@@ -13,6 +13,7 @@ const {
   GRID_CELLS_Y,
   ZONE_DAMAGE,
   NEW_GAME_DELAY_TIME,
+  IDLE_KICK_TIME,
 } = require('../shared/sharedSocketConfig');
 
 const { shuffle } = require('./utils');
@@ -94,6 +95,7 @@ function updateModelAfterBroadcast() {
 function handleClientUpdates(id, updates) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
   if (!player) return;
+  if (updates.length) player.lastActivityTime = Date.now();
   updates.forEach(update => {
     const updateType = update[PROPNAME_TYPE];
 
@@ -140,12 +142,24 @@ function addPlayer(id) {
     [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
     hp: 0,
     spawnPointIndex: 0,
+    lastActivityTime: Date.now(),
     shots: [],
   };
 
   state.players.push(player);
 
   return position;
+}
+
+function filterIdlePlayers() {
+  const now = Date.now();
+  const idlers = state.players.filter(
+    player => now - player.lastActivityTime >= IDLE_KICK_TIME
+  );
+  state.players = state.players.filter(
+    player => now - player.lastActivityTime < IDLE_KICK_TIME
+  );
+  return idlers;
 }
 
 function removePlayer(id) {
@@ -170,4 +184,5 @@ module.exports = {
   updateModel,
   updateModelAfterBroadcast,
   initModel,
+  filterIdlePlayers,
 };

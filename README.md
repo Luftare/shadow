@@ -30,7 +30,6 @@ Multiplayer survival game.
 
 ### Items
 
-- item spawnpoints are defined
 - each spawnpoint may spawn a randomised item
 - guns can be swapped
 - damage is proportional of distance and modified by equipped gun
@@ -145,3 +144,4 @@ Multiplayer survival game.
 - sound level declines over distance
 - opponents' shot direction is displayd on map
 - idle players are disconnected by server
+- item spawnpoints are defined
