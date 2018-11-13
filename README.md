@@ -50,7 +50,6 @@ Multiplayer survival game.
 
 ### Audio fx
 
-- audio elements are pooled and recycled for simultaneous and quickly repeated playback
 - hitting an opponent sounds different than missing
 
 ### Assets
@@ -145,3 +144,4 @@ Multiplayer survival game.
 - opponents' shot direction is displayd on map
 - idle players are disconnected by server
 - item spawnpoints are defined
+- audio elements are pooled and recycled for simultaneous and quickly repeated playback
