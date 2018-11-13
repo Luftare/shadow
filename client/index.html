@@ -7,8 +7,8 @@
 <img src="images/explosion.png" hidden id="image-explosion" />
 
 <body onload="boot()">
-  <div class="game__container">
-    <div class="game">
+  <div class="game__container" style="display: none">
+    <div class="game" hidden>
       <canvas class="game__world"></canvas>
       <div class="game__opponents"></div>
       <canvas class="game__shadow"></canvas>
@@ -20,8 +20,8 @@
     <div class="fx__shot-indicator"></div>
   </div>
   <div class="fx__overlay"></div>
-  <div class="modal"><div class="modal__header"></div></div>
-  <div class="GUI">
+  <div class="modal"><div class="modal__header" hidden></div></div>
+  <div class="GUI" style="display: none">
     <div class="GUI__hp-container"><div class="GUI__hp-bar"></div></div>
     <div class="GUI__row">
       <span>Players</span> <span class="GUI__alive-players">0</span>
@@ -29,6 +29,29 @@
     <div class="GUI__row">
       <span>Zone</span> <span class="GUI__zone-time">0</span>
     </div>
+  </div>
+  <div class="guide">
+    <h4>Keys</h4>
+    <table>
+      <tr>
+        <th>Action</th>
+        <th>Key</th>
+      </tr>
+      <tr>
+        <td>Move</td>
+        <td>W, A, S, D</td>
+      </tr>
+      <tr>
+        <td>Shoot</td>
+        <td>click</td>
+      </tr>
+      <tr>
+        <td>Aim</td>
+        <td>shift</td>
+      </tr>
+    </table>
+
+    <p>Last man standing wins. Better stay inside the white zone.</p>
   </div>
 </body>
 

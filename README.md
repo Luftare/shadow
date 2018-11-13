@@ -26,8 +26,6 @@ Multiplayer survival game.
 
 ### Gameplay
 
-- dead players will be able to see the whole game field without shadow to observe other players
-
 ### Items
 
 - each spawnpoint may spawn a randomised item
@@ -63,7 +61,6 @@ Multiplayer survival game.
 
 ### Misc
 
-- show guide how to play
 - optimization: store visibility alpha only for closeby area
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
 - refactor: move fx into single object
@@ -84,6 +81,7 @@ Multiplayer survival game.
 - player cannot move to a cell if there's an opponent
 - limit shadow update to visible portion of screen
 - gun shot damage is determined by how close to the center of the cell is clicked
+- dead players will be able to see the whole game field without shadow to observe other players
 
 ## Done
 
@@ -145,3 +143,4 @@ Multiplayer survival game.
 - idle players are disconnected by server
 - item spawnpoints are defined
 - audio elements are pooled and recycled for simultaneous and quickly repeated playback
+- show guide how to play
