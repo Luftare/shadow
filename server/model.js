@@ -38,7 +38,7 @@ function getInitState(players = []) {
       hp: 100,
       [PROPNAME_POSITION_BUFFER]: [[0, 0]],
       [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
-      spawnPointIndex: spawnPointIndexes[i],
+      spawnPointIndex: spawnPointIndexes[i % PLAYER_SPAWN_POINTS_COUNT],
       shots: [],
     };
   });
