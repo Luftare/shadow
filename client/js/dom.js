@@ -54,13 +54,40 @@ const dom = {
       dom.elements.fxShotIndicator.classList.remove('fx--flash');
     }, 150);
   },
+  clearItems() {
+    dom.elements.itemsContainer.innerHTML = '';
+  },
+  updateItems({ items }) {
+    if (dom.elements.items.length < items.length) {
+      const missingCount = items.length - dom.elements.items.length;
+      [...Array(missingCount)].forEach(() => {
+        const element = document.createElement('div');
+        element.classList.add('game__item');
+        dom.elements.itemsContainer.appendChild(element);
+        dom.elements.items.push(element);
+      });
+    }
+
+    dom.elements.items.forEach((itemElement, i) => {
+      if (items.length < i) {
+        itemElement.classList.add('game__item--hidden');
+      } else {
+        itemElement.classList.remove('game__item--hidden');
+        const position = gridToScreen(items[i]);
+        itemElement.style.top = `${position[1]}px`;
+        itemElement.style.left = `${position[0]}px`;
+      }
+    });
+  },
   elements: {
+    items: [],
     fxOverlay: document.querySelector('.fx__overlay'),
     fxShotIndicator: document.querySelector('.fx__shot-indicator'),
     hpBar: document.querySelector('.GUI__hp-bar'),
     zone: document.getElementById('zone'),
     nextZone: document.getElementById('next-zone'),
     mapDataImage: document.getElementById('map-data-image'),
+    itemsContainer: document.querySelector('.game__items'),
     game: document.querySelector('.game'),
     gameContainer: document.querySelector('.game__container'),
     canvas: document.querySelector('.game__world'),

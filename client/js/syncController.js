@@ -62,6 +62,7 @@ const syncController = {
         localOpponent[PROPNAME_ID] === serverOpponent[PROPNAME_ID]
     );
 
+    localOpponent.items = serverOpponent.items;
     localOpponent[PROPNAME_POSITION_BUFFER] =
       serverOpponent[PROPNAME_POSITION_BUFFER];
     localOpponent[PROPNAME_POSITION_BUFFER_OFFSET] =
@@ -107,6 +108,7 @@ const syncController = {
     );
     const receivedDamage = localState.player.hp > serverStatePlayer.hp;
     localState.player.hp = serverStatePlayer.hp;
+    localState.player.items = serverStatePlayer.items;
     if (receivedDamage) flashRedScreen();
   },
   handlePlayerModelUpdate(serverState, localState) {
@@ -152,6 +154,7 @@ const syncController = {
     syncController.handlePlayerModelUpdate(serverState, localState);
     syncController.handleZoneUpdate(serverState, localState);
     localState.timeToNextZoneShrink = serverState.timeToNextZoneShrink;
+    localState.items = serverState.items;
   },
   handleInitNewGame(data, localState) {
     const { PROPNAME_ID, PROPNAME_POSITION_BUFFER } = sharedConfig;
@@ -183,5 +186,7 @@ const syncController = {
         syncController.addNewOpponent(player, localState);
       }
     });
+
+    localState.items = data.items;
   },
 };

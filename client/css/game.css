@@ -83,3 +83,20 @@
 .game__opponent--dead {
   background-color: grey;
 }
+
+.game__item {
+  position: absolute;
+  display: block;
+  background-color: purple;
+  top: 0;
+  left: 0;
+  width: var(--cell-width);
+  height: var(--cell-height);
+  pointer-events: none;
+  border-radius: 4px;
+  opacity: 0; /* REMOVE THIS ONCE PROPERLY IMPLEMENTED */
+}
+
+.game__item--hidden {
+  display: none;
+}

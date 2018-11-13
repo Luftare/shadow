@@ -15,6 +15,7 @@ Multiplayer survival game.
 
 #### Server
 
+- server parses map data from image and uses it for spawning items
 - new game is initted if second player connects
 - frags are notified to all players
 - server test scored hits and does not apply shots from already dead players

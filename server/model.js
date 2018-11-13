@@ -1,6 +1,7 @@
 const {
   PLAYER_POSITIONS_BUFFER_LENGTH,
   PLAYER_SPAWN_POINTS_COUNT,
+  ITEM_SPAWN_POINTS_COUNT,
   PROPNAME_POSITION_BUFFER,
   PROPNAME_POSITION_BUFFER_OFFSET,
   PROPNAME_TYPE,
@@ -15,6 +16,8 @@ const {
   NEW_GAME_DELAY_TIME,
   IDLE_KICK_TIME,
 } = require('../shared/sharedConfig');
+
+const allItems = require('../shared/items');
 
 const { shuffle } = require('./utils');
 
@@ -40,6 +43,7 @@ function getInitState(players = []) {
       [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
       spawnPointIndex: spawnPointIndexes[i % PLAYER_SPAWN_POINTS_COUNT],
       shots: [],
+      items: [],
     };
   });
 
@@ -49,6 +53,7 @@ function getInitState(players = []) {
     nextZone: [0, 0, GRID_CELLS_X, GRID_CELLS_Y],
     lastZoneShrinkTime: Date.now(),
     timeToNextZoneShrink: 0,
+    items: generateItems(),
   };
 }
 
@@ -65,6 +70,21 @@ function requestNewGame({ players }) {
       }, NEW_GAME_DELAY_TIME);
     }
   }
+}
+
+function generateItems() {
+  return [...Array(50)].map(() => {
+    if (Math.random() > 0) {
+      const itemIndex = Math.floor(allItems.length * Math.random());
+      return [
+        Math.floor(Math.random() * GRID_CELLS_X),
+        Math.floor(Math.random() * GRID_CELLS_Y),
+        allItems[itemIndex],
+      ];
+    } else {
+      return null;
+    }
+  });
 }
 
 function handleZoneDamage(state) {

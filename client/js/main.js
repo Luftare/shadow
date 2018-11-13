@@ -13,6 +13,7 @@ function tick(state, world) {
   followPlayer(state);
   connection.requestUpdate();
   resetHandledInputs();
+  dom.updateItems(state);
 }
 function initGame(world, state) {
   setupEventListeners(state);

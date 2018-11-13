@@ -18,6 +18,7 @@ function getInitState(world) {
   const obstacleAdjacents = obstacles.map(getAdjacentCells);
   const opponents = [];
   const timeToNextZoneShrink = 0;
+  const items = [];
 
   return {
     player,
@@ -30,5 +31,6 @@ function getInitState(world) {
     obstacleAdjacents,
     world,
     timeToNextZoneShrink,
+    items,
   };
 }
