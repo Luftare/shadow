@@ -10,7 +10,7 @@ const connection = (function() {
     PROPNAME_ID,
     PROPNAME_RECEIVE_HIT,
     PROPNAME_GUN_SHOT,
-  } = sharedSocketConfig;
+  } = sharedConfig;
 
   return {
     socket: null,
@@ -21,7 +21,7 @@ const connection = (function() {
       const now = Date.now();
       const sinceLastUpdate = now - this.lastUpdateTime;
       const enoughTimeFromLastUpdate =
-        sinceLastUpdate >= sharedSocketConfig.CLIENT_SERVER_UPDATE_INTERVAL;
+        sinceLastUpdate >= sharedConfig.CLIENT_SERVER_UPDATE_INTERVAL;
 
       if (enoughTimeFromLastUpdate) {
         this.lastUpdateTime = now;

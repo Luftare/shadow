@@ -14,7 +14,7 @@ const {
   ZONE_DAMAGE,
   NEW_GAME_DELAY_TIME,
   IDLE_KICK_TIME,
-} = require('../shared/sharedSocketConfig');
+} = require('../shared/sharedConfig');
 
 const { shuffle } = require('./utils');
 

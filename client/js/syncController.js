@@ -3,7 +3,7 @@ const syncController = {
     const {
       PROPNAME_POSITION_BUFFER_OFFSET,
       PROPNAME_POSITION_BUFFER,
-    } = sharedSocketConfig;
+    } = sharedConfig;
     const now = Date.now();
 
     opponents.forEach(opponent => {
@@ -55,7 +55,7 @@ const syncController = {
       PROPNAME_POSITION_BUFFER_OFFSET,
       PROPNAME_POSITION_BUFFER,
       PROPNAME_ID,
-    } = sharedSocketConfig;
+    } = sharedConfig;
 
     const localOpponent = localOpponents.find(
       localOpponent =>
@@ -78,7 +78,7 @@ const syncController = {
     const {
       PROPNAME_POSITION_BUFFER_OFFSET,
       PROPNAME_POSITION_BUFFER,
-    } = sharedSocketConfig;
+    } = sharedConfig;
 
     const localPositionBufferIndex = opponent[PROPNAME_POSITION_BUFFER_OFFSET];
     const localPosition = opponent[PROPNAME_POSITION_BUFFER][0];
@@ -94,14 +94,14 @@ const syncController = {
     });
   },
   removeOpponent(opponent, state) {
-    const { PROPNAME_ID } = sharedSocketConfig;
+    const { PROPNAME_ID } = sharedConfig;
     state.opponents = state.opponents.filter(
       localOpponent => localOpponent[PROPNAME_ID] !== opponent[PROPNAME_ID]
     );
     dom.removeOpponentElement(opponent.element);
   },
   handleLocalPlayerModel(serverState, localState) {
-    const { PROPNAME_ID } = sharedSocketConfig;
+    const { PROPNAME_ID } = sharedConfig;
     const serverStatePlayer = serverState.players.find(
       player => player[PROPNAME_ID] === connection.id
     );
@@ -110,7 +110,7 @@ const syncController = {
     if (receivedDamage) flashRedScreen();
   },
   handlePlayerModelUpdate(serverState, localState) {
-    const { PROPNAME_ID } = sharedSocketConfig;
+    const { PROPNAME_ID } = sharedConfig;
     const serverOpponents = serverState.players.filter(
       player => player[PROPNAME_ID] !== connection.id
     );
@@ -154,7 +154,7 @@ const syncController = {
     localState.timeToNextZoneShrink = serverState.timeToNextZoneShrink;
   },
   handleInitNewGame(data, localState) {
-    const { PROPNAME_ID, PROPNAME_POSITION_BUFFER } = sharedSocketConfig;
+    const { PROPNAME_ID, PROPNAME_POSITION_BUFFER } = sharedConfig;
     const { player } = localState;
     const serverPlayerData = data.players.find(
       player => player[PROPNAME_ID] === connection.id

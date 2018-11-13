@@ -1,7 +1,7 @@
 const CELL_WIDTH = 20;
 const CELL_HEIGHT = 20;
-const GAME_SCREEN_WIDTH = sharedSocketConfig.GRID_CELLS_X * CELL_WIDTH;
-const GAME_SCREEN_HEIGHT = sharedSocketConfig.GRID_CELLS_Y * CELL_HEIGHT;
+const GAME_SCREEN_WIDTH = sharedConfig.GRID_CELLS_X * CELL_WIDTH;
+const GAME_SCREEN_HEIGHT = sharedConfig.GRID_CELLS_Y * CELL_HEIGHT;
 const FRAME_TIME = 100;
 const PLAYER_FIELD_OF_VIEW = 120 * (Math.PI / 180);
 const PLAYER_SIGHT = 12;

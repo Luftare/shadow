@@ -1,4 +1,4 @@
-const sharedSocketConfig = {
+const sharedConfig = {
   IDLE_KICK_TIME: 5 * 60 * 1000,
   PLAYER_POSITIONS_BUFFER_LENGTH: 5,
   CLIENT_SERVER_UPDATE_INTERVAL: 200,
@@ -26,5 +26,5 @@ const sharedSocketConfig = {
 };
 
 try {
-  module.exports = sharedSocketConfig;
+  module.exports = sharedConfig;
 } catch (err) {}

@@ -1,5 +1,5 @@
 function getInitState(world) {
-  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
 
   const player = {
     hp: 100,

@@ -29,7 +29,7 @@ function updateShadow(state) {
 
 function updateClosebyObstacles(state) {
   const { player, obstacles } = state;
-  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
   state.closebyObstacles = [];
   const startX = Math.max(0, player.position[0] - PLAYER_AIM_SIGHT);
   const startY = Math.max(0, player.position[1] - PLAYER_AIM_SIGHT);
@@ -51,7 +51,7 @@ function revealPlayerZone({
   obstacleAdjacents,
   shadowAlphaGrid,
 }) {
-  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
   const toMouse = subtract(player.aim, player.position);
   const toMouseNormalised = normalise(toMouse);
   const aimDistance = length(toMouse);

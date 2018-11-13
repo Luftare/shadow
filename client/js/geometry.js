@@ -52,7 +52,7 @@ function areIdentical(a, b) {
 }
 
 function getAdjacentCells([x, y]) {
-  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
   const result = [];
   const startX = Math.max(0, x - 1);
   const startY = Math.max(0, y - 1);

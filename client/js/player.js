@@ -42,7 +42,7 @@ function handlePlayerActions({ shift }, { player }) {
 }
 
 function handleClicks(clicks, state) {
-  const { PROPNAME_ID } = sharedSocketConfig;
+  const { PROPNAME_ID } = sharedConfig;
   clicks.forEach(position => {
     connection.appendGunShot(state.player.position, position);
     state.opponents.forEach(opponent => {

@@ -24,7 +24,7 @@ function screenToGrid(screenPos) {
 }
 
 function clampToGrid([x, y]) {
-  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+  const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
 
   return [
     Math.max(0, Math.min(GRID_CELLS_X - 1, x)),

@@ -3,7 +3,7 @@ const {
   ZONE_DIAMETER_SHRINK_AMOUNT,
   ZONE_MIN_DIAMETER,
   ZONE_DAMAGE_SLEEP_TIME,
-} = require('../shared/sharedSocketConfig');
+} = require('../shared/sharedConfig');
 
 let lastZoneDamageTime = 0;
 

@@ -2,7 +2,7 @@ const dom = {
   shotIndicatorFlashTimeoutId: null,
   init() {
     const { canvas, shadowCanvas } = dom.elements;
-    const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+    const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
 
     document.documentElement.style.setProperty('--cell-width', `${CELL_WIDTH}`);
     document.documentElement.style.setProperty(

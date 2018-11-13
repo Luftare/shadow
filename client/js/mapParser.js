@@ -14,7 +14,7 @@ const mapParser = {
     return object;
   },
   parseImage(image) {
-    const { GRID_CELLS_X, GRID_CELLS_Y } = sharedSocketConfig;
+    const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const width = image.width;
