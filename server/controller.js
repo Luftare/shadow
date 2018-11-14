@@ -22,8 +22,8 @@ const {
 const sockets = {};
 
 function startGameServer(io) {
-  const handleNewGame = data => {
-    io.sockets.emit(EVENT_SERVER_INIT_NEW_GAME, data);
+  const handleNewGame = (state, winner) => {
+    io.sockets.emit(EVENT_SERVER_INIT_NEW_GAME, { state, winner });
   };
 
   initModel(handleNewGame).then(() => {

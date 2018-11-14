@@ -109,6 +109,7 @@ const syncController = {
     const serverStatePlayer = serverState.players.find(
       player => player[PROPNAME_ID] === connection.id
     );
+    if (!serverStatePlayer) return;
     const receivedDamage = localState.player.hp > serverStatePlayer.hp;
     localState.player.hp = serverStatePlayer.hp;
     localState.player.items = serverStatePlayer.items;
@@ -165,11 +166,10 @@ const syncController = {
     const serverPlayerData = data.players.find(
       player => player[PROPNAME_ID] === connection.id
     );
+    if (!serverPlayerData) return;
     const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
-    const debugIndex = 5;
     const spawnPoint =
       localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
-    // localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
 
     player.position = [...spawnPoint];
     connection.appendNewPosition(player.position);
@@ -178,13 +178,13 @@ const syncController = {
     localState.opponents.forEach(opponent => {
       this.removeOpponent(opponent, localState);
     });
+
     localState.opponents = [];
 
     data.players.forEach(player => {
       if (player[PROPNAME_ID] !== connection.id) {
         const spawnPoint =
           localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
-        // localState.world[OBJECT_PLAYER_SPAWN_POINT][debugIndex];
         player[PROPNAME_POSITION_BUFFER][0] = [...spawnPoint];
         syncController.addNewOpponent(player, localState);
       }

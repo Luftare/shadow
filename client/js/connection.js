@@ -31,10 +31,14 @@ const connection = (function() {
     },
     connectToServerSocket(state) {
       return new Promise(resolve => {
-        const socket = io();
+        const socket = io(window.location.href, {
+          reconnect: false,
+          reconnects: false,
+        });
 
-        socket.on(EVENT_SERVER_INIT_NEW_GAME, data => {
-          syncController.handleInitNewGame(data, state);
+        socket.on(EVENT_SERVER_INIT_NEW_GAME, ({ state: newState, winner }) => {
+          console.log(winner); //TO DO: display this to screen
+          syncController.handleInitNewGame(newState, state);
         });
 
         socket.on(EVENT_SERVER_INIT_CLIENT, initData => {
