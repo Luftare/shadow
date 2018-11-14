@@ -15,7 +15,7 @@ function getStepDirection({ w: up, s: down, a: left, d: right }) {
   return stepDirection;
 }
 
-function handlePlayerMovement(keysDown, { player, closebyObstacles }) {
+function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
   const now = Date.now();
   const enoughTimeSinceLastMovement =
     now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;
@@ -34,6 +34,11 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles }) {
     audio.playSound(audio.sounds.step);
     dom.moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
+    const pickedItem = items.find(item => areIdentical(item, player.position));
+    if (pickedItem) {
+      connection.appendItemPickUp(pickedItem);
+      audio.playSound(audio.sounds.pickUpGun);
+    }
   }
 }
 

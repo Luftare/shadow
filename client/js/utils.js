@@ -14,13 +14,23 @@ function getCameraOffset({ player }) {
 }
 
 function gridToScreen(gridPos) {
-  return gridPos.map((val, i) => val * (i === 0 ? CELL_WIDTH : CELL_HEIGHT));
+  return gridPos.map((val, i) => {
+    if (isNaN(val)) {
+      return val;
+    } else {
+      return val * (i === 0 ? CELL_WIDTH : CELL_HEIGHT);
+    }
+  });
 }
 
 function screenToGrid(screenPos) {
-  return screenPos.map((val, i) =>
-    Math.floor(val / (i === 0 ? CELL_WIDTH : CELL_HEIGHT))
-  );
+  return screenPos.map((val, i) => {
+    if (isNaN(val)) {
+      return val;
+    } else {
+      return Math.floor(val / (i === 0 ? CELL_WIDTH : CELL_HEIGHT));
+    }
+  });
 }
 
 function clampToGrid([x, y]) {

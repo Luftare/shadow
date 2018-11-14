@@ -7,6 +7,7 @@ function getInitState(world) {
     position: [9, 9],
     aim: [-10, -10],
     aiming: false,
+    items: [],
   };
 
   const zone = [0, 0, GRID_CELLS_X, GRID_CELLS_Y];

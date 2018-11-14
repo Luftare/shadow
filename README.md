@@ -58,7 +58,6 @@ Multiplayer survival game.
   - wall
   - tree
   - opponent
-  - guns and other loot...
 
 ### Misc
 
@@ -147,3 +146,4 @@ Multiplayer survival game.
 - show guide how to play
 - each spawnpoint may spawn a randomised item
 - server parses map data from image and uses it for spawning items
+- Sprites: guns and other loot...

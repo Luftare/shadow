@@ -73,11 +73,14 @@ const dom = {
         itemElement.classList.add('game__item--hidden');
       } else {
         itemElement.classList.remove('game__item--hidden');
-        const position = gridToScreen(items[i]);
-        itemElement.style.top = `${position[1]}px`;
-        itemElement.style.left = `${position[0]}px`;
+        const item = items[i];
+        if (item) {
+          const [x, y] = gridToScreen(item);
+          itemElement.style.left = `${x}px`;
+          itemElement.style.top = `${y}px`;
+          itemElement.setAttribute('data-item', items[i][2]);
+        }
       }
-      itemElement.setAttribute('data-item', items[i][2]);
     });
   },
   elements: {

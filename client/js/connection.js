@@ -10,6 +10,7 @@ const connection = (function() {
     PROPNAME_ID,
     PROPNAME_RECEIVE_HIT,
     PROPNAME_GUN_SHOT,
+    PROPNAME_PICK_UP_ITEM,
   } = sharedConfig;
 
   return {
@@ -69,6 +70,12 @@ const connection = (function() {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_GUN_SHOT,
         [PROPNAME_PAYLOAD]: { from, to },
+      });
+    },
+    appendItemPickUp(item) {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_PICK_UP_ITEM,
+        [PROPNAME_PAYLOAD]: item,
       });
     },
     emitUpdates() {

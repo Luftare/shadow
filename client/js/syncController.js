@@ -70,9 +70,12 @@ const syncController = {
     localOpponent.hp = serverOpponent.hp;
 
     serverOpponent.shots.forEach(({ from, to }) => {
-      const volume = audio.getPointsAudioVolume(from, localPlayer.position);
-      audio.playSound(audio.sounds.shot, volume);
-      dom.indicateShotAtDirection(from, state);
+      const gun = serverOpponent.items[serverOpponent.items.length - 1];
+      if (gun) {
+        const volume = audio.getPointsAudioVolume(from, localPlayer.position);
+        audio.playSound(audio.sounds[`${gun[2]}Shot`], volume);
+        dom.indicateShotAtDirection(from, state);
+      }
     });
   },
   addNewOpponent(opponent, state) {

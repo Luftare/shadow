@@ -10,6 +10,7 @@ const {
   PROPNAME_ID,
   PROPNAME_RECEIVE_HIT,
   PROPNAME_GUN_SHOT,
+  PROPNAME_PICK_UP_ITEM,
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
@@ -138,16 +139,27 @@ function handleClientUpdates(id, updates) {
         }
         break;
       case PROPNAME_RECEIVE_HIT:
-        const targetId = update[PROPNAME_PAYLOAD];
-        const target = state.players.find(
-          player => player[PROPNAME_ID] === targetId
-        );
-        if (target) {
-          target.hp = Math.max(0, target.hp - 20);
+        const gun = player.items[player.items.length - 1];
+        if (gun) {
+          const damage = gun[2] === 'sniper' ? 40 : 20;
+          const targetId = update[PROPNAME_PAYLOAD];
+          const target = state.players.find(
+            player => player[PROPNAME_ID] === targetId
+          );
+          if (target) {
+            target.hp = Math.max(0, target.hp - damage);
+          }
         }
         break;
       case PROPNAME_GUN_SHOT:
         player.shots.push(update[PROPNAME_PAYLOAD]);
+        break;
+      case PROPNAME_PICK_UP_ITEM:
+        const pickedItem = update[PROPNAME_PAYLOAD];
+        player.items.push(update[PROPNAME_PAYLOAD]);
+        state.items = state.items.filter(
+          item => item[0] !== pickedItem[0] && item[1] && pickedItem[1]
+        );
         break;
 
       default:
@@ -171,6 +183,7 @@ function addPlayer(id) {
     spawnPointIndex: 0,
     lastActivityTime: Date.now(),
     shots: [],
+    items: [],
   };
 
   state.players.push(player);
