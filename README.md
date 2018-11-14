@@ -65,8 +65,7 @@ Multiplayer survival game.
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
 - refactor: move fx into single object
 - refactor: remove PROPNAMEs for simplicity and only use EVENT_NAMEs
-- player has inventory
-  - 2 slots for guns
+- player has inventors with 2 slots for guns
 - items can be looted if there are free slots in inventory
 - guns can be dropped and dropping on top of another gun will swap the currently equipped gun
 - two guns can be equipped and selected from
