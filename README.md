@@ -15,7 +15,6 @@ Multiplayer survival game.
 
 #### Server
 
-- server parses map data from image and uses it for spawning items
 - new game is initted if second player connects
 - frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
@@ -29,7 +28,6 @@ Multiplayer survival game.
 
 ### Items
 
-- each spawnpoint may spawn a randomised item
 - guns can be swapped
 - damage is proportional of distance and modified by equipped gun
 - guns have reload time
@@ -145,3 +143,5 @@ Multiplayer survival game.
 - item spawnpoints are defined
 - audio elements are pooled and recycled for simultaneous and quickly repeated playback
 - show guide how to play
+- each spawnpoint may spawn a randomised item
+- server parses map data from image and uses it for spawning items

@@ -17,6 +17,8 @@ const {
   IDLE_KICK_TIME,
 } = require('../shared/sharedConfig');
 
+const { getMapData } = require('./mapParser');
+
 const allItems = require('../shared/items');
 
 const { shuffle } = require('./utils');
@@ -25,11 +27,20 @@ const { updateZone, pointInsideZone, requestZoneDamage } = require('./zone');
 
 let newGameOnTimeout = false;
 
-let state = getInitState();
+let state;
 let handleNewGame;
+let mapData;
 
 function initModel(handleNewGameCallback) {
   handleNewGame = handleNewGameCallback;
+
+  return new Promise(res => {
+    getMapData().then(receivedMapData => {
+      mapData = receivedMapData;
+      state = getInitState();
+      res();
+    });
+  });
 }
 
 function getInitState(players = []) {
@@ -73,14 +84,10 @@ function requestNewGame({ players }) {
 }
 
 function generateItems() {
-  return [...Array(50)].map(() => {
+  return mapData.itemSpawnPoints.map(spawnPoint => {
     if (Math.random() > 0) {
       const itemIndex = Math.floor(allItems.length * Math.random());
-      return [
-        Math.floor(Math.random() * GRID_CELLS_X),
-        Math.floor(Math.random() * GRID_CELLS_Y),
-        allItems[itemIndex],
-      ];
+      return [...spawnPoint, allItems[itemIndex]];
     } else {
       return null;
     }

@@ -22,16 +22,18 @@ const {
 const sockets = {};
 
 function startGameServer(io) {
-  handleSocketConnections(io);
-
-  initModel(data => {
+  const handleNewGame = data => {
     io.sockets.emit(EVENT_SERVER_INIT_NEW_GAME, data);
-  });
+  };
 
-  setInterval(() => {
-    updateModel();
-    broadcastUpdateToClients(io);
-  }, CLIENT_SERVER_UPDATE_INTERVAL);
+  initModel(handleNewGame).then(() => {
+    handleSocketConnections(io);
+
+    setInterval(() => {
+      updateModel();
+      broadcastUpdateToClients(io);
+    }, CLIENT_SERVER_UPDATE_INTERVAL);
+  });
 }
 
 function clearIdlers() {
