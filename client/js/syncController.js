@@ -75,6 +75,7 @@ const syncController = {
         const volume = audio.getPointsAudioVolume(from, localPlayer.position);
         audio.playSound(audio.sounds[`${gun[2]}Shot`], volume);
         dom.indicateShotAtDirection(from, state);
+        flashImageAt(images.explosion, to);
       }
     });
   },
