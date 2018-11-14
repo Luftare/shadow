@@ -87,14 +87,23 @@
 .game__item {
   position: absolute;
   display: block;
-  background-color: purple;
   top: 0;
   left: 0;
   width: var(--cell-width);
   height: var(--cell-height);
   pointer-events: none;
   border-radius: 4px;
-  /* opacity: 0; REMOVE THIS ONCE PROPERLY IMPLEMENTED */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.game__item[data-item='pistol'] {
+  background-image: url('/images/pistol.png');
+}
+
+.game__item[data-item='sniper'] {
+  background-image: url('/images/sniper.png');
 }
 
 .game__item--hidden {

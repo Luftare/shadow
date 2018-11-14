@@ -21,6 +21,7 @@ function initGame(world, state) {
   renderWorld(world);
   setInterval(() => {
     // logTickDt();
+    window.state = state;
     tick(state, world);
   }, FRAME_TIME);
 }

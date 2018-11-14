@@ -15,6 +15,7 @@ Multiplayer survival game.
 
 #### Server
 
+- send map data to clients
 - new game is initted if second player connects
 - frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
@@ -22,6 +23,7 @@ Multiplayer survival game.
 
 #### Client
 
+- handle use map data received from server
 - waiting for next round is displayed when joining new game
 
 ### Gameplay

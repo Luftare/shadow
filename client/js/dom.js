@@ -77,6 +77,7 @@ const dom = {
         itemElement.style.top = `${position[1]}px`;
         itemElement.style.left = `${position[0]}px`;
       }
+      itemElement.setAttribute('data-item', items[i][2]);
     });
   },
   elements: {
