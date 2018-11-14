@@ -4,7 +4,15 @@ function logTickDt() {
   logTickDt.then = now;
   console.log(dt);
 }
+
 logTickDt.then = Date.now();
+
+function getActiveGun(player) {
+  const gun = player.items[player.items.length - 1];
+  if (gun) {
+    return guns[gun[2]];
+  }
+}
 
 function getCameraOffset({ player }) {
   const x = Math.ceil(player.position[0] - CAMERA_VIEW_WIDTH / 2);

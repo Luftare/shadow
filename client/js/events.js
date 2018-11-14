@@ -35,15 +35,12 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
     player.aim = gridPosition;
 
     if (withinSight) {
-      const gun = player.items[player.items.length - 1];
+      const gun = getActiveGun(player);
       if (gun) {
-        const gunCanShoot =
-          (gun[2] === 'sniper' && player.aiming) || gun[2] !== 'sniper';
-        if (gunCanShoot) {
-          playerInput.clicks.push([...player.aim]);
-          audio.playSound(audio.sounds[`${gun[2]}Shot`]);
-          applyRecoil();
-        }
+        if (!player.aiming && gun.aimedShotOnly) return;
+        playerInput.clicks.push([...player.aim]);
+        audio.playSound(audio.sounds[`${gun.name}Shot`]);
+        applyRecoil();
       }
     }
   });

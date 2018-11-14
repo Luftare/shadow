@@ -45,21 +45,17 @@ function updateClosebyObstacles(state) {
   }
 }
 
-function revealPlayerZone({
-  player,
-  closebyObstacles,
-  obstacleAdjacents,
-  shadowAlphaGrid,
-}) {
+function revealPlayerZone({ player, closebyObstacles, shadowAlphaGrid }) {
   const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
   const toMouse = subtract(player.aim, player.position);
   const toMouseNormalised = normalise(toMouse);
   const aimDistance = length(toMouse);
-  const aimSight = Math.min(aimDistance + 5, PLAYER_AIM_SIGHT);
-  const sight = player.aiming ? aimSight : PLAYER_SIGHT;
-  const fieldOfView = player.aiming
-    ? PLAYER_AIM_FIELD_OF_VIEW
-    : PLAYER_FIELD_OF_VIEW;
+  const gun = getActiveGun(player);
+  const aiming = gun && gun.aim && player.aiming;
+  const sight = aiming
+    ? Math.min(aimDistance + 5, gun.aim.sight)
+    : PLAYER_SIGHT;
+  const fieldOfView = aiming ? gun.aim.fieldOfView : PLAYER_FIELD_OF_VIEW;
 
   const startX = Math.floor(Math.max(0, player.position[0] - sight));
   const startY = Math.floor(Math.max(0, player.position[1] - sight));
