@@ -45,14 +45,34 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
   }
 }
 
-function handlePlayerActions({ shift }, { player }) {
+function handlePlayerActions(keysDown, { player }) {
+  const { shift } = keysDown;
   player.aiming = shift;
+  const previousItemIndex = player.activeItemIndex;
+  if (keysDown['1']) player.activeItemIndex = 0;
+  if (keysDown['2']) player.activeItemIndex = 1;
+  if (keysDown['3']) player.activeItemIndex = 2;
+  if (keysDown['4']) player.activeItemIndex = 3;
+  if (keysDown['5']) player.activeItemIndex = 4;
+
+  player.activeItemIndex = Math.max(
+    0,
+    Math.min(player.items.length - 1, player.activeItemIndex)
+  );
+
+  if (previousItemIndex !== player.activeItemIndex) {
+    audio.playSound(audio.sounds.gunReload);
+  }
 }
 
 function handleClicks(clicks, state) {
   const { PROPNAME_ID } = sharedConfig;
   clicks.forEach(position => {
-    connection.appendGunShot(state.player.position, position);
+    connection.appendGunShot(
+      state.player.position,
+      position,
+      state.player.activeItemIndex
+    );
     state.opponents.forEach(opponent => {
       if (areIdentical(opponent.localPosition, position)) {
         audio.playSound(audio.sounds.hitOpponent, 2);

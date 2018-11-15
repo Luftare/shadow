@@ -72,10 +72,10 @@ const connection = (function() {
         [PROPNAME_PAYLOAD]: opponentId,
       });
     },
-    appendGunShot(from, to) {
+    appendGunShot(from, to, activeItemIndex) {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_GUN_SHOT,
-        [PROPNAME_PAYLOAD]: { from, to },
+        [PROPNAME_PAYLOAD]: { from, to, activeItemIndex },
       });
     },
     appendItemPickUp(item) {

@@ -53,6 +53,7 @@ function getInitState(players = []) {
       spawnPointIndex: spawnPointIndexes[i % PLAYER_SPAWN_POINTS_COUNT],
       shots: [],
       items: [],
+      activeItemIndex: 0,
     };
   });
 
@@ -125,7 +126,7 @@ function handleClientUpdates(id, updates) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
   if (!player) return;
   if (updates.length) player.lastActivityTime = Date.now();
-  const gun = player.items[player.items.length - 1];
+  const gun = player.items[player.activeItemIndex];
   updates.forEach(update => {
     const updateType = update[PROPNAME_TYPE];
 
@@ -153,9 +154,12 @@ function handleClientUpdates(id, updates) {
         }
         break;
       case PROPNAME_GUN_SHOT:
-        if (gun) {
-          gun.state.bullets = Math.max(0, gun.state.bullets - 1);
+        const activeGun =
+          player.items[update[PROPNAME_PAYLOAD].activeItemIndex];
+        if (activeGun) {
+          activeGun.state.bullets = Math.max(0, activeGun.state.bullets - 1);
         }
+        player.activeItemIndex = update[PROPNAME_PAYLOAD].activeItemIndex;
         player.shots.push(update[PROPNAME_PAYLOAD]);
         break;
       case PROPNAME_PICK_UP_ITEM:

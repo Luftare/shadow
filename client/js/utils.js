@@ -8,7 +8,7 @@ function logTickDt() {
 logTickDt.then = Date.now();
 
 function getActiveGun(player) {
-  return player.items[player.items.length - 1];
+  return player.items[player.activeItemIndex];
 }
 
 function getCameraOffset({ player }) {

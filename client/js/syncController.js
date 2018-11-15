@@ -68,6 +68,7 @@ const syncController = {
     localOpponent[PROPNAME_POSITION_BUFFER_OFFSET] =
       serverOpponent[PROPNAME_POSITION_BUFFER_OFFSET];
     localOpponent.hp = serverOpponent.hp;
+    localOpponent.activeItemIndex = serverOpponent.activeItemIndex;
 
     serverOpponent.shots.forEach(({ from, to }) => {
       const gun = getActiveGun(serverOpponent);

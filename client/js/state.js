@@ -8,6 +8,7 @@ function getInitState(world) {
     aim: [-10, -10],
     aiming: false,
     items: [],
+    activeItemIndex: 0,
     lastShotTime: 0,
   };
 
