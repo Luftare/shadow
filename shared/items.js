@@ -4,6 +4,8 @@ const itemsArray = [
     reloadTime: 1000,
     magazineSize: 5,
     damage: 50,
+    aimedShotOnly: true,
+    reloadTime: 1000,
     aim: {
       sight: 22,
       fieldOfView: 67 * (Math.PI / 180),
@@ -11,15 +13,20 @@ const itemsArray = [
     state: {
       bullets: 5,
     },
-    aimedShotOnly: true,
+    localState: {
+      lastShotTime: 0,
+    },
   },
   {
     name: 'pistol',
-    reloadTime: 0,
     magazineSize: 15,
+    reloadTime: 0,
     damage: 12,
     state: {
       bullets: 15,
+    },
+    localState: {
+      lastShotTime: 0,
     },
   },
 ];

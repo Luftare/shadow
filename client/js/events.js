@@ -33,16 +33,23 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
     const gridPosition = screenToGrid(canvasPosition);
     const withinSight = shadowAlphaGrid[gridPosition[0]][gridPosition[1]] < 1;
     player.aim = gridPosition;
-
     if (withinSight) {
       const gun = getActiveGun(player);
       if (gun) {
-        console.log(gun);
+        const now = Date.now();
         if (!player.aiming && gun.aimedShotOnly) return;
         if (gun.state.bullets > 0) {
-          playerInput.clicks.push([...player.aim]);
-          audio.playSound(audio.sounds[`${gun.name}Shot`]);
-          applyRecoil();
+          if (now - player.lastShotTime > gun.reloadTime) {
+            player.lastShotTime = now;
+            playerInput.clicks.push([...player.aim]);
+            audio.playSound(audio.sounds[`${gun.name}Shot`]);
+            applyRecoil();
+            if (gun.reloadTime > 0) {
+              setTimeout(() => {
+                audio.playSound(audio.sounds.gunReload);
+              }, gun.reloadTime * 0.5);
+            }
+          }
         } else {
           audio.playSound(audio.sounds.emptyMagazineSound);
         }
