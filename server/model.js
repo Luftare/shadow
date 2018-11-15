@@ -82,7 +82,7 @@ function requestNewGame({ players }) {
 
 function generateItems() {
   return mapData.itemSpawnPoints.map(spawnPoint => {
-    if (Math.random() > 0) {
+    if (Math.random() > 0.5) {
       const itemIndex = Math.floor(itemsArray.length * Math.random());
       const itemModel = itemsArray[itemIndex];
       const item = {
