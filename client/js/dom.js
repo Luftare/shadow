@@ -85,6 +85,8 @@ const dom = {
   },
   elements: {
     items: [],
+    gunStatusImage: document.querySelector('.gun-status__image'),
+    gunStatusBullets: document.querySelector('.gun-status__bullets'),
     fxOverlay: document.querySelector('.fx__overlay'),
     fxShotIndicator: document.querySelector('.fx__shot-indicator'),
     hpBar: document.querySelector('.GUI__hp-bar'),

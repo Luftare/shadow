@@ -37,9 +37,8 @@ const connection = (function() {
         });
 
         socket.on(EVENT_SERVER_INIT_NEW_GAME, ({ state: newState, winner }) => {
-          console.log(winner); //TO DO: display this to screen
           if (winner[PROPNAME_ID] === connection.id) {
-            audio.playSound(audio.sounds.win);
+            audio.playSound(audio.sounds.win, 2);
           }
           syncController.handleInitNewGame(newState, state);
         });

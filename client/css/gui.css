@@ -63,3 +63,30 @@ th {
   text-align: left;
   color: white;
 }
+
+.gun-status {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  background-color: #aaa;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.gun-status__image {
+  display: block;
+  width: 80px;
+  height: 80px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.gun-status__bullets {
+  margin-left: 8px;
+  font-size: 26px;
+  color: white;
+  min-width: 30px;
+  display: inline-block;
+}

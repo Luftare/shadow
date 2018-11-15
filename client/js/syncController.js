@@ -118,8 +118,7 @@ const syncController = {
       flashRedScreen();
       audio.playSound(audio.sounds.ouch);
       if (serverStatePlayer.hp <= 0) {
-        console.log('died');
-        audio.playSound(audio.sounds.lose, 4);
+        audio.playSound(audio.sounds.lose, 2);
       }
     }
   },
