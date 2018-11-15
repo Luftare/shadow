@@ -1,6 +1,6 @@
 .GUI {
   color: white;
-  position: absolute;
+  position: fixed;
   top: 30px;
   left: 30px;
   display: flex;
@@ -47,7 +47,7 @@
 
 .guide {
   width: 200px;
-  position: absolute;
+  position: fixed;
   left: 30px;
   bottom: 30px;
   color: white;
