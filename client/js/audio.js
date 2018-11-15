@@ -18,11 +18,13 @@ const audio = {
     emptyMagazineSound: createSoundPool('audio/gun-reload.mp3'),
     gunReload: createSoundPool('audio/empty-magazine-sound.mp3'),
     step: createSoundPool('audio/step.mp3'),
+    ouch: createSoundPool('audio/ouch.mp3'),
+    hitOpponent: createSoundPool('audio/hit-opponent.mp3'),
   },
-  playSound(pool, volume = audio.defaultVolume) {
+  playSound(pool, volume = 1) {
     pool.index = (pool.index + 1) % pool.length;
     const sound = pool[pool.index];
-    sound.volume = volume;
+    sound.volume = volume * audio.defaultVolume;
     sound.pause();
     sound.currentTime = 0;
     sound.playbackRate = Math.random() * 0.3 + 1;

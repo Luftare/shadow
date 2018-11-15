@@ -54,6 +54,7 @@ function handleClicks(clicks, state) {
     connection.appendGunShot(state.player.position, position);
     state.opponents.forEach(opponent => {
       if (areIdentical(opponent.localPosition, position)) {
+        audio.playSound(audio.sounds.hitOpponent, 2);
         connection.appendGunHit(opponent[PROPNAME_ID]);
       }
     });
