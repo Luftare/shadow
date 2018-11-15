@@ -43,7 +43,7 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
             player.lastShotTime = now;
             playerInput.clicks.push([...player.aim]);
             audio.playSound(audio.sounds[`${gun.name}Shot`]);
-            applyRecoil();
+            if (gun.recoil) applyRecoil();
             if (gun.reloadTime > 0) {
               setTimeout(() => {
                 audio.playSound(audio.sounds.gunReload);

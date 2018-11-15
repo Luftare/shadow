@@ -16,6 +16,7 @@ function getStepDirection({ w: up, s: down, a: left, d: right }) {
 }
 
 function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
+  if (keysDown.shift) return; //cant move while aiming
   const now = Date.now();
   const enoughTimeSinceLastMovement =
     now - player.lastMoveTime > PLAYER_MOVE_SLEEP_TIME;

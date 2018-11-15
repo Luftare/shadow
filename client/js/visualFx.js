@@ -18,7 +18,7 @@ function applyRecoil() {
   dom.elements.gameContainer.classList.add('fx--recoil');
   setTimeout(() => {
     dom.elements.gameContainer.classList.remove('fx--recoil');
-  }, 200);
+  }, 500);
 }
 
 function flashBlurScreen() {
