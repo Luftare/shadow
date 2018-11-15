@@ -125,6 +125,7 @@ function handleClientUpdates(id, updates) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
   if (!player) return;
   if (updates.length) player.lastActivityTime = Date.now();
+  const gun = player.items[player.items.length - 1];
   updates.forEach(update => {
     const updateType = update[PROPNAME_TYPE];
 
@@ -140,7 +141,6 @@ function handleClientUpdates(id, updates) {
         }
         break;
       case PROPNAME_RECEIVE_HIT:
-        const gun = player.items[player.items.length - 1];
         if (gun) {
           const damage = gun.damage;
           const targetId = update[PROPNAME_PAYLOAD];
@@ -153,6 +153,9 @@ function handleClientUpdates(id, updates) {
         }
         break;
       case PROPNAME_GUN_SHOT:
+        if (gun) {
+          gun.state.bullets = Math.max(0, gun.state.bullets - 1);
+        }
         player.shots.push(update[PROPNAME_PAYLOAD]);
         break;
       case PROPNAME_PICK_UP_ITEM:

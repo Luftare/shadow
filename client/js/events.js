@@ -39,9 +39,13 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
       if (gun) {
         console.log(gun);
         if (!player.aiming && gun.aimedShotOnly) return;
-        playerInput.clicks.push([...player.aim]);
-        audio.playSound(audio.sounds[`${gun.name}Shot`]);
-        applyRecoil();
+        if (gun.state.bullets > 0) {
+          playerInput.clicks.push([...player.aim]);
+          audio.playSound(audio.sounds[`${gun.name}Shot`]);
+          applyRecoil();
+        } else {
+          audio.playSound(audio.sounds.emptyMagazineSound);
+        }
       }
     }
   });
