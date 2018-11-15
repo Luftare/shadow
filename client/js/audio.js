@@ -10,7 +10,7 @@ function createSoundPool(src) {
 }
 
 const audio = {
-  defaultVolume: 0.05,
+  defaultVolume: 0.1,
   sounds: {
     pistolShot: createSoundPool('audio/shot-pistol.mp3'),
     sniperShot: createSoundPool('audio/shot-sniper.mp3'),
@@ -20,6 +20,8 @@ const audio = {
     step: createSoundPool('audio/step.mp3'),
     ouch: createSoundPool('audio/ouch.mp3'),
     hitOpponent: createSoundPool('audio/hit-opponent.mp3'),
+    win: createSoundPool('audio/win.mp3'),
+    lose: createSoundPool('audio/lose.mp3'),
   },
   playSound(pool, volume = 1) {
     pool.index = (pool.index + 1) % pool.length;
@@ -33,6 +35,6 @@ const audio = {
   getPointsAudioVolume(a, b) {
     const distance = Math.sqrt(squaredDistance(a, b));
     const decline = 5;
-    return audio.defaultVolume * (decline / (decline + distance));
+    return decline / (decline + distance);
   },
 };
