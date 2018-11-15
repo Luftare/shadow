@@ -68,12 +68,13 @@ const syncController = {
     localOpponent[PROPNAME_POSITION_BUFFER_OFFSET] =
       serverOpponent[PROPNAME_POSITION_BUFFER_OFFSET];
     localOpponent.hp = serverOpponent.hp;
+    localOpponent.activeItemIndex = serverOpponent.activeItemIndex;
 
     serverOpponent.shots.forEach(({ from, to }) => {
-      const gun = serverOpponent.items[serverOpponent.items.length - 1];
+      const gun = getActiveGun(serverOpponent);
       if (gun) {
         const volume = audio.getPointsAudioVolume(from, localPlayer.position);
-        audio.playSound(audio.sounds[`${gun[2]}Shot`], volume);
+        audio.playSound(audio.sounds[`${gun.name}Shot`], volume);
         dom.indicateShotAtDirection(from, state);
         flashImageAt(images.explosion, to);
       }
@@ -114,7 +115,13 @@ const syncController = {
     const receivedDamage = localState.player.hp > serverStatePlayer.hp;
     localState.player.hp = serverStatePlayer.hp;
     localState.player.items = serverStatePlayer.items;
-    if (receivedDamage) flashRedScreen();
+    if (receivedDamage) {
+      flashRedScreen();
+      audio.playSound(audio.sounds.ouch);
+      if (serverStatePlayer.hp <= 0) {
+        audio.playSound(audio.sounds.lose, 2);
+      }
+    }
   },
   handlePlayerModelUpdate(serverState, localState) {
     const { PROPNAME_ID } = sharedConfig;

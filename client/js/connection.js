@@ -37,7 +37,9 @@ const connection = (function() {
         });
 
         socket.on(EVENT_SERVER_INIT_NEW_GAME, ({ state: newState, winner }) => {
-          console.log(winner); //TO DO: display this to screen
+          if (winner && winner[PROPNAME_ID] === connection.id) {
+            audio.playSound(audio.sounds.win, 2);
+          }
           syncController.handleInitNewGame(newState, state);
         });
 
@@ -70,10 +72,10 @@ const connection = (function() {
         [PROPNAME_PAYLOAD]: opponentId,
       });
     },
-    appendGunShot(from, to) {
+    appendGunShot(from, to, activeItemIndex) {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_GUN_SHOT,
-        [PROPNAME_PAYLOAD]: { from, to },
+        [PROPNAME_PAYLOAD]: { from, to, activeItemIndex },
       });
     },
     appendItemPickUp(item) {

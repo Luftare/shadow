@@ -75,16 +75,21 @@ const dom = {
         itemElement.classList.remove('game__item--hidden');
         const item = items[i];
         if (item) {
-          const [x, y] = gridToScreen(item);
+          const [x, y] = gridToScreen(item.position);
           itemElement.style.left = `${x}px`;
           itemElement.style.top = `${y}px`;
-          itemElement.setAttribute('data-item', items[i][2]);
+          itemElement.setAttribute('data-item', items[i].name);
         }
       }
     });
   },
   elements: {
+    inventorySlots: [...Array(4)].map((_, i) => {
+      return document.querySelector(`.inventory__slot[data-num='${i}']`);
+    }),
     items: [],
+    gunStatusImage: document.querySelector('.gun-status__image'),
+    gunStatusBullets: document.querySelector('.gun-status__bullets'),
     fxOverlay: document.querySelector('.fx__overlay'),
     fxShotIndicator: document.querySelector('.fx__shot-indicator'),
     hpBar: document.querySelector('.GUI__hp-bar'),

@@ -69,7 +69,7 @@ function updateZone(state) {
     state.zone = state.nextZone;
     setTimeout(() => {
       state.nextZone = getNextZone(state.zone);
-    }, ZONE_SHRINK_SLEEP_TIME * 0.5);
+    }, ZONE_SHRINK_SLEEP_TIME * 0.3);
     state.lastZoneShrinkTime = now;
   }
 }

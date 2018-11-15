@@ -1,6 +1,6 @@
 .GUI {
   color: white;
-  position: absolute;
+  position: fixed;
   top: 30px;
   left: 30px;
   display: flex;
@@ -47,7 +47,7 @@
 
 .guide {
   width: 200px;
-  position: absolute;
+  position: fixed;
   left: 30px;
   bottom: 30px;
   color: white;
@@ -62,4 +62,56 @@ th {
   margin-right: 8px;
   text-align: left;
   color: white;
+}
+
+.gun-status {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  background-color: #aaa;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.gun-status__image {
+  display: block;
+  width: 80px;
+  height: 80px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.gun-status__bullets {
+  margin-left: 8px;
+  font-size: 26px;
+  color: white;
+  min-width: 30px;
+  display: inline-block;
+}
+
+.inventory {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+}
+
+.inventory__slot {
+  display: block;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin: 4px;
+  box-sizing: border-box;
+  border: solid transparent 2px;
+}
+
+.inventory__slot--active {
+  border: solid white 2px;
 }

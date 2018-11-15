@@ -52,10 +52,32 @@ function updateModal({ opponents, player }) {
   }
 }
 
+function updateGunStatus({ player }) {
+  const gun = getActiveGun(player);
+  if (gun) {
+    dom.elements.gunStatusImage.style.backgroundImage = `url('images/${
+      gun.name
+    }.png')`;
+    dom.elements.gunStatusBullets.innerHTML = gun.state.bullets;
+  }
+}
+
+function updateInventory({ player }) {
+  dom.elements.inventorySlots.forEach((slot, i) => {
+    const item = player.items[i];
+    slot.style.backgroundImage = item ? `url('images/${item.name}.png')` : '';
+    slot.classList[player.activeItemIndex === i ? 'add' : 'remove'](
+      'inventory__slot--active'
+    );
+  });
+}
+
 function drawGUI(state) {
   const { zone, nextZone, player } = state;
   updateModal(state);
   drawZones(zone, nextZone);
   updateHpBar(player);
   updateGUINumbers(state);
+  updateGunStatus(state);
+  updateInventory(state);
 }
