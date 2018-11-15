@@ -84,6 +84,9 @@ const dom = {
     });
   },
   elements: {
+    inventorySlots: [...Array(4)].map((_, i) => {
+      return document.querySelector(`.inventory__slot[data-num='${i}']`);
+    }),
     items: [],
     gunStatusImage: document.querySelector('.gun-status__image'),
     gunStatusBullets: document.querySelector('.gun-status__bullets'),

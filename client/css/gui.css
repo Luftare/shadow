@@ -90,3 +90,28 @@ th {
   min-width: 30px;
   display: inline-block;
 }
+
+.inventory {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+}
+
+.inventory__slot {
+  display: block;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin: 4px;
+  box-sizing: border-box;
+  border: solid transparent 2px;
+}
+
+.inventory__slot--active {
+  border: solid white 2px;
+}

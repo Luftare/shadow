@@ -62,6 +62,16 @@ function updateGunStatus({ player }) {
   }
 }
 
+function updateInventory({ player }) {
+  dom.elements.inventorySlots.forEach((slot, i) => {
+    const item = player.items[i];
+    slot.style.backgroundImage = item ? `url('images/${item.name}.png')` : '';
+    slot.classList[player.activeItemIndex === i ? 'add' : 'remove'](
+      'inventory__slot--active'
+    );
+  });
+}
+
 function drawGUI(state) {
   const { zone, nextZone, player } = state;
   updateModal(state);
@@ -69,4 +79,5 @@ function drawGUI(state) {
   updateHpBar(player);
   updateGUINumbers(state);
   updateGunStatus(state);
+  updateInventory(state);
 }
