@@ -47,7 +47,7 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
             if (gun.reloadTime > 0) {
               setTimeout(() => {
                 audio.playSound(audio.sounds.gunReload);
-              }, gun.reloadTime * 0.5);
+              }, gun.reloadTime * 0.9);
             }
           }
         } else {
