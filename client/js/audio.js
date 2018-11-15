@@ -17,7 +17,7 @@ const audio = {
     pickUpGun: createSoundPool('audio/pick-up-gun.mp3'),
     emptyMagazineSound: createSoundPool('audio/gun-reload.mp3'),
     gunReload: createSoundPool('audio/empty-magazine-sound.mp3'),
-    step: createSoundPool('audio/step.wav'),
+    step: createSoundPool('audio/step.mp3'),
   },
   playSound(pool, volume = audio.defaultVolume) {
     pool.index = (pool.index + 1) % pool.length;
