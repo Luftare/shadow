@@ -70,10 +70,10 @@ const syncController = {
     localOpponent.hp = serverOpponent.hp;
 
     serverOpponent.shots.forEach(({ from, to }) => {
-      const gun = serverOpponent.items[serverOpponent.items.length - 1];
+      const gun = getActiveGun(serverOpponent);
       if (gun) {
         const volume = audio.getPointsAudioVolume(from, localPlayer.position);
-        audio.playSound(audio.sounds[`${gun[2]}Shot`], volume);
+        audio.playSound(audio.sounds[`${gun.name}Shot`], volume);
         dom.indicateShotAtDirection(from, state);
         flashImageAt(images.explosion, to);
       }

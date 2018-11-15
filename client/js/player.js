@@ -34,7 +34,9 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
     audio.playSound(audio.sounds.step);
     dom.moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
-    const pickedItem = items.find(item => areIdentical(item, player.position));
+    const pickedItem = items.find(item =>
+      areIdentical(item.position, player.position)
+    );
     if (pickedItem) {
       connection.appendItemPickUp(pickedItem);
       audio.playSound(audio.sounds.pickUpGun);

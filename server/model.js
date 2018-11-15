@@ -14,13 +14,12 @@ const {
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
-  NEW_GAME_DELAY_TIME,
   IDLE_KICK_TIME,
 } = require('../shared/sharedConfig');
 
 const { getMapData } = require('./mapParser');
 
-const allItems = require('../shared/items');
+const { itemsArray } = require('../shared/items');
 
 const { shuffle } = require('./utils');
 
@@ -83,8 +82,14 @@ function requestNewGame({ players }) {
 function generateItems() {
   return mapData.itemSpawnPoints.map(spawnPoint => {
     if (Math.random() > 0) {
-      const itemIndex = Math.floor(allItems.length * Math.random());
-      return [...spawnPoint, allItems[itemIndex]];
+      const itemIndex = Math.floor(itemsArray.length * Math.random());
+      const itemModel = itemsArray[itemIndex];
+      const item = {
+        ...itemModel,
+        state: { ...itemModel.state },
+        position: spawnPoint,
+      };
+      return item;
     } else {
       return null;
     }
@@ -137,7 +142,7 @@ function handleClientUpdates(id, updates) {
       case PROPNAME_RECEIVE_HIT:
         const gun = player.items[player.items.length - 1];
         if (gun) {
-          const damage = gun[2] === 'sniper' ? 40 : 20;
+          const damage = gun.damage;
           const targetId = update[PROPNAME_PAYLOAD];
           const target = state.players.find(
             player => player[PROPNAME_ID] === targetId
@@ -154,7 +159,10 @@ function handleClientUpdates(id, updates) {
         const pickedItem = update[PROPNAME_PAYLOAD];
         player.items.push(update[PROPNAME_PAYLOAD]);
         state.items = state.items.filter(
-          item => item[0] !== pickedItem[0] && item[1] && pickedItem[1]
+          item =>
+            item.position[0] !== pickedItem.position[0] &&
+            item.position[1] &&
+            pickedItem.position[1]
         );
         break;
 

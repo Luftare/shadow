@@ -37,6 +37,7 @@ function setupEventListeners({ player, shadowAlphaGrid }) {
     if (withinSight) {
       const gun = getActiveGun(player);
       if (gun) {
+        console.log(gun);
         if (!player.aiming && gun.aimedShotOnly) return;
         playerInput.clicks.push([...player.aim]);
         audio.playSound(audio.sounds[`${gun.name}Shot`]);
