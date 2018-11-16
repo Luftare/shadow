@@ -81,20 +81,22 @@ function requestNewGame({ players }) {
 }
 
 function generateItems() {
-  return mapData.itemSpawnPoints.map(spawnPoint => {
-    if (Math.random() > 0.5) {
-      const itemIndex = Math.floor(itemsArray.length * Math.random());
-      const itemModel = itemsArray[itemIndex];
-      const item = {
-        ...itemModel,
-        state: { ...itemModel.state },
-        position: spawnPoint,
-      };
-      return item;
-    } else {
-      return null;
-    }
-  });
+  return mapData.itemSpawnPoints
+    .map(spawnPoint => {
+      if (Math.random() > 0.5) {
+        const itemIndex = Math.floor(itemsArray.length * Math.random());
+        const itemModel = itemsArray[itemIndex];
+        const item = {
+          ...itemModel,
+          state: { ...itemModel.state },
+          position: spawnPoint,
+        };
+        return item;
+      } else {
+        return null;
+      }
+    })
+    .filter(item => !!item);
 }
 
 function handleZoneDamage(state) {
