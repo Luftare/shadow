@@ -16,24 +16,19 @@ Multiplayer survival game.
 #### Server
 
 - send map data to clients
-- new game is initted if second player connects
 - frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
 - server keeps track of player that have connected during the game and will show them as observers
 
 #### Client
 
+- client lifecycle is clearly written (one-time setup, game data from server, setup game data from server)
 - handle use map data received from server
 - waiting for next round is displayed when joining new game
 
 ### Gameplay
 
 ### Items
-
-- guns can be swapped
-- damage is proportional of distance and modified by equipped gun
-- guns have reload time
-- guns have limited ammo
 
 ### Menu
 
@@ -68,7 +63,6 @@ Multiplayer survival game.
 - player has inventors with 2 slots for guns
 - items can be looted if there are free slots in inventory
 - guns can be dropped and dropping on top of another gun will swap the currently equipped gun
-- two guns can be equipped and selected from
 - opponents rotate to their facing
 - nickname is stored accross sessions in local storage
 
@@ -146,3 +140,9 @@ Multiplayer survival game.
 - each spawnpoint may spawn a randomised item
 - server parses map data from image and uses it for spawning items
 - Sprites: guns and other loot...
+- guns can be swapped
+- guns have reload time
+- guns have limited ammo
+- two guns can be equipped and selected from
+- damage is modified by equipped gun
+- new game is initted if second player connects
