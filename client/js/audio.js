@@ -10,7 +10,7 @@ function createSoundPool(src) {
 }
 
 const audio = {
-  defaultVolume: 0.1,
+  defaultVolume: 0.4,
   sounds: {
     pistolShot: createSoundPool('audio/shot-pistol.mp3'),
     sniperShot: createSoundPool('audio/shot-sniper.mp3'),
@@ -26,7 +26,7 @@ const audio = {
   playSound(pool, volume = 1) {
     pool.index = (pool.index + 1) % pool.length;
     const sound = pool[pool.index];
-    sound.volume = volume * audio.defaultVolume;
+    sound.volume = Math.min(1, volume * audio.defaultVolume);
     sound.pause();
     sound.currentTime = 0;
     sound.playbackRate = Math.random() * 0.3 + 1;
