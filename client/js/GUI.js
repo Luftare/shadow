@@ -54,11 +54,17 @@ function updateModal({ opponents, player }) {
 
 function updateGunStatus({ player }) {
   const gun = getActiveGun(player);
+
   if (gun) {
     dom.elements.gunStatusImage.style.backgroundImage = `url('images/${
       gun.name
     }.png')`;
     dom.elements.gunStatusBullets.innerHTML = gun.state.bullets;
+  }
+
+  if (player.items.length === 0) {
+    dom.elements.gunStatusImage.style.backgroundImage = 'none';
+    dom.elements.gunStatusBullets.innerHTML = 0;
   }
 }
 

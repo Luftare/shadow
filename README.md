@@ -22,6 +22,7 @@ Multiplayer survival game.
 
 #### Client
 
+- BUG: equipped gun image and bullets do not reset on new game
 - client lifecycle is clearly written (one-time setup, game data from server, setup game data from server)
 - handle use map data received from server
 - waiting for next round is displayed when joining new game
@@ -43,8 +44,6 @@ Multiplayer survival game.
   - rock
 
 ### Audio fx
-
-- hitting an opponent sounds different than missing
 
 ### Assets
 
@@ -146,3 +145,4 @@ Multiplayer survival game.
 - damage is modified by equipped gun
 - new game is initted if second player connects
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
+- hitting an opponent sounds different than missing
