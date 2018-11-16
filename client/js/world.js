@@ -1,4 +1,4 @@
-function renderWorld({ obstacles }) {
+function renderStaticWorld({ obstacles }) {
   const ctx = dom.elements.canvas.getContext('2d');
 
   const colors = {

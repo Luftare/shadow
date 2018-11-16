@@ -57,7 +57,6 @@ Multiplayer survival game.
 ### Misc
 
 - optimization: store visibility alpha only for closeby area
-- refactor: remove duplicate argument passes with world since world now belongs to state at client
 - refactor: move fx into single object
 - refactor: remove PROPNAMEs for simplicity and only use EVENT_NAMEs
 - player has inventors with 2 slots for guns
@@ -146,3 +145,4 @@ Multiplayer survival game.
 - two guns can be equipped and selected from
 - damage is modified by equipped gun
 - new game is initted if second player connects
+- refactor: remove duplicate argument passes with world since world now belongs to state at client

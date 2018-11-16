@@ -1,3 +1,10 @@
+function processInput({ keysDown, clicks }, state) {
+  if (state.player.hp <= 0) return;
+  handlePlayerMovement(keysDown, state);
+  handlePlayerActions(keysDown, state);
+  handleClicks(clicks, state);
+}
+
 function followPlayer(state) {
   const cameraOffset = getCameraOffset(state);
   const screenCameraOffset = gridToScreen(cameraOffset);
