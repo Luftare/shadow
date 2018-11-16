@@ -35,7 +35,6 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
     audio.playSound(audio.sounds.step);
     dom.moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
-    console.log(items);
     const pickedItem = items.find(item =>
       areIdentical(item.position, player.position)
     );
