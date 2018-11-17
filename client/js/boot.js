@@ -1,6 +1,6 @@
 function tick(state) {
   updateClosebyObstacles(state);
-  processInput(playerInput, state);
+  updateLocalPlayer(state);
   syncController.updateOpponents(state);
   drawShadow(state);
   drawGUI(state);
@@ -12,9 +12,7 @@ function tick(state) {
 }
 
 function initGame(state) {
-  setupEventListeners(state);
-  dom.moveElementTo(dom.elements.player, state.player.position);
-  renderStaticWorld(state.world);
+  renderStaticEnvironment(state.environment);
   setInterval(() => {
     // logTickDt();
     tick(state);
@@ -23,9 +21,10 @@ function initGame(state) {
 
 function boot() {
   dom.init();
-  const world = mapParser.parseImage(dom.elements.mapDataImage);
-  const state = getInitState(world);
-  connection.connectToServerSocket(state).then(() => {
+  const environment = mapParser.parseImage(dom.elements.mapDataImage);
+  const state = getInitState(environment);
+  setupEventListeners(state);
+  connection.connectToServer(state).then(() => {
     initGame(state);
   });
 }

@@ -34,8 +34,8 @@ const connection = (function() {
         this.emitUpdates();
       }
     },
-    connectToServerSocket(state) {
-      return new Promise(resolve => {
+    connectToServer(state) {
+      return new Promise(onConnection => {
         const socket = io(window.location.href, {
           reconnect: false,
           reconnects: false,
@@ -45,14 +45,13 @@ const connection = (function() {
           if (winner && winner[PROPNAME_ID] === connection.id) {
             audio.playSound(audio.sounds.win, 2);
           }
-          renderStaticWorld(state.world);
+          renderStaticEnvironment(state.environment);
           syncController.handleInitNewGame(newState, state);
         });
 
-        socket.on(EVENT_SERVER_INIT_CLIENT, initData => {
-          this.id = initData[PROPNAME_ID];
-          state.player.position = initData[PROPNAME_POSITION];
-          resolve();
+        socket.on(EVENT_SERVER_INIT_CLIENT, id => {
+          this.id = id;
+          onConnection();
         });
 
         socket.on(EVENT_SERVER_UPDATE, serverState => {

@@ -11,11 +11,11 @@ const dom = {
     );
 
     document.documentElement.style.setProperty(
-      '--game-world-width',
+      '--game-environment-width',
       `${CELL_WIDTH * GRID_CELLS_X}px`
     );
     document.documentElement.style.setProperty(
-      '--game-world-height',
+      '--game-environment-height',
       `${CELL_HEIGHT * GRID_CELLS_Y}px`
     );
     document.documentElement.style.setProperty(
@@ -113,7 +113,7 @@ const dom = {
     itemsContainer: document.querySelector('.game__items'),
     game: document.querySelector('.game'),
     gameContainer: document.querySelector('.game__container'),
-    canvas: document.querySelector('.game__world'),
+    canvas: document.querySelector('.game__environment'),
     shadowCanvas: document.querySelector('.game__shadow'),
     fxContainer: document.querySelector('.game__fx'),
     player: document.querySelector('.game__player'),

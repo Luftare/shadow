@@ -69,16 +69,10 @@ function addSocketHandlers(socket, io) {
   });
 }
 
-function handleNewClientConnection(socket, io) {
+function handleNewClientConnection(socket) {
   sockets[socket.id] = socket;
-  const position = addPlayer(socket.id);
-
-  const initData = {
-    [PROPNAME_POSITION]: position,
-    [PROPNAME_ID]: socket.id,
-  };
-
-  socket.emit(EVENT_SERVER_INIT_CLIENT, initData);
+  addPlayer(socket.id);
+  socket.emit(EVENT_SERVER_INIT_CLIENT, socket.id);
 }
 
 function handleSocketConnections(io) {

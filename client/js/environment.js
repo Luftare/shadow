@@ -4,7 +4,7 @@ function drawScaledImageTo(image, x, y, scale, ctx) {
   ctx.drawImage(image, imgX, imgY, CELL_WIDTH * scale, CELL_HEIGHT * scale);
 }
 
-function renderStaticWorld({ obstacles }) {
+function renderStaticEnvironment({ obstacles }) {
   dom.elements.canvas.width = dom.elements.canvas.width; //clear canvas;
   const ctx = dom.elements.canvas.getContext('2d');
 

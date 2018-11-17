@@ -1,8 +1,8 @@
 :root {
   --cell-width: 1px;
   --cell-height: 1px;
-  --game-world-width: 0;
-  --game-world-height: 0;
+  --game-environment-width: 0;
+  --game-environment-height: 0;
   --game-screen-width: 0;
   --game-screen-height: 0;
 }

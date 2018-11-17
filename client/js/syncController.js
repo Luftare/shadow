@@ -183,8 +183,7 @@ const syncController = {
     if (!serverPlayerData) return;
     const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
     const spawnPoint =
-      // localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
-      localState.world[OBJECT_PLAYER_SPAWN_POINT][0];
+      localState.environment[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
 
     player.position = [...spawnPoint];
     connection.appendNewPosition(player.position);
@@ -199,8 +198,9 @@ const syncController = {
     data.players.forEach(player => {
       if (player[PROPNAME_ID] !== connection.id) {
         const spawnPoint =
-          // localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
-          localState.world[OBJECT_PLAYER_SPAWN_POINT][0];
+          localState.environment[OBJECT_PLAYER_SPAWN_POINT][
+            player.spawnPointIndex
+          ];
         player[PROPNAME_POSITION_BUFFER][0] = [...spawnPoint];
         syncController.addNewOpponent(player, localState);
       }

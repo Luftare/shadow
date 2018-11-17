@@ -1,4 +1,4 @@
-function getInitState(world) {
+function getInitState(environment) {
   const { GRID_CELLS_X, GRID_CELLS_Y } = sharedConfig;
 
   const player = {
@@ -16,7 +16,7 @@ function getInitState(world) {
   const nextZone = zone;
 
   const shadowAlphaGrid = fill(GRID_CELLS_X, () => fill(GRID_CELLS_Y, () => 1));
-  const obstacles = world.obstacles;
+  const obstacles = environment.obstacles;
   const closebyObstacles = [];
   const obstacleAdjacents = obstacles.map(getAdjacentCells);
   const opponents = [];
@@ -32,7 +32,7 @@ function getInitState(world) {
     obstacles,
     closebyObstacles,
     obstacleAdjacents,
-    world,
+    environment,
     timeToNextZoneShrink,
     items,
   };

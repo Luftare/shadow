@@ -1,3 +1,8 @@
+function updateLocalPlayer(state) {
+  processInput(playerInput, state);
+  dom.moveElementTo(dom.elements.player, state.player.position);
+}
+
 function processInput({ keysDown, clicks }, state) {
   if (state.player.hp <= 0) return;
   handlePlayerMovement(keysDown, state);

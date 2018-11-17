@@ -1,8 +1,8 @@
 .game {
   position: relative;
   display: block;
-  width: var(--game-world-width);
-  height: var(--game-world-height);
+  width: var(--game-environment-width);
+  height: var(--game-environemnt-height);
   transition: all 300ms;
 }
 
@@ -30,7 +30,7 @@
   left: 0;
 }
 
-.game__world {
+.game__environment {
   background-color: green;
   cursor: crosshair;
 }
