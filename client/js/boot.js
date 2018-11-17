@@ -5,6 +5,7 @@ function tick(state) {
   drawShadow(state);
   drawGUI(state);
   followPlayer(state);
+  connection.updateStreamData(state);
   connection.requestUpdate();
   dom.updateItems(state);
   resetHandledInputs();

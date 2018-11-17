@@ -1,7 +1,6 @@
 const {
   PLAYER_POSITIONS_BUFFER_LENGTH,
   PLAYER_SPAWN_POINTS_COUNT,
-  ITEM_SPAWN_POINTS_COUNT,
   PROPNAME_POSITION_BUFFER,
   PROPNAME_POSITION_BUFFER_OFFSET,
   PROPNAME_TYPE,
@@ -11,6 +10,7 @@ const {
   PROPNAME_RECEIVE_HIT,
   PROPNAME_GUN_SHOT,
   PROPNAME_PICK_UP_ITEM,
+  PROPNAME_SWITCH_GUN,
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
@@ -54,6 +54,7 @@ function getInitState(players = []) {
       shots: [],
       items: [],
       activeItemIndex: 0,
+      angle: 0,
     };
   });
 
@@ -124,17 +125,20 @@ function updateModelAfterBroadcast() {
   });
 }
 
-function handleClientUpdates(id, updates) {
+function handleClientUpdate(id, { events, streamData }) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
-  if (!player) return;
-  if (updates.length) player.lastActivityTime = Date.now();
-  const gun = player.items[player.activeItemIndex];
-  updates.forEach(update => {
-    const updateType = update[PROPNAME_TYPE];
+  if (!player || !events) return;
+  if (events.length) player.lastActivityTime = Date.now();
 
-    switch (updateType) {
+  player.angle = streamData.angle;
+
+  const gun = player.items[player.activeItemIndex];
+  events.forEach(event => {
+    const eventType = event[PROPNAME_TYPE];
+
+    switch (eventType) {
       case PROPNAME_POSITION:
-        player[PROPNAME_POSITION_BUFFER].push(update[PROPNAME_PAYLOAD]);
+        player[PROPNAME_POSITION_BUFFER].push(event[PROPNAME_PAYLOAD]);
         const bufferIsFull =
           player[PROPNAME_POSITION_BUFFER].length >
           PLAYER_POSITIONS_BUFFER_LENGTH;
@@ -146,7 +150,7 @@ function handleClientUpdates(id, updates) {
       case PROPNAME_RECEIVE_HIT:
         if (gun) {
           const damage = gun.damage;
-          const targetId = update[PROPNAME_PAYLOAD];
+          const targetId = event[PROPNAME_PAYLOAD];
           const target = state.players.find(
             player => player[PROPNAME_ID] === targetId
           );
@@ -155,18 +159,21 @@ function handleClientUpdates(id, updates) {
           }
         }
         break;
+      case PROPNAME_SWITCH_GUN:
+        player.activeItemIndex = event[PROPNAME_PAYLOAD];
+
+        break;
       case PROPNAME_GUN_SHOT:
-        const activeGun =
-          player.items[update[PROPNAME_PAYLOAD].activeItemIndex];
+        const activeGun = player.items[event[PROPNAME_PAYLOAD].activeItemIndex];
         if (activeGun) {
           activeGun.state.bullets = Math.max(0, activeGun.state.bullets - 1);
         }
-        player.activeItemIndex = update[PROPNAME_PAYLOAD].activeItemIndex;
-        player.shots.push(update[PROPNAME_PAYLOAD]);
+        player.activeItemIndex = event[PROPNAME_PAYLOAD].activeItemIndex;
+        player.shots.push(event[PROPNAME_PAYLOAD]);
         break;
       case PROPNAME_PICK_UP_ITEM:
-        const pickedItem = update[PROPNAME_PAYLOAD];
-        player.items.push(update[PROPNAME_PAYLOAD]);
+        const pickedItem = event[PROPNAME_PAYLOAD];
+        player.items.push(event[PROPNAME_PAYLOAD]);
         state.items = state.items.filter(
           item =>
             item.position[0] !== pickedItem.position[0] &&
@@ -193,6 +200,7 @@ function addPlayer(id) {
     lastActivityTime: Date.now(),
     shots: [],
     items: [],
+    angle: 0,
   };
 
   state.players.push(player);
@@ -229,7 +237,7 @@ module.exports = {
   removePlayer,
   getState,
   resetState,
-  handleClientUpdates,
+  handleClientUpdate,
   updateModel,
   updateModelAfterBroadcast,
   initModel,

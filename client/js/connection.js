@@ -11,12 +11,16 @@ const connection = (function() {
     PROPNAME_RECEIVE_HIT,
     PROPNAME_GUN_SHOT,
     PROPNAME_PICK_UP_ITEM,
+    PROPNAME_SWITCH_GUN,
   } = sharedConfig;
 
   return {
     socket: null,
     id: null,
     clientUpdates: [],
+    streamData: {
+      angle: 0,
+    },
     lastUpdateTime: 0,
     requestUpdate() {
       const now = Date.now();
@@ -84,8 +88,22 @@ const connection = (function() {
         [PROPNAME_PAYLOAD]: item,
       });
     },
+    appendSwitchGun(activeItemIndex) {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_SWITCH_GUN,
+        [PROPNAME_PAYLOAD]: activeItemIndex,
+      });
+    },
+    updateStreamData({ player }) {
+      this.streamData = {
+        angle: vectorAngle(subtract(player.aim, player.position)),
+      };
+    },
     emitUpdates() {
-      this.socket.emit(EVENT_CLIENT_UPDATE, this.clientUpdates);
+      this.socket.emit(EVENT_CLIENT_UPDATE, {
+        events: this.clientUpdates,
+        streamData: this.streamData,
+      });
       this.clientUpdates = [];
     },
   };

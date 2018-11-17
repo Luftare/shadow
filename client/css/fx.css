@@ -63,7 +63,7 @@
   width: 150px;
   height: 150px;
   transform: translate(-50%, -50%);
-  border-bottom: solid red 10px;
+  border-right: solid red 6px;
   border-radius: 999px;
   pointer-events: none;
 }

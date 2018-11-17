@@ -35,7 +35,7 @@ const dom = {
     element.style.left = `${x * CELL_WIDTH}px`;
   },
   createOpponentElement() {
-    const element = document.createElement('div');
+    const element = document.createElement('img');
     element.classList = 'game__opponent';
     dom.elements.opponents.appendChild(element);
     return element;
@@ -45,7 +45,7 @@ const dom = {
   },
   indicateShotAtDirection(position, { player }) {
     const toShot = subtract(position, player.position);
-    const angle = vectorAngle(toShot) - Math.PI / 2;
+    const angle = vectorAngle(toShot);
     const degrees = (angle * 180) / Math.PI;
     dom.elements.fxShotIndicator.style.transform = `translate(-50%, -50%) rotate(${degrees}deg)`;
     dom.elements.fxShotIndicator.classList.add('fx--flash');
@@ -82,6 +82,15 @@ const dom = {
         }
       }
     });
+  },
+  playerGunImages: {
+    none: 'images/player.png',
+    pistol: 'images/player-pistol.gif',
+    sniper: 'images/player-sniper.png',
+  },
+  getPlayerImage(player) {
+    const gun = getActiveGun(player);
+    return gun ? dom.playerGunImages[gun.name] : dom.playerGunImages['none'];
   },
   elements: {
     inventorySlots: [...Array(4)].map((_, i) => {

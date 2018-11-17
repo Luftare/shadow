@@ -55,23 +55,20 @@
 }
 
 .game__player {
-  transition: all 150ms;
+  transition: left 150ms, top 150ms;
   position: absolute;
   display: block;
-  background-color: blue;
   top: 0;
   left: 0;
   width: var(--cell-width);
   height: var(--cell-height);
   pointer-events: none;
-  border-radius: 100px;
 }
 
 .game__opponent {
-  transition: all 150ms;
+  transition: top 150ms, left 150ms;
   position: absolute;
   display: block;
-  background-color: red;
   top: 0;
   left: 0;
   width: var(--cell-width);

@@ -22,6 +22,10 @@ function getStepDirection({ w: up, s: down, a: left, d: right }) {
   return stepDirection;
 }
 
+function updatePlayerTransform(element, angle) {
+  element.style.transform = `rotate(${(angle * 180) / Math.PI}deg) scale(1.3)`;
+}
+
 function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
   if (keysDown.shift) return; //cant move while aiming
   const now = Date.now();
@@ -35,6 +39,10 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
   const orderedToMove = !isZero(stepDirection);
   const hasSpaceToMove = !anyPointAt(newPosition, closebyObstacles);
   const willMove = orderedToMove && hasSpaceToMove;
+
+  const angle = vectorAngle(subtract(player.aim, player.position));
+
+  updatePlayerTransform(dom.elements.player, angle);
 
   if (willMove) {
     player.position = newPosition;
@@ -68,8 +76,11 @@ function handlePlayerActions(keysDown, { player }) {
   );
 
   if (previousItemIndex !== player.activeItemIndex) {
+    connection.appendSwitchGun(player.activeItemIndex);
     audio.playSound(audio.sounds.gunReload);
   }
+
+  dom.elements.player.src = dom.getPlayerImage(player);
 }
 
 function handleClicks(clicks, state) {

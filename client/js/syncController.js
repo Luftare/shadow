@@ -69,6 +69,10 @@ const syncController = {
       serverOpponent[PROPNAME_POSITION_BUFFER_OFFSET];
     localOpponent.hp = serverOpponent.hp;
     localOpponent.activeItemIndex = serverOpponent.activeItemIndex;
+    localOpponent.angle = serverOpponent.angle;
+
+    localOpponent.element.src = dom.getPlayerImage(localOpponent);
+    updatePlayerTransform(localOpponent.element, localOpponent.angle);
 
     serverOpponent.shots.forEach(({ from, to }) => {
       const gun = getActiveGun(serverOpponent);
@@ -79,6 +83,8 @@ const syncController = {
         flashImageAt(images.explosion, to);
       }
     });
+
+    updatePlayerTransform(localOpponent.element, localOpponent.angle);
   },
   addNewOpponent(opponent, state) {
     const {
@@ -177,7 +183,8 @@ const syncController = {
     if (!serverPlayerData) return;
     const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
     const spawnPoint =
-      localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
+      // localState.world[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
+      localState.world[OBJECT_PLAYER_SPAWN_POINT][0];
 
     player.position = [...spawnPoint];
     connection.appendNewPosition(player.position);
@@ -192,7 +199,8 @@ const syncController = {
     data.players.forEach(player => {
       if (player[PROPNAME_ID] !== connection.id) {
         const spawnPoint =
-          localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
+          // localState.world[OBJECT_PLAYER_SPAWN_POINT][player.spawnPointIndex];
+          localState.world[OBJECT_PLAYER_SPAWN_POINT][0];
         player[PROPNAME_POSITION_BUFFER][0] = [...spawnPoint];
         syncController.addNewOpponent(player, localState);
       }

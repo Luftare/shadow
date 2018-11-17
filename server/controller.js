@@ -9,7 +9,7 @@ const {
 } = require('../shared/sharedConfig');
 
 const {
-  handleClientUpdates,
+  handleClientUpdate,
   removePlayer,
   addPlayer,
   getState,
@@ -60,8 +60,8 @@ function addSocketHandlers(socket, io) {
     clearIdlers();
   });
 
-  socket.on(EVENT_CLIENT_UPDATE, updates => {
-    handleClientUpdates(socket.id, updates);
+  socket.on(EVENT_CLIENT_UPDATE, update => {
+    handleClientUpdate(socket.id, update);
   });
 }
 

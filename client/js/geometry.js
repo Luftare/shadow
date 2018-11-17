@@ -71,7 +71,8 @@ function getAdjacentCells([x, y]) {
 }
 
 function vectorAngle([x, y]) {
-  return (x < 0 ? Math.PI : 0) + Math.atan(y / x);
+  const angle = (x < 0 ? Math.PI : 0) + Math.atan(y / x);
+  return isNaN(angle) ? 0 : angle;
 }
 
 function isZero([x, y]) {
