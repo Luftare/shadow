@@ -14,7 +14,6 @@
   height: var(--game-screen-height);
   border-radius: 1000px;
   padding: 100px;
-  background-color: #000;
   box-sizing: content-box;
 }
 
