@@ -45,6 +45,7 @@ const connection = (function() {
           if (winner && winner[PROPNAME_ID] === connection.id) {
             audio.playSound(audio.sounds.win, 2);
           }
+          renderStaticWorld(state.world);
           syncController.handleInitNewGame(newState, state);
         });
 
@@ -65,13 +66,11 @@ const connection = (function() {
             opponent => opponent[PROPNAME_ID] === targetId
           );
           if (target) {
-            console.log(target);
             drawStaticCellImageAt(
               dom.elements.images.blood,
               target.localPosition
             );
           }
-          console.log(targetId, byId);
         });
 
         socket.on('disconnect', () => {
