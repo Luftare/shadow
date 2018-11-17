@@ -91,4 +91,6 @@ function revealPlayerZone({ player, closebyObstacles, shadowAlphaGrid }) {
     const distance = Math.sqrt(squaredDistance(player.position, obstacle));
     shadowAlphaGrid[x][y] = distance / PLAYER_AIM_SIGHT;
   });
+
+  shadowAlphaGrid[player.position[0]][player.position[1]] = 0;
 }

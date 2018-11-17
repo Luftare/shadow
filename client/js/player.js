@@ -27,6 +27,9 @@ function updatePlayerTransform(element, angle) {
 }
 
 function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
+  const angle = vectorAngle(subtract(player.aim, player.position));
+  updatePlayerTransform(dom.elements.player, angle);
+
   if (keysDown.shift) return; //cant move while aiming
   const now = Date.now();
   const enoughTimeSinceLastMovement =
@@ -39,10 +42,6 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
   const orderedToMove = !isZero(stepDirection);
   const hasSpaceToMove = !anyPointAt(newPosition, closebyObstacles);
   const willMove = orderedToMove && hasSpaceToMove;
-
-  const angle = vectorAngle(subtract(player.aim, player.position));
-
-  updatePlayerTransform(dom.elements.player, angle);
 
   if (willMove) {
     player.position = newPosition;
