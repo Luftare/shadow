@@ -77,7 +77,7 @@
 }
 
 .game__opponent--dead {
-  background-color: grey;
+  display: none;
 }
 
 .game__item {

@@ -15,6 +15,7 @@ const {
   GRID_CELLS_Y,
   ZONE_DAMAGE,
   IDLE_KICK_TIME,
+  EVENT_PLAYER_KILLED,
 } = require('../shared/sharedConfig');
 
 const { getMapData } = require('./mapParser');
@@ -28,8 +29,10 @@ const { updateZone, pointInsideZone, requestZoneDamage } = require('./zone');
 let state;
 let handleNewGame;
 let mapData;
+let broadcastEvent;
 
-function initModel(handleNewGameCallback) {
+function initModel(handleNewGameCallback, handleBroadcastEvent) {
+  broadcastEvent = handleBroadcastEvent;
   handleNewGame = handleNewGameCallback;
 
   return new Promise(res => {
@@ -84,7 +87,7 @@ function requestNewGame({ players }) {
 function generateItems() {
   return mapData.itemSpawnPoints
     .map(spawnPoint => {
-      if (Math.random() > 0.5) {
+      if (Math.random() > 0) {
         const itemIndex = Math.floor(itemsArray.length * Math.random());
         const itemModel = itemsArray[itemIndex];
         const item = {
@@ -154,8 +157,14 @@ function handleClientUpdate(id, { events, streamData }) {
           const target = state.players.find(
             player => player[PROPNAME_ID] === targetId
           );
-          if (target) {
+          if (target && target.hp > 0) {
             target.hp = Math.max(0, target.hp - damage);
+            if (target.hp <= 0) {
+              broadcastEvent(EVENT_PLAYER_KILLED, {
+                targetId: target[PROPNAME_ID],
+                byId: id,
+              });
+            }
           }
         }
         break;

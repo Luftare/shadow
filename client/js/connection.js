@@ -4,6 +4,7 @@ const connection = (function() {
     EVENT_CLIENT_UPDATE,
     EVENT_SERVER_UPDATE,
     EVENT_SERVER_INIT_NEW_GAME,
+    EVENT_PLAYER_KILLED,
     PROPNAME_TYPE,
     PROPNAME_POSITION,
     PROPNAME_PAYLOAD,
@@ -55,6 +56,22 @@ const connection = (function() {
 
         socket.on(EVENT_SERVER_UPDATE, serverState => {
           syncController.handleReceivedStateFromServer(serverState, state);
+        });
+
+        socket.on(EVENT_PLAYER_KILLED, ({ targetId, byId }) => {
+          const { opponents } = state;
+
+          const target = opponents.find(
+            opponent => opponent[PROPNAME_ID] === targetId
+          );
+          if (target) {
+            console.log(target);
+            drawStaticCellImageAt(
+              dom.elements.images.blood,
+              target.localPosition
+            );
+          }
+          console.log(targetId, byId);
         });
 
         socket.on('disconnect', () => {

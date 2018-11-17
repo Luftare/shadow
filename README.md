@@ -22,6 +22,7 @@ Multiplayer survival game.
 
 #### Client
 
+- BUG: redraw world at the start of every game
 - BUG: equipped gun image and bullets do not reset on new game
 - client lifecycle is clearly written (one-time setup, game data from server, setup game data from server)
 - handle use map data received from server

@@ -2,6 +2,11 @@ const images = {
   explosion: 'images/explosion.png',
 };
 
+function drawStaticCellImageAt(image, [x, y]) {
+  const ctx = dom.elements.canvas.getContext('2d');
+  drawScaledImageTo(image, ...gridToScreen([x, y]), 1, ctx);
+}
+
 function flashImageAt(src, position) {
   const { fxContainer } = dom.elements;
   const element = document.createElement('img');

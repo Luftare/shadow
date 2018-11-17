@@ -1,4 +1,5 @@
 function drawScaledImageTo(image, x, y, scale, ctx) {
+  console.log(image, x, y, scale, ctx);
   let imgX = x + CELL_WIDTH * (1 - scale) * 0.5;
   let imgY = y + CELL_HEIGHT * (1 - scale) * 0.5;
   ctx.drawImage(image, imgX, imgY, CELL_WIDTH * scale, CELL_HEIGHT * scale);

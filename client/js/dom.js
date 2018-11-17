@@ -100,6 +100,7 @@ const dom = {
     images: {
       tree: document.getElementById('image-tree'),
       wall: document.getElementById('image-wall'),
+      blood: document.getElementById('image-blood'),
     },
     gunStatusImage: document.querySelector('.gun-status__image'),
     gunStatusBullets: document.querySelector('.gun-status__bullets'),

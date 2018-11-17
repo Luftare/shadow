@@ -26,7 +26,11 @@ function startGameServer(io) {
     io.sockets.emit(EVENT_SERVER_INIT_NEW_GAME, { state, winner });
   };
 
-  initModel(handleNewGame).then(() => {
+  const handleBroadcastEvent = (eventName, payload) => {
+    io.sockets.emit(eventName, payload);
+  };
+
+  initModel(handleNewGame, handleBroadcastEvent).then(() => {
     handleSocketConnections(io);
 
     setInterval(() => {
