@@ -40,8 +40,9 @@ function anyPointAt([x, y], points) {
   return points.some(([pX, pY]) => x === pX && y === pY);
 }
 
-function obstaclesBetweenPoints(a, b, obstacles) {
+function obstaclesBetweenPoints(a, b, obstacles, ignore) {
   return obstacles.some(obstacle => {
+    if (areIdentical(ignore, obstacle)) return false;
     const segments = obstacleToSegments(obstacle);
     return segments.some(segment => segmentsIntersecting(...segment, a, b));
   });

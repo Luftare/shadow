@@ -69,7 +69,12 @@ function revealPlayerZone({ player, closebyObstacles, shadowAlphaGrid }) {
       if (pointsDistanceLessThan(cell, player.position, sight)) {
         const cellCenter = cell.map(val => val + 0.5);
         if (
-          !obstaclesBetweenPoints(playerCenter, cellCenter, closebyObstacles)
+          !obstaclesBetweenPoints(
+            playerCenter,
+            cellCenter,
+            closebyObstacles,
+            cell
+          )
         ) {
           const toCellNormalised = normalise(subtract(cell, player.position));
           const dotProduct = dot(toCellNormalised, toMouseNormalised);
@@ -85,12 +90,6 @@ function revealPlayerZone({ player, closebyObstacles, shadowAlphaGrid }) {
       }
     }
   }
-
-  closebyObstacles.forEach(obstacle => {
-    const [x, y] = obstacle;
-    const distance = Math.sqrt(squaredDistance(player.position, obstacle));
-    shadowAlphaGrid[x][y] = distance / PLAYER_AIM_SIGHT;
-  });
 
   shadowAlphaGrid[player.position[0]][player.position[1]] = 0;
 }

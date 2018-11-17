@@ -97,6 +97,10 @@ const dom = {
       return document.querySelector(`.inventory__slot[data-num='${i}']`);
     }),
     items: [],
+    images: {
+      tree: document.getElementById('image-tree'),
+      wall: document.getElementById('image-wall'),
+    },
     gunStatusImage: document.querySelector('.gun-status__image'),
     gunStatusBullets: document.querySelector('.gun-status__bullets'),
     fxOverlay: document.querySelector('.fx__overlay'),
