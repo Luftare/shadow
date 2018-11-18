@@ -15,17 +15,13 @@ Multiplayer survival game.
 
 #### Server
 
-- send map data to clients
-- frags are notified to all players
 - server test scored hits and does not apply shots from already dead players
 - server keeps track of player that have connected during the game and will show them as observers
 
 #### Client
 
-- BUG: redraw world at the start of every game
-- BUG: equipped gun image and bullets do not reset on new game
-- client lifecycle is clearly written (one-time setup, game data from server, setup game data from server)
-- handle use map data received from server
+- display lobby before game has started
+- display game events for the player
 - waiting for next round is displayed when joining new game
 
 ### Gameplay
@@ -48,12 +44,6 @@ Multiplayer survival game.
 
 ### Assets
 
-- sprites:
-  - player
-  - wall
-  - tree
-  - opponent
-
 ### Misc
 
 - optimization: store visibility alpha only for closeby area
@@ -62,7 +52,6 @@ Multiplayer survival game.
 - player has inventors with 2 slots for guns
 - items can be looted if there are free slots in inventory
 - guns can be dropped and dropping on top of another gun will swap the currently equipped gun
-- opponents rotate to their facing
 - nickname is stored accross sessions in local storage
 
 ## Maybe?
@@ -147,3 +136,15 @@ Multiplayer survival game.
 - new game is initted if second player connects
 - refactor: remove duplicate argument passes with world since world now belongs to state at client
 - hitting an opponent sounds different than missing
+- send map data to clients
+- sprites:
+  - player
+  - wall
+  - tree
+  - opponent
+- opponents rotate to their facing
+- BUG: redraw world at the start of every game
+- BUG: equipped gun image and bullets do not reset on new game
+- client lifecycle is clearly written (one-time setup, game data from server, setup game data from server)
+- handle use map data received from server
+- frags are notified to all players
