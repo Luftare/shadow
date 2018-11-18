@@ -50,8 +50,8 @@ function getInitState(players = []) {
 
   const updatedPlayers = players.map((player, i) => {
     const spawnPointIndex = spawnPointIndexes[i % PLAYER_SPAWN_POINTS_COUNT];
-    // const spawnPoint = mapData.playerSpawnPoints[spawnPointIndex];
-    const spawnPoint = mapData.playerSpawnPoints[0];
+    const spawnPoint = mapData.playerSpawnPoints[spawnPointIndex];
+    // const spawnPoint = mapData.playerSpawnPoints[0];
     return {
       ...player,
       hp: 100,
