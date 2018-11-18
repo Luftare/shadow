@@ -132,3 +132,18 @@ th {
   color: white;
   margin-bottom: 8px;
 }
+
+.connection-status {
+  position: fixed;
+  bottom: 4px;
+  left: 4px;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: red;
+}
+
+.connection-status--online {
+  background-color: lightgreen;
+}

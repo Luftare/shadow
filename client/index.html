@@ -81,6 +81,7 @@
     <h1 class="login__title">LUFTARE FORSIG'S<br />BROWSER GAME</h1>
     <input class="login__name-input" placeholder="Name" /><button
       class="login__submit-button"
+      disabled
     >
       Play
     </button>
@@ -88,6 +89,9 @@
   <div class="view view--lobby">
     <h1 class="lobby__title">Waiting for the next game to start...</h1>
   </div>
+
+  <div class="connection-status"></div>
+
   <script src="socket.io.js"></script>
   <script src="sharedConfig.js"></script>
   <script src="js/config.js"></script>

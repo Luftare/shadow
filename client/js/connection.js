@@ -47,6 +47,10 @@ const connection = (function() {
         });
 
         socket.on(EVENT_SERVER_INIT_CLIENT, id => {
+          document
+            .querySelector('.connection-status')
+            .classList.add('connection-status--online');
+
           this.id = id;
 
           socket.emit(EVENT_CLIENT_JOIN, name, () => {
@@ -101,6 +105,9 @@ const connection = (function() {
 
           socket.on('disconnect', () => {
             console.log('Disconnected.');
+            document
+              .querySelector('.connection-status')
+              .classList.remove('connection-status--online');
           });
         });
 
