@@ -74,7 +74,7 @@
   left: 0;
   width: var(--cell-width);
   height: var(--cell-height);
-  pointer-events: none;
+  cursor: crosshair;
   border-radius: 100px;
 }
 

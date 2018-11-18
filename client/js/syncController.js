@@ -97,13 +97,24 @@ const syncController = {
 
     const element = dom.createOpponentElement();
     dom.moveElementTo(element, localPosition);
-    state.opponents.push({
+    const localOpponent = {
       ...opponent,
       localPositionBufferIndex,
+      localPosition,
       lastMovementTime: 0,
       element,
       localPosition,
+    };
+
+    element.addEventListener('mousedown', () => {
+      const [x, y] = localOpponent.localPosition;
+      const opponentVisible = game.state.shadowAlphaGrid[x][y] < 1;
+      if (opponentVisible) {
+        handleClickAt(localOpponent.localPosition);
+      }
     });
+
+    state.opponents.push(localOpponent);
   },
   removeOpponent(opponent, state) {
     const { PROPNAME_ID } = sharedConfig;

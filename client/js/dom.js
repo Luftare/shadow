@@ -45,7 +45,7 @@ const dom = {
     element.style.top = `${y * CELL_HEIGHT}px`;
     element.style.left = `${x * CELL_WIDTH}px`;
   },
-  createOpponentElement() {
+  createOpponentElement(opponent) {
     const element = document.createElement('img');
     element.classList = 'game__opponent';
     dom.elements.opponents.appendChild(element);
