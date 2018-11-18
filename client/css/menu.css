@@ -16,6 +16,24 @@
 
 .login__submit-button {
   margin-left: 8px;
+  background-color: green;
+  color: white;
+  box-sizing: border-box;
+  border: none;
+  height: 25px;
+  font-size: 14px;
+}
+
+.login__submit-button:disabled {
+  background-color: grey;
+}
+
+.login__name-input {
+  box-sizing: border-box;
+  padding: 4px;
+  border: none;
+  height: 25px;
+  font-size: 14px;
 }
 
 .login__title {
@@ -26,4 +44,10 @@
 .view--login {
   background: black;
   padding: 40px;
+}
+
+.lobby__title {
+  color: white;
+  background-color: black;
+  padding: 20px;
 }
