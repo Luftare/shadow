@@ -105,6 +105,12 @@ const dom = {
       dom.elements.gameLogContainer.removeChild(element);
     }, 10000);
   },
+  showView(view) {
+    Object.keys(dom.elements.views).forEach(viewName => {
+      dom.elements.views[viewName].classList.remove('view--active');
+    });
+    view.classList.add('view--active');
+  },
   elements: {
     inventorySlots: [...Array(4)].map((_, i) => {
       return document.querySelector(`.inventory__slot[data-num='${i}']`);
@@ -114,6 +120,11 @@ const dom = {
       tree: document.getElementById('image-tree'),
       wall: document.getElementById('image-wall'),
       blood: document.getElementById('image-blood'),
+    },
+    views: {
+      login: document.querySelector('.view--login'),
+      lobby: document.querySelector('.view--lobby'),
+      game: document.querySelector('.view--game'),
     },
     gameLogContainer: document.querySelector('.game-log'),
     gunStatusImage: document.querySelector('.gun-status__image'),

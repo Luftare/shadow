@@ -3,6 +3,7 @@ const {
   EVENT_CLIENT_UPDATE,
   EVENT_SERVER_UPDATE,
   EVENT_SERVER_INIT_NEW_GAME,
+  EVENT_CLIENT_JOIN,
   CLIENT_SERVER_UPDATE_INTERVAL,
   PROPNAME_POSITION,
   PROPNAME_ID,
@@ -64,21 +65,23 @@ function addSocketHandlers(socket, io) {
     clearIdlers();
   });
 
+  socket.on(EVENT_CLIENT_JOIN, (name, onJoined) => {
+    sockets[socket.id] = socket;
+    addPlayer(socket.id, name);
+    onJoined();
+  });
+
   socket.on(EVENT_CLIENT_UPDATE, update => {
     handleClientUpdate(socket.id, update);
   });
 }
 
-function handleNewClientConnection(socket) {
-  sockets[socket.id] = socket;
-  addPlayer(socket.id);
-  socket.emit(EVENT_SERVER_INIT_CLIENT, socket.id);
-}
-
 function handleSocketConnections(io) {
   io.sockets.on('connection', socket => {
     addSocketHandlers(socket, io);
-    handleNewClientConnection(socket, io);
+
+    socket.emit(EVENT_SERVER_INIT_CLIENT, socket.id);
+
     clearIdlers();
   });
 }

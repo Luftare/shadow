@@ -5,6 +5,7 @@ const connection = (function() {
     EVENT_SERVER_UPDATE,
     EVENT_SERVER_INIT_NEW_GAME,
     EVENT_PLAYER_KILLED,
+    EVENT_CLIENT_JOIN,
     PROPNAME_TYPE,
     PROPNAME_POSITION,
     PROPNAME_PAYLOAD,
@@ -18,6 +19,8 @@ const connection = (function() {
   return {
     socket: null,
     id: null,
+    game: null,
+    name: '',
     clientUpdates: [],
     streamData: {
       angle: 0,
@@ -34,7 +37,8 @@ const connection = (function() {
         this.emitUpdates();
       }
     },
-    connectToServer(game) {
+    connectToServer(game, name) {
+      this.name = name;
       this.game = game;
       return new Promise(onConnection => {
         const socket = io(window.location.href, {
@@ -45,37 +49,42 @@ const connection = (function() {
         socket.on(EVENT_SERVER_INIT_CLIENT, id => {
           this.id = id;
 
-          socket.on(
-            EVENT_SERVER_INIT_NEW_GAME,
-            ({ state: newState, winner, mapData }) => {
-              if (winner && winner[PROPNAME_ID] === connection.id) {
-                audio.playSound(audio.sounds.win, 2);
+          socket.emit(EVENT_CLIENT_JOIN, name, () => {
+            onConnection();
+
+            socket.on(
+              EVENT_SERVER_INIT_NEW_GAME,
+              ({ state: newState, winner, mapData }) => {
+                if (winner && winner[PROPNAME_ID] === connection.id) {
+                  audio.playSound(audio.sounds.win, 2);
+                }
+                game.restart(mapData, newState);
+                syncController.handleInitNewGame(newState, this.game.state);
+                dom.showView(dom.elements.views.game);
               }
-              game.restart(mapData, newState);
-              syncController.handleInitNewGame(newState, this.game.state);
-            }
-          );
-
-          socket.on(EVENT_SERVER_UPDATE, serverState => {
-            if (!this.game.active) return;
-            syncController.handleReceivedStateFromServer(
-              serverState,
-              this.game.state
             );
-          });
 
-          socket.on(EVENT_PLAYER_KILLED, ({ targetId, byId }) => {
-            const { opponents } = this.game.state;
-
-            const target = opponents.find(
-              opponent => opponent[PROPNAME_ID] === targetId
-            );
-            if (target) {
-              drawStaticCellImageAt(
-                dom.elements.images.blood,
-                target.localPosition
+            socket.on(EVENT_SERVER_UPDATE, serverState => {
+              if (!this.game.active) return;
+              syncController.handleReceivedStateFromServer(
+                serverState,
+                this.game.state
               );
-            }
+            });
+
+            socket.on(EVENT_PLAYER_KILLED, ({ targetId, byId }) => {
+              const { opponents } = this.game.state;
+
+              const target = opponents.find(
+                opponent => opponent[PROPNAME_ID] === targetId
+              );
+              if (target) {
+                drawStaticCellImageAt(
+                  dom.elements.images.blood,
+                  target.localPosition
+                );
+              }
+            });
           });
 
           socket.on('disconnect', () => {

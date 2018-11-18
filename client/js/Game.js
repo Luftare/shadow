@@ -2,8 +2,13 @@ class Game {
   constructor() {
     dom.init();
     input.setupEventListeners();
-    connection.connectToServer(this);
+
     this.active = false;
+    dom.showView(dom.elements.views.login);
+  }
+
+  login(name) {
+    return connection.connectToServer(this, name);
   }
 
   tick() {

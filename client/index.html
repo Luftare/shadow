@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="css/menu.css" />
 <link rel="stylesheet" type="text/css" href="css/base.css" />
 <link rel="stylesheet" type="text/css" href="css/fx.css" />
 <link rel="stylesheet" type="text/css" href="css/game.css" />
@@ -9,89 +10,102 @@
 <img src="images/wall.png" hidden id="image-wall" />
 <img src="images/blood.png" hidden id="image-blood" />
 
-<body onload="boot()">
-  <div class="game__container">
-    <div class="game">
-      <canvas class="game__environment"></canvas>
-      <div class="game__items"></div>
-      <div class="game__opponents"></div>
-      <div class="game__fx"></div>
-      <canvas class="game__shadow"></canvas>
-      <div id="next-zone" class="game__zone game__zone--next"></div>
-      <div id="zone" class="game__zone"></div>
-      <img class="game__player" />
+<body>
+  <div class="view view--game">
+    <div class="game__container">
+      <div class="game">
+        <canvas class="game__environment"></canvas>
+        <div class="game__items"></div>
+        <div class="game__opponents"></div>
+        <div class="game__fx"></div>
+        <canvas class="game__shadow"></canvas>
+        <div id="next-zone" class="game__zone game__zone--next"></div>
+        <div id="zone" class="game__zone"></div>
+        <img class="game__player" />
+      </div>
+      <div class="fx__shot-indicator"></div>
     </div>
-    <div class="fx__shot-indicator"></div>
-  </div>
-  <div class="fx__overlay"></div>
-  <div class="modal"><div class="modal__header"></div></div>
-  <div class="GUI">
-    <div class="GUI__hp-container"><div class="GUI__hp-bar"></div></div>
-    <div class="GUI__row">
-      <span>Players</span> <span class="GUI__alive-players">0</span>
+    <div class="fx__overlay"></div>
+    <div class="modal"><div class="modal__header"></div></div>
+    <div class="GUI">
+      <div class="GUI__hp-container"><div class="GUI__hp-bar"></div></div>
+      <div class="GUI__row">
+        <span>Players</span> <span class="GUI__alive-players">0</span>
+      </div>
+      <div class="GUI__row">
+        <span>Zone</span> <span class="GUI__zone-time">0</span>
+      </div>
     </div>
-    <div class="GUI__row">
-      <span>Zone</span> <span class="GUI__zone-time">0</span>
+    <div class="guide">
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>Key</th>
+        </tr>
+        <tr>
+          <td>Move</td>
+          <td>W, A, S, D</td>
+        </tr>
+        <tr>
+          <td>Select gun</td>
+          <td>1, 2, 3...</td>
+        </tr>
+        <tr>
+          <td>Shoot</td>
+          <td>click</td>
+        </tr>
+        <tr>
+          <td>Aim</td>
+          <td>shift</td>
+        </tr>
+      </table>
+
+      <p>Last man standing wins. Better stay inside the white zone.</p>
+    </div>
+    <div class="gun-status">
+      <div class="gun-status__image"></div>
+      <div class="gun-status__bullets">0</div>
+    </div>
+
+    <div class="inventory">
+      <div class="inventory__slot" data-num="0"></div>
+      <div class="inventory__slot" data-num="1"></div>
+      <div class="inventory__slot" data-num="2"></div>
+      <div class="inventory__slot" data-num="3"></div>
+    </div>
+
+    <div class="game-log">
+      <div class="game-log__message">Jeppe fragged Spede</div>
+      <div class="game-log__message">Jeppe fragged Spede</div>
     </div>
   </div>
-  <div class="guide">
-    <table>
-      <tr>
-        <th>Action</th>
-        <th>Key</th>
-      </tr>
-      <tr>
-        <td>Move</td>
-        <td>W, A, S, D</td>
-      </tr>
-      <tr>
-        <td>Select gun</td>
-        <td>1, 2, 3...</td>
-      </tr>
-      <tr>
-        <td>Shoot</td>
-        <td>click</td>
-      </tr>
-      <tr>
-        <td>Aim</td>
-        <td>shift</td>
-      </tr>
-    </table>
 
-    <p>Last man standing wins. Better stay inside the white zone.</p>
+  <div class="view view--login view--active">
+    <h1 class="login__title">LUFTARE FORSIG'S<br />BROWSER GAME</h1>
+    <input
+      class="login__name-input"
+      value="Jeppe"
+      placeholder="Nick name"
+    /><button class="login__submit-button">Enter</button>
   </div>
-  <div class="gun-status">
-    <div class="gun-status__image"></div>
-    <div class="gun-status__bullets">0</div>
+  <div class="view view--lobby">
+    <h1>Waiting for the next game to start...</h1>
   </div>
-
-  <div class="inventory">
-    <div class="inventory__slot" data-num="0"></div>
-    <div class="inventory__slot" data-num="1"></div>
-    <div class="inventory__slot" data-num="2"></div>
-    <div class="inventory__slot" data-num="3"></div>
-  </div>
-
-  <div class="game-log">
-    <div class="game-log__message">Jeppe fragged Spede</div>
-    <div class="game-log__message">Jeppe fragged Spede</div>
-  </div>
+  <script src="socket.io.js"></script>
+  <script src="sharedConfig.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/controller.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/geometry.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/environment.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/shadow.js"></script>
+  <script src="js/visualFx.js"></script>
+  <script src="js/GUI.js"></script>
+  <script src="js/connection.js"></script>
+  <script src="js/syncController.js"></script>
+  <script src="js/Game.js"></script>
 </body>
-
-<script src="socket.io.js"></script>
-<script src="sharedConfig.js"></script>
-<script src="js/config.js"></script>
-<script src="js/dom.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/audio.js"></script>
-<script src="js/geometry.js"></script>
-<script src="js/input.js"></script>
-<script src="js/environment.js"></script>
-<script src="js/player.js"></script>
-<script src="js/shadow.js"></script>
-<script src="js/visualFx.js"></script>
-<script src="js/GUI.js"></script>
-<script src="js/connection.js"></script>
-<script src="js/syncController.js"></script>
-<script src="js/Game.js"></script>
-<script src="js/boot.js"></script>

@@ -200,7 +200,7 @@ function handleClientUpdate(id, { events, streamData }) {
   });
 }
 
-function addPlayer(id) {
+function addPlayer(id, name) {
   const position = [9, 9];
 
   const player = {
@@ -213,6 +213,7 @@ function addPlayer(id) {
     shots: [],
     items: [],
     angle: 0,
+    name,
   };
 
   state.players.push(player);
