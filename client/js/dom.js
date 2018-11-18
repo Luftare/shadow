@@ -103,7 +103,7 @@ const dom = {
     dom.elements.gameLogContainer.appendChild(element);
     setTimeout(() => {
       dom.elements.gameLogContainer.removeChild(element);
-    }, 10000);
+    }, 20000);
   },
   showView(view) {
     Object.keys(dom.elements.views).forEach(viewName => {

@@ -20,10 +20,6 @@ Multiplayer survival game.
 
 #### Client
 
-- display lobby before game has started
-- display game events for the player
-- waiting for next round is displayed when joining new game
-
 ### Gameplay
 
 ### Items
@@ -34,11 +30,6 @@ Multiplayer survival game.
 - player is prompted a nickname before entering game
 
 ### Visual fx
-
-- obstacles have type and custom sprites
-  - wall
-  - tree
-  - rock
 
 ### Audio fx
 
@@ -148,3 +139,10 @@ Multiplayer survival game.
 - client lifecycle is clearly written (one-time setup, game data from server, setup game data from server)
 - handle use map data received from server
 - frags are notified to all players
+- display lobby before game has started
+- display game events for the player
+- waiting for next round is displayed when joining new game
+- obstacles have type and custom sprites
+  - wall
+  - tree
+  - rock

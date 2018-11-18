@@ -55,12 +55,16 @@ const connection = (function() {
             socket.on(
               EVENT_SERVER_INIT_NEW_GAME,
               ({ state: newState, winner, mapData }) => {
-                if (winner && winner[PROPNAME_ID] === connection.id) {
-                  audio.playSound(audio.sounds.win, 2);
+                if (winner) {
+                  dom.appendGameLogMessage(`<b>${winner.name}</b> won!`);
+                  if (winner[PROPNAME_ID] === connection.id) {
+                    audio.playSound(audio.sounds.win, 2);
+                  }
                 }
                 game.restart(mapData, newState);
                 syncController.handleInitNewGame(newState, this.game.state);
                 dom.showView(dom.elements.views.game);
+                dom.appendGameLogMessage(`New game started.`);
               }
             );
 
@@ -78,10 +82,18 @@ const connection = (function() {
               const target = opponents.find(
                 opponent => opponent[PROPNAME_ID] === targetId
               );
+              const fragger = opponents.find(
+                opponent => opponent[PROPNAME_ID] === byId
+              );
               if (target) {
                 drawStaticCellImageAt(
                   dom.elements.images.blood,
                   target.localPosition
+                );
+              }
+              if (fragger && target) {
+                dom.appendGameLogMessage(
+                  `<b>${fragger.name}</b> fragged <b>${target.name}</b>`
                 );
               }
             });
