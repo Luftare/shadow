@@ -26,6 +26,14 @@ const dom = {
       '--game-screen-height',
       `${CELL_HEIGHT * CAMERA_VIEW_HEIGHT}px`
     );
+    document.documentElement.style.setProperty(
+      '--player-move-sleep-time',
+      `${PLAYER_MOVE_SLEEP_TIME}ms`
+    );
+    document.documentElement.style.setProperty(
+      '--opponent-move-sleep-time',
+      `${OPPONENT_MOVE_SLEEP_TIME}ms`
+    );
 
     canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
     canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;

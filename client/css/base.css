@@ -5,6 +5,8 @@
   --game-environment-height: 0;
   --game-screen-width: 0;
   --game-screen-height: 0;
+  --player-move-sleep-time: 0ms;
+  --opponent-move-sleep-time: 0ms;
 }
 
 body {
