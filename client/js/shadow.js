@@ -39,7 +39,7 @@ function updateClosebyObstacles(state) {
   for (let x = startX; x < endX; x++) {
     for (let y = startY; y < endY; y++) {
       if (obstacles[x][y]) {
-        state.closebyObstacles.push(obstacles[x][y]);
+        state.closebyObstacles.push([x, y]);
       }
     }
   }

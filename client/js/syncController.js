@@ -174,18 +174,15 @@ const syncController = {
     localState.timeToNextZoneShrink = serverState.timeToNextZoneShrink;
     localState.items = serverState.items;
   },
-  handleInitNewGame(data, localState) {
+  handleInitNewGame(serverState, localState) {
     const { PROPNAME_ID, PROPNAME_POSITION_BUFFER } = sharedConfig;
     const { player } = localState;
-    const serverPlayerData = data.players.find(
+    const serverPlayerData = serverState.players.find(
       player => player[PROPNAME_ID] === connection.id
     );
     if (!serverPlayerData) return;
-    const mySpawnPointIndex = serverPlayerData.spawnPointIndex;
-    const spawnPoint =
-      localState.environment[OBJECT_PLAYER_SPAWN_POINT][mySpawnPointIndex];
 
-    player.position = [...spawnPoint];
+    player.position = serverPlayerData.spawnPoint;
     connection.appendNewPosition(player.position);
     dom.moveElementTo(dom.elements.player, player.position);
 
@@ -195,17 +192,12 @@ const syncController = {
 
     localState.opponents = [];
 
-    data.players.forEach(player => {
+    serverState.players.forEach(player => {
       if (player[PROPNAME_ID] !== connection.id) {
-        const spawnPoint =
-          localState.environment[OBJECT_PLAYER_SPAWN_POINT][
-            player.spawnPointIndex
-          ];
-        player[PROPNAME_POSITION_BUFFER][0] = [...spawnPoint];
         syncController.addNewOpponent(player, localState);
       }
     });
 
-    localState.items = data.items;
+    localState.items = serverState.items;
   },
 };

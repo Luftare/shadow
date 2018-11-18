@@ -1,5 +1,5 @@
 function updateLocalPlayer(state) {
-  processInput(playerInput, state);
+  processInput(input.state, state);
   dom.moveElementTo(dom.elements.player, state.player.position);
 }
 

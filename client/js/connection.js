@@ -34,46 +34,53 @@ const connection = (function() {
         this.emitUpdates();
       }
     },
-    connectToServer(state) {
+    connectToServer(game) {
+      this.game = game;
       return new Promise(onConnection => {
         const socket = io(window.location.href, {
           reconnect: false,
           reconnects: false,
         });
 
-        socket.on(EVENT_SERVER_INIT_NEW_GAME, ({ state: newState, winner }) => {
-          if (winner && winner[PROPNAME_ID] === connection.id) {
-            audio.playSound(audio.sounds.win, 2);
-          }
-          renderStaticEnvironment(state.environment);
-          syncController.handleInitNewGame(newState, state);
-        });
-
         socket.on(EVENT_SERVER_INIT_CLIENT, id => {
           this.id = id;
-          onConnection();
-        });
 
-        socket.on(EVENT_SERVER_UPDATE, serverState => {
-          syncController.handleReceivedStateFromServer(serverState, state);
-        });
-
-        socket.on(EVENT_PLAYER_KILLED, ({ targetId, byId }) => {
-          const { opponents } = state;
-
-          const target = opponents.find(
-            opponent => opponent[PROPNAME_ID] === targetId
+          socket.on(
+            EVENT_SERVER_INIT_NEW_GAME,
+            ({ state: newState, winner, mapData }) => {
+              if (winner && winner[PROPNAME_ID] === connection.id) {
+                audio.playSound(audio.sounds.win, 2);
+              }
+              game.restart(mapData, newState);
+              syncController.handleInitNewGame(newState, this.game.state);
+            }
           );
-          if (target) {
-            drawStaticCellImageAt(
-              dom.elements.images.blood,
-              target.localPosition
-            );
-          }
-        });
 
-        socket.on('disconnect', () => {
-          alert('Disconnected.');
+          socket.on(EVENT_SERVER_UPDATE, serverState => {
+            if (!this.game.active) return;
+            syncController.handleReceivedStateFromServer(
+              serverState,
+              this.game.state
+            );
+          });
+
+          socket.on(EVENT_PLAYER_KILLED, ({ targetId, byId }) => {
+            const { opponents } = this.game.state;
+
+            const target = opponents.find(
+              opponent => opponent[PROPNAME_ID] === targetId
+            );
+            if (target) {
+              drawStaticCellImageAt(
+                dom.elements.images.blood,
+                target.localPosition
+              );
+            }
+          });
+
+          socket.on('disconnect', () => {
+            console.log('Disconnected.');
+          });
         });
 
         this.socket = socket;

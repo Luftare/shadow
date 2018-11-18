@@ -47,13 +47,16 @@ function initModel(handleNewGameCallback, handleBroadcastEvent) {
 function getInitState(players = []) {
   const orderedIndexes = [...Array(PLAYER_SPAWN_POINTS_COUNT)].map((_, i) => i);
   const spawnPointIndexes = shuffle(orderedIndexes);
+
   const updatedPlayers = players.map((player, i) => {
+    const spawnPointIndex = spawnPointIndexes[i % PLAYER_SPAWN_POINTS_COUNT];
+    const spawnPoint = mapData.playerSpawnPoints[spawnPointIndex];
     return {
       ...player,
       hp: 100,
-      [PROPNAME_POSITION_BUFFER]: [[0, 0]],
+      [PROPNAME_POSITION_BUFFER]: [spawnPoint],
       [PROPNAME_POSITION_BUFFER_OFFSET]: 0,
-      spawnPointIndex: spawnPointIndexes[i % PLAYER_SPAWN_POINTS_COUNT],
+      spawnPoint,
       shots: [],
       items: [],
       activeItemIndex: 0,
@@ -79,7 +82,7 @@ function requestNewGame({ players }) {
       const winner = players.find(player => player.hp > 0);
 
       resetState(players);
-      handleNewGame(state, winner);
+      handleNewGame(state, winner, mapData);
     }
   }
 }

@@ -30,6 +30,9 @@ const dom = {
     canvas.width = shadowCanvas.width = GAME_SCREEN_WIDTH;
     canvas.height = shadowCanvas.height = GAME_SCREEN_HEIGHT;
   },
+  reset() {
+    this.elements.opponents.innerHTML = '';
+  },
   moveElementTo(element, [x, y]) {
     element.style.top = `${y * CELL_HEIGHT}px`;
     element.style.left = `${x * CELL_WIDTH}px`;
@@ -56,6 +59,7 @@ const dom = {
   },
   clearItems() {
     dom.elements.itemsContainer.innerHTML = '';
+    dom.elements.fxContainer.innerHTML = '';
   },
   updateItems({ items }) {
     if (dom.elements.items.length < items.length) {

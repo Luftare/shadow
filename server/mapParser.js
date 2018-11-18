@@ -1,11 +1,16 @@
 const getPixels = require('get-pixels');
 
+// 0, 0, 0 = wall,
+// 34, 177, 76 = tree,
+// 63, 72, 204 = loot spawn point
+// 237, 28, 36 = player spawn point
+
 const colorCodeSumToType = [...Array(255 + 255 + 255 + 3)].map((_, i) => {
   switch (i) {
     case 0:
-      return 'obstacles';
+      return 'walls';
     case 287:
-      return 'obstacles';
+      return 'trees';
     case 301:
       return 'playerSpawnPoints';
     case 339:
@@ -24,7 +29,8 @@ function getMapData() {
       const pixelCount = width * height * dimensions;
 
       const mapData = {
-        obstacles: [],
+        trees: [],
+        walls: [],
         playerSpawnPoints: [],
         itemSpawnPoints: [],
       };
