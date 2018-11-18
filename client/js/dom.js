@@ -96,6 +96,15 @@ const dom = {
     const gun = getActiveGun(player);
     return gun ? dom.playerGunImages[gun.name] : dom.playerGunImages['none'];
   },
+  appendGameLogMessage(msg) {
+    const element = document.createElement('div');
+    element.classList.add('game-log__message');
+    element.innerHTML = msg;
+    dom.elements.gameLogContainer.appendChild(element);
+    setTimeout(() => {
+      dom.elements.gameLogContainer.removeChild(element);
+    }, 10000);
+  },
   elements: {
     inventorySlots: [...Array(4)].map((_, i) => {
       return document.querySelector(`.inventory__slot[data-num='${i}']`);
@@ -106,6 +115,7 @@ const dom = {
       wall: document.getElementById('image-wall'),
       blood: document.getElementById('image-blood'),
     },
+    gameLogContainer: document.querySelector('.game-log'),
     gunStatusImage: document.querySelector('.gun-status__image'),
     gunStatusBullets: document.querySelector('.gun-status__bullets'),
     fxOverlay: document.querySelector('.fx__overlay'),

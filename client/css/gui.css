@@ -115,3 +115,16 @@ th {
 .inventory__slot--active {
   border: solid white 2px;
 }
+
+.game-log {
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  pointer-events: none;
+  width: 200px;
+}
+
+.game-log__message {
+  color: white;
+  margin-bottom: 8px;
+}
