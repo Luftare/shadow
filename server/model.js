@@ -186,12 +186,18 @@ function handleClientUpdate(id, { events, streamData }) {
         break;
       case PROPNAME_PICK_UP_ITEM:
         const pickedItem = event[PROPNAME_PAYLOAD];
-        player.items.push(event[PROPNAME_PAYLOAD]);
+        const existingInstance = player.items.find(
+          item => item.name === pickedItem.name
+        );
+        if (existingInstance) {
+          existingInstance.state.bullets += pickedItem.state.bullets;
+        } else {
+          player.items.push(event[PROPNAME_PAYLOAD]);
+        }
         state.items = state.items.filter(
           item =>
             item.position[0] !== pickedItem.position[0] &&
-            item.position[1] &&
-            pickedItem.position[1]
+            item.position[1] !== pickedItem.position[1]
         );
         break;
 
