@@ -51,6 +51,8 @@ const connection = (function() {
           document
             .querySelector('.connection-status')
             .classList.add('connection-status--online');
+          document.querySelector('.connection-status__text').innerHTML =
+            'online';
 
           this.id = id;
 
@@ -109,6 +111,8 @@ const connection = (function() {
             document
               .querySelector('.connection-status')
               .classList.remove('connection-status--online');
+            document.querySelector('.connection-status__text').innerHTML =
+              'offline';
           });
         });
 

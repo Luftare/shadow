@@ -20,3 +20,14 @@ document
       button.disabled = false;
     }
   });
+
+document
+  .querySelector('.login__name-input')
+  .addEventListener('keydown', ({ key }) => {
+    const canSubmit = !document.querySelector('.login__submit-button').disabled;
+    if (key === 'Enter' && canSubmit) {
+      document.querySelector('.login__submit-button').click();
+    }
+  });
+
+document.querySelector('.login__name-input').focus();

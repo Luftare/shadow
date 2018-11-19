@@ -135,15 +135,29 @@ th {
 
 .connection-status {
   position: fixed;
-  bottom: 4px;
-  left: 4px;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.connection-status__text {
+  margin-left: 4px;
+  color: red;
+}
+
+.connection-status__indicator {
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 10px;
   background-color: red;
 }
 
-.connection-status--online {
+.connection-status--online .connection-status__indicator {
   background-color: lightgreen;
+}
+
+.connection-status--online .connection-status__text {
+  color: lightgreen;
 }

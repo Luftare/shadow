@@ -55,6 +55,10 @@
           <td>click</td>
         </tr>
         <tr>
+          <td>Reload</td>
+          <td>R</td>
+        </tr>
+        <tr>
           <td>Aim</td>
           <td>shift</td>
         </tr>
@@ -90,7 +94,10 @@
     <h1 class="lobby__title">Waiting for the next game to start...</h1>
   </div>
 
-  <div class="connection-status"></div>
+  <div class="connection-status">
+    <div class="connection-status__indicator"></div>
+    <div class="connection-status__text">offline</div>
+  </div>
 
   <script src="socket.io.js"></script>
   <script src="sharedConfig.js"></script>
