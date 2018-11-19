@@ -24,6 +24,11 @@ Multiplayer survival game.
 
 ### Items
 
+- only single instance of a gun can be looted
+- looting another instance of a gun just increases the bullets of the previous one
+- guns have to be reloaded based on clip size
+- clip size + total bullets is stored in item state
+
 ### Menu
 
 - menu and game views can be switched without page reload
