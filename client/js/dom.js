@@ -135,6 +135,7 @@ const dom = {
       game: document.querySelector('.view--game'),
     },
     gameLogContainer: document.querySelector('.game-log'),
+    gunStatus: document.querySelector('.gun-status'),
     gunStatusImage: document.querySelector('.gun-status__image'),
     gunStatusBullets: document.querySelector('.gun-status__bullets'),
     fxOverlay: document.querySelector('.fx__overlay'),

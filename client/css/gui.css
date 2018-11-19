@@ -66,6 +66,15 @@ th {
   color: white;
 }
 
+@keyframes blink {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
 .gun-status {
   pointer-events: none;
   position: fixed;
@@ -75,6 +84,11 @@ th {
   display: flex;
   align-items: center;
   padding: 8px;
+}
+
+.gun-status--reloading {
+  animation: blink 300ms linear alternate infinite;
+  background-color: red;
 }
 
 .gun-status__image {

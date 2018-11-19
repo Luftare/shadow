@@ -59,9 +59,15 @@ function updateGunStatus({ player }) {
     dom.elements.gunStatusImage.style.backgroundImage = `url('images/${
       gun.name
     }.png')`;
-    dom.elements.gunStatusBullets.innerHTML = `${gun.state.magazine}/${
+    const magazine = player.reloading ? 0 : gun.state.magazine;
+    dom.elements.gunStatusBullets.innerHTML = `${magazine}/${
       gun.state.bullets
     }`;
+    if (player.reloading) {
+      dom.elements.gunStatus.classList.add('gun-status--reloading');
+    } else {
+      dom.elements.gunStatus.classList.remove('gun-status--reloading');
+    }
   }
 
   if (player.items.length === 0) {
