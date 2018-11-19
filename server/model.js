@@ -11,6 +11,7 @@ const {
   PROPNAME_GUN_SHOT,
   PROPNAME_PICK_UP_ITEM,
   PROPNAME_SWITCH_GUN,
+  PROPNAME_RELOAD_GUN,
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
@@ -174,15 +175,24 @@ function handleClientUpdate(id, { events, streamData }) {
         break;
       case PROPNAME_SWITCH_GUN:
         player.activeItemIndex = event[PROPNAME_PAYLOAD];
-
+        break;
+      case PROPNAME_RELOAD_GUN:
+        if (gun) {
+          const magazineRemainder = gun.state.magazine;
+          const newMagazineSize = Math.min(gun.magazineSize, gun.state.bullets);
+          gun.state.bullets -= newMagazineSize;
+          gun.state.bullets += magazineRemainder;
+          gun.state.magazine = newMagazineSize;
+        }
         break;
       case PROPNAME_GUN_SHOT:
         const activeGun = player.items[event[PROPNAME_PAYLOAD].activeItemIndex];
-        if (activeGun) {
-          activeGun.state.bullets = Math.max(0, activeGun.state.bullets - 1);
+        const canShoot = activeGun && activeGun.state.magazine > 0;
+        if (canShoot) {
+          player.shots.push(event[PROPNAME_PAYLOAD]);
+          activeGun.state.magazine = Math.max(0, activeGun.state.magazine - 1);
         }
         player.activeItemIndex = event[PROPNAME_PAYLOAD].activeItemIndex;
-        player.shots.push(event[PROPNAME_PAYLOAD]);
         break;
       case PROPNAME_PICK_UP_ITEM:
         const pickedItem = event[PROPNAME_PAYLOAD];

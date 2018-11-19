@@ -47,6 +47,7 @@ class Game {
       items: serverPlayer.items,
       aim: [0, 0],
       aiming: false,
+      reloading: false,
       activeItemIndex: 0,
       lastShotTime: 0,
     };

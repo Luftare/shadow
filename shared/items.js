@@ -2,10 +2,10 @@ const itemsArray = [
   {
     name: 'sniper',
     reloadTime: 1000,
-    magazineSize: 5,
-    damage: 60,
+    magazineSize: 1,
+    damage: 40,
     aimedShotOnly: true,
-    reloadTime: 3000,
+    reloadTime: 2000,
     recoil: true,
     aim: {
       sight: 22,
@@ -13,6 +13,7 @@ const itemsArray = [
     },
     state: {
       bullets: 5,
+      magazine: 1,
     },
     localState: {
       lastShotTime: 0,
@@ -20,11 +21,12 @@ const itemsArray = [
   },
   {
     name: 'pistol',
-    magazineSize: 15,
-    reloadTime: 0,
+    magazineSize: 7,
+    reloadTime: 1000,
     damage: 12,
     state: {
-      bullets: 15,
+      bullets: 14,
+      magazine: 7,
     },
     localState: {
       lastShotTime: 0,

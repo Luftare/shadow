@@ -65,29 +65,60 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
 }
 
 function handlePlayerActions(keysDown, { player }) {
-  const { shift } = keysDown;
-  player.aiming = shift;
-  const previousItemIndex = player.activeItemIndex;
-  if (keysDown['1']) player.activeItemIndex = 0;
-  if (keysDown['2']) player.activeItemIndex = 1;
-  if (keysDown['3']) player.activeItemIndex = 2;
-  if (keysDown['4']) player.activeItemIndex = 3;
-  if (keysDown['5']) player.activeItemIndex = 4;
+  const { shift, r: reload } = keysDown;
+  const gun = getActiveGun(player);
 
-  player.activeItemIndex = Math.max(
-    0,
-    Math.min(player.items.length - 1, player.activeItemIndex)
-  );
+  const canSwitchGun = !player.reloading;
 
-  if (previousItemIndex !== player.activeItemIndex) {
-    connection.appendSwitchGun(player.activeItemIndex);
-    audio.playSound(audio.sounds.gunReload);
+  if (canSwitchGun) {
+    const previousItemIndex = player.activeItemIndex;
+    if (keysDown['1']) player.activeItemIndex = 0;
+    if (keysDown['2']) player.activeItemIndex = 1;
+    if (keysDown['3']) player.activeItemIndex = 2;
+    if (keysDown['4']) player.activeItemIndex = 3;
+    if (keysDown['5']) player.activeItemIndex = 4;
+
+    player.activeItemIndex = Math.max(
+      0,
+      Math.min(player.items.length - 1, player.activeItemIndex)
+    );
+
+    if (previousItemIndex !== player.activeItemIndex) {
+      connection.appendSwitchGun(player.activeItemIndex);
+      audio.playSound(audio.sounds.gunReload);
+    }
+  }
+
+  const canAim = !player.reloading;
+
+  if (canAim) {
+    player.aiming = shift;
+  }
+
+  const canReload =
+    gun &&
+    gun.state.magazine < gun.magazineSize &&
+    gun.state.bullets > 0 &&
+    !player.reloading;
+
+  if (canReload && reload) {
+    player.reloading = true;
+    connection.appendGunReload();
+
+    setTimeout(() => {
+      audio.playSound(audio.sounds.gunReload);
+    }, Math.max(0, gun.reloadTime - 1000));
+
+    setTimeout(() => {
+      player.reloading = false;
+    }, gun.reloadTime);
   }
 
   dom.elements.player.src = dom.getPlayerImage(player);
 }
 
 function handleClicks(clicks, state) {
+  if (state.player.reloading) return;
   const { PROPNAME_ID } = sharedConfig;
   clicks.forEach(position => {
     connection.appendGunShot(
@@ -112,20 +143,11 @@ function handleClickAt(gridPosition) {
   if (withinSight) {
     const gun = getActiveGun(player);
     if (gun) {
-      const now = Date.now();
       if (!player.aiming && gun.aimedShotOnly) return;
-      if (gun.state.bullets > 0) {
-        if (now - player.lastShotTime > gun.reloadTime) {
-          player.lastShotTime = now;
-          input.state.clicks.push([...player.aim]);
-          audio.playSound(audio.sounds[`${gun.name}Shot`]);
-          if (gun.recoil) applyRecoil();
-          if (gun.reloadTime > 0) {
-            setTimeout(() => {
-              audio.playSound(audio.sounds.gunReload);
-            }, gun.reloadTime * 0.8);
-          }
-        }
+      if (gun.state.magazine > 0) {
+        input.state.clicks.push([...player.aim]);
+        audio.playSound(audio.sounds[`${gun.name}Shot`]);
+        if (gun.recoil) applyRecoil();
       } else {
         audio.playSound(audio.sounds.emptyMagazineSound);
       }

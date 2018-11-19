@@ -14,6 +14,7 @@ const connection = (function() {
     PROPNAME_GUN_SHOT,
     PROPNAME_PICK_UP_ITEM,
     PROPNAME_SWITCH_GUN,
+    PROPNAME_RELOAD_GUN,
   } = sharedConfig;
 
   return {
@@ -142,6 +143,11 @@ const connection = (function() {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_SWITCH_GUN,
         [PROPNAME_PAYLOAD]: activeItemIndex,
+      });
+    },
+    appendGunReload() {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_RELOAD_GUN,
       });
     },
     updateStreamData({ player }) {

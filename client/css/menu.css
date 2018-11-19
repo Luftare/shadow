@@ -29,6 +29,7 @@
 }
 
 .login__name-input {
+  vertical-align: top;
   box-sizing: border-box;
   padding: 4px;
   border: none;
