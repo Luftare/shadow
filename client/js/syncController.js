@@ -62,7 +62,15 @@ const syncController = {
         localOpponent[PROPNAME_ID] === serverOpponent[PROPNAME_ID]
     );
 
-    localOpponent.items = serverOpponent.items;
+    localOpponent.items = serverOpponent.items.map(item => {
+      const localItem = localOpponent.items.find(
+        localItem => localItem.id === item.id
+      );
+      if (localItem) {
+        item.localState = localItem.localState;
+      }
+      return item;
+    });
     localOpponent[PROPNAME_POSITION_BUFFER] =
       serverOpponent[PROPNAME_POSITION_BUFFER];
     localOpponent[PROPNAME_POSITION_BUFFER_OFFSET] =
@@ -74,11 +82,36 @@ const syncController = {
     localOpponent.element.src = dom.getPlayerImage(localOpponent);
     updatePlayerTransform(localOpponent.element, localOpponent.angle);
 
+    const gun = getActiveGun(serverOpponent);
+    const shootingAutoFire =
+      gun &&
+      gun.autoFire &&
+      gun.state.magazine > 0 &&
+      serverOpponent.pullingTrigger &&
+      !serverOpponent.reloading;
+
+    if (shootingAutoFire) {
+      if (!gun.localState.sound) {
+        gun.localState.sound = audio.playSound(audio.sounds[gun.name + 'Shot']);
+      }
+    }
+
+    const shouldStopAutoFire =
+      gun &&
+      gun.localState.sound &&
+      (!serverOpponent.pullingTrigger || gun.state.magazine <= 0);
+
+    if (shouldStopAutoFire) {
+      gun.localState.sound.pause();
+      delete gun.localState.sound;
+    }
+
     serverOpponent.shots.forEach(({ from, to }) => {
-      const gun = getActiveGun(serverOpponent);
       if (gun) {
         const volume = audio.getPointsAudioVolume(from, localPlayer.position);
-        audio.playSound(audio.sounds[`${gun.name}Shot`], volume);
+        if (!gun.autoFire) {
+          audio.playSound(audio.sounds[`${gun.name}Shot`], volume);
+        }
         dom.indicateShotAtDirection(from, state);
         flashImageAt(images.explosion, to);
       }
@@ -109,6 +142,8 @@ const syncController = {
     element.addEventListener('mousedown', () => {
       const [x, y] = localOpponent.localPosition;
       const opponentVisible = game.state.shadowAlphaGrid[x][y] < 1;
+      connection.appendPullTrigger();
+      input.state.mouseDown = true;
       if (opponentVisible) {
         handleClickAt(localOpponent.localPosition);
       }

@@ -104,8 +104,8 @@
   background-image: url('/images/sniper.png');
 }
 
-.game__item[data-item='rifle'] {
-  background-image: url('/images/rifle.png');
+.game__item[data-item='mp5'] {
+  background-image: url('/images/mp5.png');
 }
 
 .game__item--hidden {

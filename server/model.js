@@ -188,6 +188,10 @@ function handleClientUpdate(id, { events, streamData }) {
           gun.state.bullets -= newMagazineSize;
           gun.state.bullets += magazineRemainder;
           gun.state.magazine = newMagazineSize;
+          player.reloading = true;
+          setTimeout(() => {
+            player.reloading = false;
+          }, gun.reloadTime);
         }
         break;
       case PROPNAME_GUN_SHOT:

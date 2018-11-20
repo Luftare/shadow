@@ -99,7 +99,7 @@ const dom = {
     none: 'images/player.png',
     pistol: 'images/player-pistol.gif',
     sniper: 'images/player-sniper.png',
-    rifle: 'images/player-rifle.png',
+    mp5: 'images/player-mp5.png',
   },
   getPlayerImage(player) {
     const gun = getActiveGun(player);

@@ -118,7 +118,11 @@ function handlePlayerActions(keysDown, mouseDown, { player, shadowAlphaGrid }) {
   }
 
   const canAutoFire =
-    gun && gun.autoFire && player.pullingTrigger && gun.state.magazine > 0;
+    gun &&
+    gun.autoFire &&
+    player.pullingTrigger &&
+    gun.state.magazine > 0 &&
+    !player.reloading;
   const withinSight = shadowAlphaGrid[player.aim[0]][player.aim[1]] < 1;
   if (canAutoFire) {
     if (withinSight) {
@@ -126,7 +130,9 @@ function handlePlayerActions(keysDown, mouseDown, { player, shadowAlphaGrid }) {
         now - gun.localState.lastShotTime > gun.autoFire.rateTime;
       if (bulletReady) {
         if (!gun.localState.sound) {
-          gun.localState.sound = audio.playSound(audio.sounds.rifleShot);
+          gun.localState.sound = audio.playSound(
+            audio.sounds[gun.name + 'Shot']
+          );
         }
         input.state.clicks.push([...player.aim]);
         gun.localState.lastShotTime = now;
@@ -135,7 +141,12 @@ function handlePlayerActions(keysDown, mouseDown, { player, shadowAlphaGrid }) {
   }
 
   if (gun && gun.autoFire && gun.localState.sound) {
-    if (!withinSight || !player.pullingTrigger || gun.state.magazine <= 0) {
+    if (
+      !withinSight ||
+      !player.pullingTrigger ||
+      gun.state.magazine <= 0 ||
+      player.reloading
+    ) {
       gun.localState.sound.pause();
       delete gun.localState.sound;
     }

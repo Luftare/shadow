@@ -14,7 +14,7 @@ const audio = {
   sounds: {
     pistolShot: createSoundPool('shot-pistol'),
     sniperShot: createSoundPool('shot-sniper'),
-    rifleShot: createSoundPool('shot-rifle'),
+    mp5Shot: createSoundPool('shot-mp5'),
     pickUpGun: createSoundPool('pick-up-gun'),
     emptyMagazineSound: createSoundPool('empty-magazine-sound'),
     gunReload: createSoundPool('gun-reload'),
