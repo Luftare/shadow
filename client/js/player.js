@@ -181,12 +181,13 @@ function handleClickAt(gridPosition) {
   if (withinSight) {
     const gun = getActiveGun(player);
     if (gun) {
-      if (gun.autoFire) return; //handled in player actions
       if (!player.aiming && gun.aimedShotOnly) return;
       if (gun.state.magazine > 0) {
-        input.state.clicks.push([...player.aim]);
-        audio.playSound(audio.sounds[`${gun.name}Shot`]);
-        if (gun.recoil) applyRecoil();
+        if (!gun.autoFire) {
+          input.state.clicks.push([...player.aim]);
+          audio.playSound(audio.sounds[`${gun.name}Shot`]);
+          if (gun.recoil) applyRecoil();
+        }
       } else {
         audio.playSound(audio.sounds.emptyMagazineSound);
       }

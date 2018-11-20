@@ -140,13 +140,9 @@ const syncController = {
     };
 
     element.addEventListener('mousedown', () => {
-      const [x, y] = localOpponent.localPosition;
-      const opponentVisible = game.state.shadowAlphaGrid[x][y] < 1;
       connection.appendPullTrigger();
       input.state.mouseDown = true;
-      if (opponentVisible) {
-        handleClickAt(localOpponent.localPosition);
-      }
+      handleClickAt(localOpponent.localPosition);
     });
 
     state.opponents.push(localOpponent);

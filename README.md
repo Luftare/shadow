@@ -15,24 +15,15 @@ Multiplayer survival game.
 
 #### Server
 
-- server test scored hits and does not apply shots from already dead players
-- server keeps track of player that have connected during the game and will show them as observers
-
 #### Client
 
-- playback opponent autoFire guns shooting only when they actually shoot
+- playback empty clip sound if autoFire gun has run out of magazine ammo
 
 ### Gameplay
 
 ### Items
 
-- guns have to be reloaded based on clip size
-- clip size + total bullets is stored in item state
-
 ### Menu
-
-- menu and game views can be switched without page reload
-- player is prompted a nickname before entering game
 
 ### Visual fx
 
@@ -48,10 +39,10 @@ Multiplayer survival game.
 - player has inventors with 2 slots for guns
 - items can be looted if there are free slots in inventory
 - guns can be dropped and dropping on top of another gun will swap the currently equipped gun
-- nickname is stored accross sessions in local storage
 
 ## Maybe?
 
+- nickname is stored accross sessions in local storage
 - notify who won last game
 - audio source direction will change pan
 - settings can be configured by players and stored in local storage
@@ -59,6 +50,7 @@ Multiplayer survival game.
 - limit shadow update to visible portion of screen
 - gun shot damage is determined by how close to the center of the cell is clicked
 - dead players will be able to see the whole game field without shadow to observe other players
+- server test scored hits and does not apply shots from already dead players
 
 ## Done
 
@@ -153,3 +145,8 @@ Multiplayer survival game.
   - rock
 - only single instance of a gun can be looted
 - looting another instance of a gun just increases the bullets of the previous one
+- menu and game views can be switched without page reload
+- player is prompted a nickname before entering game
+- playback opponent autoFire guns shooting only when they actually shoot
+- guns have to be reloaded based on clip size
+- clip size + total bullets is stored in item state
