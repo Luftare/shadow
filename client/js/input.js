@@ -2,7 +2,11 @@ const input = {
   state: {
     keysDown: {},
     clicks: [],
+    mouseDown: false,
   },
+
+  //[eventname, callback]
+  on: [],
 
   setupEventListeners() {
     const { canvas } = dom.elements;
@@ -25,11 +29,24 @@ const input = {
 
     canvas.addEventListener('mousedown', e => {
       e.preventDefault();
+      connection.appendPullTrigger();
+      this.state.mouseDown = true;
       const { x, y } = e;
       const { left: offsetX, top: offsetY } = canvas.getBoundingClientRect();
       const canvasPosition = [x - offsetX, y - offsetY];
       const gridPosition = screenToGrid(canvasPosition);
       handleClickAt(gridPosition);
+    });
+
+    window.addEventListener('mouseup', e => {
+      this.state.mouseDown = false;
+      connection.appendReleaseTrigger();
+      this.on.forEach(([name, cb]) => {
+        if (name === 'mouseup') {
+          cb(e);
+        }
+      });
+      this.on = this.on.filter(sub => sub[0] !== 'mouseup');
     });
   },
 

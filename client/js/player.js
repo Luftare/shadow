@@ -3,10 +3,10 @@ function updateLocalPlayer(state) {
   dom.moveElementTo(dom.elements.player, state.player.position);
 }
 
-function processInput({ keysDown, clicks }, state) {
+function processInput({ keysDown, clicks, mouseDown }, state) {
   if (state.player.hp <= 0) return;
   handlePlayerMovement(keysDown, state);
-  handlePlayerActions(keysDown, state);
+  handlePlayerActions(keysDown, mouseDown, state);
   handleClicks(clicks, state);
 }
 
@@ -64,11 +64,14 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
   }
 }
 
-function handlePlayerActions(keysDown, { player }) {
+function handlePlayerActions(keysDown, mouseDown, { player, shadowAlphaGrid }) {
   const { shift, r: reload } = keysDown;
   const gun = getActiveGun(player);
+  const now = Date.now();
 
   const canSwitchGun = !player.reloading;
+
+  player.pullingTrigger = mouseDown;
 
   if (canSwitchGun) {
     const previousItemIndex = player.activeItemIndex;
@@ -114,6 +117,30 @@ function handlePlayerActions(keysDown, { player }) {
     }, gun.reloadTime);
   }
 
+  const canAutoFire =
+    gun && gun.autoFire && player.pullingTrigger && gun.state.magazine > 0;
+  const withinSight = shadowAlphaGrid[player.aim[0]][player.aim[1]] < 1;
+  if (canAutoFire) {
+    if (withinSight) {
+      const bulletReady =
+        now - gun.localState.lastShotTime > gun.autoFire.rateTime;
+      if (bulletReady) {
+        if (!gun.localState.sound) {
+          gun.localState.sound = audio.playSound(audio.sounds.rifleShot);
+        }
+        input.state.clicks.push([...player.aim]);
+        gun.localState.lastShotTime = now;
+      }
+    }
+  }
+
+  if (gun && gun.autoFire && gun.localState.sound) {
+    if (!withinSight || !player.pullingTrigger || gun.state.magazine <= 0) {
+      gun.localState.sound.pause();
+      delete gun.localState.sound;
+    }
+  }
+
   dom.elements.player.src = dom.getPlayerImage(player);
 }
 
@@ -143,6 +170,7 @@ function handleClickAt(gridPosition) {
   if (withinSight) {
     const gun = getActiveGun(player);
     if (gun) {
+      if (gun.autoFire) return; //handled in player actions
       if (!player.aiming && gun.aimedShotOnly) return;
       if (gun.state.magazine > 0) {
         input.state.clicks.push([...player.aim]);

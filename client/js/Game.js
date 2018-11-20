@@ -48,6 +48,7 @@ class Game {
       aim: [0, 0],
       aiming: false,
       reloading: false,
+      pullingTrigger: false,
       activeItemIndex: 0,
       lastShotTime: 0,
     };

@@ -131,7 +131,15 @@ const syncController = {
     if (!serverStatePlayer) return;
     const receivedDamage = localState.player.hp > serverStatePlayer.hp;
     localState.player.hp = serverStatePlayer.hp;
-    localState.player.items = serverStatePlayer.items;
+    localState.player.items = serverStatePlayer.items.map(item => {
+      const localItem = localState.player.items.find(
+        localItem => localItem.id === item.id
+      );
+      if (localItem) {
+        item.localState = localItem.localState;
+      }
+      return item;
+    });
     if (receivedDamage) {
       flashRedScreen();
       audio.playSound(audio.sounds.ouch);

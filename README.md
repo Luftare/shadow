@@ -20,6 +20,8 @@ Multiplayer survival game.
 
 #### Client
 
+- playback opponent autoFire guns shooting only when they actually shoot
+
 ### Gameplay
 
 ### Items

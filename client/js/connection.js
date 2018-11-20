@@ -15,6 +15,8 @@ const connection = (function() {
     PROPNAME_PICK_UP_ITEM,
     PROPNAME_SWITCH_GUN,
     PROPNAME_RELOAD_GUN,
+    PROPNAME_PULL_TRIGGER,
+    PROPNAME_RELEASE_TRIGGER,
   } = sharedConfig;
 
   return {
@@ -152,6 +154,16 @@ const connection = (function() {
     appendGunReload() {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_RELOAD_GUN,
+      });
+    },
+    appendPullTrigger() {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_PULL_TRIGGER,
+      });
+    },
+    appendReleaseTrigger() {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_RELEASE_TRIGGER,
       });
     },
     updateStreamData({ player }) {

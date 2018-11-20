@@ -12,6 +12,8 @@ const {
   PROPNAME_PICK_UP_ITEM,
   PROPNAME_SWITCH_GUN,
   PROPNAME_RELOAD_GUN,
+  PROPNAME_PULL_TRIGGER,
+  PROPNAME_RELEASE_TRIGGER,
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
@@ -31,6 +33,7 @@ let state;
 let handleNewGame;
 let mapData;
 let broadcastEvent;
+let idCounter = 1;
 
 function initModel(handleNewGameCallback, handleBroadcastEvent) {
   broadcastEvent = handleBroadcastEvent;
@@ -63,6 +66,7 @@ function getInitState(players = []) {
       items: [],
       activeItemIndex: 0,
       angle: 0,
+      pullingTrigger: false,
     };
   });
 
@@ -99,6 +103,7 @@ function generateItems() {
           ...itemModel,
           state: { ...itemModel.state },
           position: spawnPoint,
+          id: idCounter++,
         };
         return item;
       } else {
@@ -194,6 +199,12 @@ function handleClientUpdate(id, { events, streamData }) {
         }
         player.activeItemIndex = event[PROPNAME_PAYLOAD].activeItemIndex;
         break;
+      case PROPNAME_PULL_TRIGGER:
+        player.pullingTrigger = true;
+        break;
+      case PROPNAME_RELEASE_TRIGGER:
+        player.pullingTrigger = false;
+        break;
       case PROPNAME_PICK_UP_ITEM:
         const pickedItem = event[PROPNAME_PAYLOAD];
         const existingInstance = player.items.find(
@@ -227,6 +238,7 @@ function addPlayer(id, name) {
     hp: 0,
     spawnPointIndex: 0,
     lastActivityTime: Date.now(),
+    pullingTrigger: false,
     shots: [],
     items: [],
     angle: 0,
