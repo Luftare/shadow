@@ -63,7 +63,6 @@ function handlePlayerActions(
   mouseDown,
   { player, shadowAlphaGrid, items }
 ) {
-  console.log(player.items.length, player.items);
   const { shift } = keysDown;
   const { f: pickUp, r: reload } = keysDownOnce;
   const gun = getActiveGun(player);
@@ -100,13 +99,18 @@ function handlePlayerActions(
   if (pickUp) {
     if (itemUnderPlayer) {
       const inventoryFull = player.items.length >= 2;
-      if (inventoryFull) {
+      const itemTypeUnderPlayerInInventory = player.items.find(
+        item => itemUnderPlayer.name === item.name
+      );
+      if (inventoryFull && !itemTypeUnderPlayerInInventory) {
         connection.appendDropItem(activeItem);
+        audio.playSound(audio.sounds.dropItem);
       }
       connection.appendItemPickUp(itemUnderPlayer);
       audio.playSound(audio.sounds.pickUpGun);
     } else if (activeItem) {
       connection.appendDropItem(activeItem);
+      audio.playSound(audio.sounds.dropItem);
     }
   }
 

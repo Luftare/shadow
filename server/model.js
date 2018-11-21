@@ -218,13 +218,16 @@ function handleClientUpdate(id, { events, streamData }) {
         break;
       case PROPNAME_PICK_UP_ITEM:
         const pickedItem = event[PROPNAME_PAYLOAD];
-        const existingType = player.items.find(
-          item => item.name === pickedItem.name
-        );
         const itemPickedUpAlready = player.items.find(
           item => item.id === pickedItem.id
         );
-        if (itemPickedUpAlready) return;
+        if (itemPickedUpAlready) {
+          state.items = state.items.filter(item => item.id !== pickedItem.id);
+          return;
+        }
+        const existingType = player.items.find(
+          item => item.name === pickedItem.name
+        );
         if (existingType) {
           existingType.state.bullets += pickedItem.state.bullets;
         } else {

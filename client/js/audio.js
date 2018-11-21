@@ -23,6 +23,7 @@ const audio = {
     hitOpponent: createSoundPool('hit-opponent'),
     win: createSoundPool('win'),
     lose: createSoundPool('lose'),
+    dropItem: createSoundPool('drop-item'),
   },
   playSound(pool, volume = 1) {
     pool.index = (pool.index + 1) % pool.length;
