@@ -117,6 +117,14 @@ const syncController = {
       }
     });
 
+    if (serverOpponent.shots.length > 0 && localOpponent) {
+      localOpponent.element.classList.add('shooting');
+
+      setTimeout(() => {
+        localOpponent.element.classList.remove('shooting');
+      }, 50);
+    }
+
     updatePlayerTransform(localOpponent.element, localOpponent.angle);
   },
   addNewOpponent(opponent, state) {

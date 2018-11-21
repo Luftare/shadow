@@ -2,12 +2,12 @@ const itemsArray = [
   {
     name: 'sniper',
     magazineSize: 1,
-    damage: 40,
+    damage: 45,
     aimedShotOnly: true,
     reloadTime: 2000,
     recoil: true,
     aim: {
-      sight: 22,
+      sight: 20,
       fieldOfView: 67 * (Math.PI / 180),
     },
     state: {
@@ -22,7 +22,7 @@ const itemsArray = [
     name: 'pistol',
     magazineSize: 7,
     reloadTime: 1000,
-    damage: 12,
+    damage: 15,
     state: {
       bullets: 14,
       magazine: 0,
@@ -33,9 +33,9 @@ const itemsArray = [
   },
   {
     name: 'mp5',
-    magazineSize: 15,
+    magazineSize: 20,
     reloadTime: 2000,
-    damage: 9,
+    damage: 15,
     autoFire: {
       rateTime: 100,
     },
@@ -44,7 +44,7 @@ const itemsArray = [
       fieldOfView: 68 * (Math.PI / 180),
     },
     state: {
-      bullets: 15,
+      bullets: 20,
       magazine: 0,
     },
     localState: {

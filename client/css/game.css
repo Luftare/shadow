@@ -63,6 +63,7 @@
   width: var(--cell-width);
   height: var(--cell-height);
   pointer-events: none;
+  border-radius: 100px;
 }
 
 .game__opponent {
@@ -76,6 +77,10 @@
   height: var(--cell-height);
   cursor: crosshair;
   border-radius: 100px;
+}
+
+.shooting {
+  box-shadow: 20px 3px 8px -2px yellow;
 }
 
 .game__opponent--dead {

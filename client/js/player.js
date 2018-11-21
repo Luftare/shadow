@@ -202,6 +202,13 @@ function handleClicks(clicks, state) {
     });
     flashImageAt(images.explosion, position);
   });
+  if (clicks.length > 0) {
+    dom.elements.player.classList.add('shooting');
+
+    setTimeout(() => {
+      dom.elements.player.classList.remove('shooting');
+    }, 50);
+  }
 }
 
 function handleClickAt(gridPosition) {
