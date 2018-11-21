@@ -51,6 +51,7 @@ class Game {
       pullingTrigger: false,
       activeItemIndex: 0,
       lastShotTime: 0,
+      ranking: 0,
     };
 
     const zone = [0, 0, GRID_CELLS_X, GRID_CELLS_Y];

@@ -63,11 +63,19 @@ function updateGunStatus({ player }) {
     dom.elements.gunStatusBullets.innerHTML = `${magazine}/${
       gun.state.bullets
     }`;
+    if (gun.state.magazine <= 0) {
+      dom.elements.gunStatus.classList.add('gun-status--empty-magazine');
+    } else {
+      dom.elements.gunStatus.classList.remove('gun-status--empty-magazine');
+    }
     if (player.reloading) {
       dom.elements.gunStatus.classList.add('gun-status--reloading');
     } else {
       dom.elements.gunStatus.classList.remove('gun-status--reloading');
     }
+  } else {
+    dom.elements.gunStatus.classList.remove('gun-status--empty-magazine');
+    dom.elements.gunStatus.classList.remove('gun-status--reloading');
   }
 
   if (player.items.length === 0) {

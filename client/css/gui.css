@@ -86,9 +86,13 @@ th {
   padding: 8px;
 }
 
+.gun-status--empty-magazine {
+  background-color: red;
+}
+
 .gun-status--reloading {
   animation: blink 300ms linear alternate infinite;
-  background-color: red;
+  background-color: orange;
 }
 
 .gun-status__image {

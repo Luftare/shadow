@@ -66,9 +66,12 @@ const connection = (function() {
               EVENT_SERVER_INIT_NEW_GAME,
               ({ state: newState, winner, mapData }) => {
                 if (winner) {
-                  dom.appendGameLogMessage(`<b>${winner.name}</b> won!`);
                   if (winner[PROPNAME_ID] === connection.id) {
+                    dom.appendGameLogMessage(`Chickedi chick! <b>YOU</b> won!`);
                     audio.playSound(audio.sounds.win, 2);
+                  } else {
+                    audio.playSound(audio.sounds.lose, 2);
+                    dom.appendGameLogMessage(`<b>${winner.name}</b> won!`);
                   }
                 }
                 game.restart(mapData, newState);
@@ -110,7 +113,6 @@ const connection = (function() {
           });
 
           socket.on('disconnect', () => {
-            console.log('Disconnected.');
             document
               .querySelector('.connection-status')
               .classList.remove('connection-status--online');

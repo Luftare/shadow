@@ -176,6 +176,9 @@ const syncController = {
       audio.playSound(audio.sounds.ouch);
       if (serverStatePlayer.hp <= 0) {
         audio.playSound(audio.sounds.lose, 2);
+        const rank =
+          serverState.player.filter(player => player.hp > 0).length + 1;
+        dom.appendGameLogMessage(`Died... you were <b>#${rank}</b>`);
       }
     }
   },
