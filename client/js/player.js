@@ -3,10 +3,10 @@ function updateLocalPlayer(state) {
   dom.moveElementTo(dom.elements.player, state.player.position);
 }
 
-function processInput({ keysDown, clicks, mouseDown }, state) {
+function processInput({ keysDown, keysDownOnce, clicks, mouseDown }, state) {
   if (state.player.hp <= 0) return;
   handlePlayerMovement(keysDown, state);
-  handlePlayerActions(keysDown, mouseDown, state);
+  handlePlayerActions(keysDown, keysDownOnce, mouseDown, state);
   handleClicks(clicks, state);
 }
 
@@ -54,18 +54,18 @@ function handlePlayerMovement(keysDown, { player, closebyObstacles, items }) {
     audio.playSound(audio.sounds.step);
     dom.moveElementTo(dom.elements.player, player.position);
     player.lastMoveTime = now;
-    const pickedItem = items.find(item =>
-      areIdentical(item.position, player.position)
-    );
-    if (pickedItem) {
-      connection.appendItemPickUp(pickedItem);
-      audio.playSound(audio.sounds.pickUpGun);
-    }
   }
 }
 
-function handlePlayerActions(keysDown, mouseDown, { player, shadowAlphaGrid }) {
-  const { shift, r: reload } = keysDown;
+function handlePlayerActions(
+  keysDown,
+  keysDownOnce,
+  mouseDown,
+  { player, shadowAlphaGrid, items }
+) {
+  console.log(player.items.length, player.items);
+  const { shift } = keysDown;
+  const { f: pickUp, r: reload } = keysDownOnce;
   const gun = getActiveGun(player);
   const now = Date.now();
 
@@ -89,6 +89,24 @@ function handlePlayerActions(keysDown, mouseDown, { player, shadowAlphaGrid }) {
     if (previousItemIndex !== player.activeItemIndex) {
       connection.appendSwitchGun(player.activeItemIndex);
       audio.playSound(audio.sounds.gunReload);
+    }
+  }
+
+  const itemUnderPlayer = items.find(item =>
+    areIdentical(item.position, player.position)
+  );
+  const activeItem = getActiveGun(player);
+
+  if (pickUp) {
+    if (itemUnderPlayer) {
+      const inventoryFull = player.items.length >= 2;
+      if (inventoryFull) {
+        connection.appendDropItem(activeItem);
+      }
+      connection.appendItemPickUp(itemUnderPlayer);
+      audio.playSound(audio.sounds.pickUpGun);
+    } else if (activeItem) {
+      connection.appendDropItem(activeItem);
     }
   }
 

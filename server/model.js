@@ -14,6 +14,7 @@ const {
   PROPNAME_RELOAD_GUN,
   PROPNAME_PULL_TRIGGER,
   PROPNAME_RELEASE_TRIGGER,
+  PROPNAME_DROP_ITEM,
   GRID_CELLS_X,
   GRID_CELLS_Y,
   ZONE_DAMAGE,
@@ -138,6 +139,12 @@ function updateModelAfterBroadcast() {
   });
 }
 
+function getPlayerPosition(player) {
+  return player[PROPNAME_POSITION_BUFFER][
+    Math.max(0, player[PROPNAME_POSITION_BUFFER].length - 1)
+  ];
+}
+
 function handleClientUpdate(id, { events, streamData }) {
   const player = state.players.find(player => player[PROPNAME_ID] === id);
   if (!player || !events) return;
@@ -211,19 +218,38 @@ function handleClientUpdate(id, { events, streamData }) {
         break;
       case PROPNAME_PICK_UP_ITEM:
         const pickedItem = event[PROPNAME_PAYLOAD];
-        const existingInstance = player.items.find(
+        const existingType = player.items.find(
           item => item.name === pickedItem.name
         );
-        if (existingInstance) {
-          existingInstance.state.bullets += pickedItem.state.bullets;
+        const itemPickedUpAlready = player.items.find(
+          item => item.id === pickedItem.id
+        );
+        if (itemPickedUpAlready) return;
+        if (existingType) {
+          existingType.state.bullets += pickedItem.state.bullets;
         } else {
           player.items.push(event[PROPNAME_PAYLOAD]);
         }
-        state.items = state.items.filter(
-          item =>
-            item.position[0] !== pickedItem.position[0] &&
-            item.position[1] !== pickedItem.position[1]
-        );
+        state.items = state.items.filter(item => item.id !== pickedItem.id);
+        break;
+      case PROPNAME_DROP_ITEM:
+        const droppedItem = event[PROPNAME_PAYLOAD];
+        if (droppedItem) {
+          player.items = player.items.filter(
+            item => item.id !== droppedItem.id
+          );
+          const droppedItemPosition = getPlayerPosition(player);
+          droppedItem.position = [
+            droppedItemPosition[0],
+            droppedItemPosition[1],
+          ];
+          const itemDroppedAlready = state.items.find(
+            item => item.id === droppedItem.id
+          );
+          if (!itemDroppedAlready) {
+            state.items.push(droppedItem);
+          }
+        }
         break;
 
       default:

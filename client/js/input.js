@@ -1,6 +1,7 @@
 const input = {
   state: {
     keysDown: {},
+    keysDownOnce: {},
     clicks: [],
     mouseDown: false,
   },
@@ -13,6 +14,7 @@ const input = {
 
     window.addEventListener('keydown', ({ key }) => {
       this.state.keysDown[key.toLocaleLowerCase()] = true;
+      this.state.keysDownOnce[key.toLocaleLowerCase()] = true;
     });
 
     window.addEventListener('keyup', ({ key }) => {
@@ -52,5 +54,6 @@ const input = {
 
   reset() {
     this.state.clicks = [];
+    this.state.keysDownOnce = {};
   },
 };

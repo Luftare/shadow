@@ -13,6 +13,7 @@ const connection = (function() {
     PROPNAME_RECEIVE_HIT,
     PROPNAME_GUN_SHOT,
     PROPNAME_PICK_UP_ITEM,
+    PROPNAME_DROP_ITEM,
     PROPNAME_SWITCH_GUN,
     PROPNAME_RELOAD_GUN,
     PROPNAME_PULL_TRIGGER,
@@ -142,6 +143,12 @@ const connection = (function() {
     appendItemPickUp(item) {
       this.clientUpdates.push({
         [PROPNAME_TYPE]: PROPNAME_PICK_UP_ITEM,
+        [PROPNAME_PAYLOAD]: item,
+      });
+    },
+    appendDropItem(item) {
+      this.clientUpdates.push({
+        [PROPNAME_TYPE]: PROPNAME_DROP_ITEM,
         [PROPNAME_PAYLOAD]: item,
       });
     },

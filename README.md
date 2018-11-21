@@ -17,8 +17,6 @@ Multiplayer survival game.
 
 #### Client
 
-- playback empty clip sound if autoFire gun has run out of magazine ammo
-
 ### Gameplay
 
 ### Items
@@ -33,12 +31,13 @@ Multiplayer survival game.
 
 ### Misc
 
-- optimization: store visibility alpha only for closeby area
 - refactor: move fx into single object
 - refactor: remove PROPNAMEs for simplicity and only use EVENT_NAMEs
 - player has inventors with 2 slots for guns
 - items can be looted if there are free slots in inventory
 - guns can be dropped and dropping on top of another gun will swap the currently equipped gun
+- optimization: add function getShadowAlphaAt([x, y])
+- optimization: store visibility alpha only for closeby area
 
 ## Maybe?
 
@@ -150,3 +149,4 @@ Multiplayer survival game.
 - playback opponent autoFire guns shooting only when they actually shoot
 - guns have to be reloaded based on clip size
 - clip size + total bullets is stored in item state
+- playback empty clip sound if autoFire gun has run out of magazine ammo

@@ -81,7 +81,7 @@ const dom = {
     }
 
     dom.elements.items.forEach((itemElement, i) => {
-      if (items.length < i) {
+      if (items.length <= i) {
         itemElement.classList.add('game__item--hidden');
       } else {
         itemElement.classList.remove('game__item--hidden');
