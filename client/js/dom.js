@@ -121,7 +121,7 @@ const dom = {
     view.classList.add('view--active');
   },
   elements: {
-    inventorySlots: [...Array(4)].map((_, i) => {
+    inventorySlots: [...Array(2)].map((_, i) => {
       return document.querySelector(`.inventory__slot[data-num='${i}']`);
     }),
     items: [],

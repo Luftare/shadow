@@ -64,7 +64,7 @@ function handlePlayerActions(
   { player, shadowAlphaGrid, items }
 ) {
   const { shift } = keysDown;
-  const { f: pickUp, r: reload } = keysDownOnce;
+  const { f: pickUp, g: dropItem, r: reload } = keysDownOnce;
   const gun = getActiveGun(player);
   const now = Date.now();
 
@@ -76,9 +76,6 @@ function handlePlayerActions(
     const previousItemIndex = player.activeItemIndex;
     if (keysDown['1']) player.activeItemIndex = 0;
     if (keysDown['2']) player.activeItemIndex = 1;
-    if (keysDown['3']) player.activeItemIndex = 2;
-    if (keysDown['4']) player.activeItemIndex = 3;
-    if (keysDown['5']) player.activeItemIndex = 4;
 
     player.activeItemIndex = Math.max(
       0,
@@ -95,20 +92,31 @@ function handlePlayerActions(
     areIdentical(item.position, player.position)
   );
   const activeItem = getActiveGun(player);
+  const canPickUp = !player.reloading && !player.aiming;
 
-  if (pickUp) {
+  if (canPickUp && pickUp) {
     if (itemUnderPlayer) {
-      const inventoryFull = player.items.length >= 2;
+      const spaceInInventory = player.items.length < 2;
       const itemTypeUnderPlayerInInventory = player.items.find(
         item => itemUnderPlayer.name === item.name
       );
-      if (inventoryFull && !itemTypeUnderPlayerInInventory) {
-        connection.appendDropItem(activeItem);
-        audio.playSound(audio.sounds.dropItem);
+      if (
+        spaceInInventory ||
+        (!spaceInInventory && itemTypeUnderPlayerInInventory)
+      ) {
+        connection.appendItemPickUp(itemUnderPlayer);
+        audio.playSound(audio.sounds.pickUpGun);
+      } else {
+        audio.playSound(audio.sounds.error);
+        dom.appendGameLogMessage('Inventory full!');
       }
-      connection.appendItemPickUp(itemUnderPlayer);
-      audio.playSound(audio.sounds.pickUpGun);
-    } else if (activeItem) {
+    }
+  }
+
+  const canDrop = !player.reloading && !player.aiming;
+
+  if (canDrop && dropItem) {
+    if (activeItem) {
       connection.appendDropItem(activeItem);
       audio.playSound(audio.sounds.dropItem);
     }

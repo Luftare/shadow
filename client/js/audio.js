@@ -1,5 +1,5 @@
 function createSoundPool(name) {
-  const pool = [...Array(10)].map(() => {
+  const pool = [...Array(8)].map(() => {
     const element = document.createElement('audio');
     element.src = `audio/${name}.mp3`;
     return element;
@@ -24,6 +24,7 @@ const audio = {
     win: createSoundPool('win'),
     lose: createSoundPool('lose'),
     dropItem: createSoundPool('drop-item'),
+    error: createSoundPool('error'),
   },
   playSound(pool, volume = 1) {
     pool.index = (pool.index + 1) % pool.length;

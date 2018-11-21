@@ -13,8 +13,11 @@ const input = {
     const { canvas } = dom.elements;
 
     window.addEventListener('keydown', ({ key }) => {
-      this.state.keysDown[key.toLocaleLowerCase()] = true;
-      this.state.keysDownOnce[key.toLocaleLowerCase()] = true;
+      const lowcaseKey = key.toLocaleLowerCase();
+      if (!this.state.keysDown[lowcaseKey]) {
+        this.state.keysDownOnce[lowcaseKey] = true;
+      }
+      this.state.keysDown[lowcaseKey] = true;
     });
 
     window.addEventListener('keyup', ({ key }) => {

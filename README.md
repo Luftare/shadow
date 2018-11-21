@@ -31,16 +31,12 @@ Multiplayer survival game.
 
 ### Misc
 
-- refactor: move fx into single object
-- refactor: remove PROPNAMEs for simplicity and only use EVENT_NAMEs
-- player has inventors with 2 slots for guns
-- items can be looted if there are free slots in inventory
-- guns can be dropped and dropping on top of another gun will swap the currently equipped gun
-- optimization: add function getShadowAlphaAt([x, y])
-- optimization: store visibility alpha only for closeby area
-
 ## Maybe?
 
+- optimization: add function getShadowAlphaAt([x, y])
+- optimization: store visibility alpha only for closeby area
+- refactor: remove PROPNAMEs for simplicity and only use EVENT_NAMEs
+- refactor: move fx into single object
 - nickname is stored accross sessions in local storage
 - notify who won last game
 - audio source direction will change pan
@@ -150,3 +146,6 @@ Multiplayer survival game.
 - guns have to be reloaded based on clip size
 - clip size + total bullets is stored in item state
 - playback empty clip sound if autoFire gun has run out of magazine ammo
+- items can be looted if there are free slots in inventory
+- player has inventors with 2 slots for guns
+- guns can be dropped and dropping on top of another gun will swap the currently equipped gun
