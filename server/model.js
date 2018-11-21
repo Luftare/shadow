@@ -177,6 +177,11 @@ function handleClientUpdate(id, { events, streamData }) {
           if (target && target.hp > 0) {
             target.hp = Math.max(0, target.hp - damage);
             if (target.hp <= 0) {
+              const deadPlayerPosition = getPlayerPosition(target);
+              target.items.forEach(item => {
+                item.position = [deadPlayerPosition[0], deadPlayerPosition[1]];
+                state.items.push(item);
+              });
               broadcastEvent(EVENT_PLAYER_KILLED, {
                 targetId: target[PROPNAME_ID],
                 byId: id,
