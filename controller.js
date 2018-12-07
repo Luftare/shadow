@@ -7,7 +7,7 @@ const {
   CLIENT_SERVER_UPDATE_INTERVAL,
   PROPNAME_POSITION,
   PROPNAME_ID,
-} = require('../shared/sharedConfig');
+} = require('./shared/sharedConfig');
 
 const {
   handleClientUpdate,

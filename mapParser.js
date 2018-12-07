@@ -22,7 +22,7 @@ const colorCodeSumToType = [...Array(255 + 255 + 255 + 3)].map((_, i) => {
 
 function getMapData() {
   return new Promise(res => {
-    getPixels('../client/images/mapdata.png', (err, pixels) => {
+    getPixels('./client/images/mapdata.png', (err, pixels) => {
       if (err) return console.log('Failed with pixel read...');
 
       const [width, height, dimensions] = pixels.shape.slice();

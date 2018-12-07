@@ -20,11 +20,11 @@ const {
   ZONE_DAMAGE,
   IDLE_KICK_TIME,
   EVENT_PLAYER_KILLED,
-} = require('../shared/sharedConfig');
+} = require('./shared/sharedConfig');
 
 const { getMapData } = require('./mapParser');
 
-const { itemsArray } = require('../shared/items');
+const { itemsArray } = require('./shared/items');
 
 const { shuffle } = require('./utils');
 

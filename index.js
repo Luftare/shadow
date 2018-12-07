@@ -7,10 +7,11 @@ const io = require('socket.io')(http, {
   pingInterval: 2000,
   cookie: false,
 });
+
 const port = 8000;
 
-app.use('/', express.static(__dirname + './../client'));
-app.use('/', express.static(__dirname + './../shared'));
+app.use('/', express.static(__dirname + '/client'));
+app.use('/', express.static(__dirname + '/shared'));
 app.use('/', express.static(__dirname + '/node_modules/socket.io-client/dist'));
 
 startGameServer(io);
