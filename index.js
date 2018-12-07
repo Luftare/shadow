@@ -8,7 +8,7 @@ const io = require('socket.io')(http, {
   cookie: false,
 });
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 app.use('/', express.static(__dirname + '/client'));
 app.use('/', express.static(__dirname + '/shared'));
